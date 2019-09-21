@@ -14,13 +14,24 @@ import kotlinx.android.synthetic.main.activity_home.*
 class HomeActivity : AppCompatActivity() {
 
     lateinit var mGoogleSignInClient: GoogleSignInClient
+    val usuario : Usuario = Usuario.iniciar()
 
     override fun onCreate(savedInstanceState: Bundle?)
     {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_home)
         setupUI()
-        obtenerUsuario()
+    }
+
+    override fun onStart() {
+        super.onStart()
+        val user = FirebaseAuth.getInstance().currentUser
+        if (user != null)
+        {
+            user.displayName?.let { usuario.setNombre(it) }
+            user.photoUrl?.let { usuario.setUrlFoto(it) }
+            ponerDatos()
+        }
     }
 
     companion object {
@@ -29,25 +40,11 @@ class HomeActivity : AppCompatActivity() {
         }
     }
 
-    private fun obtenerUsuario()
+    private fun ponerDatos()
     {
-        val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-            .requestIdToken("id_token")
-            .requestEmail()
-            .build()
-
-        mGoogleSignInClient = GoogleSignIn.getClient(this, gso)
-
-        val user = FirebaseAuth.getInstance().currentUser
-        if (user != null)
-        {
-            //poner nombre del usuario
-            nombreUsuario.setText(user.displayName)
-
-            //poner foto del usuario
-            val photoUrl = user.photoUrl
-            Glide.with(this).load(photoUrl).into(imagenUsuario)
-        }
+        //Log.d("STATE", usuario.getNombre())
+        nombreUsuario.text = usuario.getNombre()
+        Glide.with(this).load(usuario.getUrlFoto()).into(imagenUsuario)
     }
 
     private fun setupUI()
@@ -61,12 +58,25 @@ class HomeActivity : AppCompatActivity() {
     {
         startActivity(MainActivity.getLaunchIntent(this))
         FirebaseAuth.getInstance().signOut()
-        signOutGoogle()
+        if (usuario.getSesion() == 1)
+        {
+            cerrarSesionGoogle()
+        }
+        else
+        {
 
+        }
     }
 
-    private fun signOutGoogle()
+    private fun cerrarSesionGoogle()
     {
+        val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+            .requestIdToken("id_token")
+            .requestEmail()
+            .build()
+
+        val mGoogleSignInClient = GoogleSignIn.getClient(this, gso)
         mGoogleSignInClient.signOut()
     }
+
 }

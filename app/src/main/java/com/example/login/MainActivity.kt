@@ -5,6 +5,7 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
+import com.bumptech.glide.Glide
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
@@ -13,6 +14,7 @@ import com.google.android.gms.common.api.ApiException
 import com.google.android.gms.tasks.Task
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.GoogleAuthProvider
+import kotlinx.android.synthetic.main.activity_home.*
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
@@ -40,7 +42,8 @@ class MainActivity : AppCompatActivity() {
     override fun onStart() {
         super.onStart()
         val user = FirebaseAuth.getInstance().currentUser
-        if (user != null) {
+        if (user != null)
+        {
             startActivity(HomeActivity.getLaunchIntent(this))
             finish()
         }
@@ -88,10 +91,24 @@ class MainActivity : AppCompatActivity() {
         firebaseAuth.signInWithCredential(credential).addOnCompleteListener {
             if (it.isSuccessful)
             {
+                val usuario = Usuario.iniciar()
+                val user = FirebaseAuth.getInstance().currentUser
+                if (user != null)
+                {
+                    //poner nombre del usuario
+                    user.displayName?.let { it1 -> usuario.setNombre(it1) }
+
+                    //poner foto del usuario
+                    user.photoUrl?.let { it1 -> usuario.setUrlFoto(it1) }
+
+                    usuario.setSesion(1)
+                }
+
                 startActivity(HomeActivity.getLaunchIntent(this))
-            } else
+            }
+            else
             {
-                Toast.makeText(this, "Google sign in failed:(", Toast.LENGTH_LONG).show()
+                Toast.makeText(this, "Fallo de inicio de sesión", Toast.LENGTH_LONG).show()
             }
         }
     }
