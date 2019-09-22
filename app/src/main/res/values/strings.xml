@@ -1,3 +1,4 @@
 <resources>
-    <string name="app_name">Login</string>
+    <string name="facebook_app_id">554258201981619</string> <string name="fb_login_protocol_scheme">fb554258201981619</string>Copiar código
 </resources>
+
