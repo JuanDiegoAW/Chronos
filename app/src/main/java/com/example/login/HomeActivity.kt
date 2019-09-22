@@ -5,6 +5,7 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.bumptech.glide.Glide
+import com.facebook.login.LoginManager
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
@@ -64,8 +65,13 @@ class HomeActivity : AppCompatActivity() {
         }
         else
         {
-
+            cerrarSesionFacebook()
         }
+    }
+
+    private fun cerrarSesionFacebook()
+    {
+        LoginManager.getInstance().logOut();
     }
 
     private fun cerrarSesionGoogle()
@@ -78,5 +84,4 @@ class HomeActivity : AppCompatActivity() {
         val mGoogleSignInClient = GoogleSignIn.getClient(this, gso)
         mGoogleSignInClient.signOut()
     }
-
 }
