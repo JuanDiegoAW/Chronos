@@ -130,12 +130,15 @@ class MainActivity : AppCompatActivity() {
 
         if (requestCode == RC_SIGN_IN) {
             val task: Task<GoogleSignInAccount> = GoogleSignIn.getSignedInAccountFromIntent(data)
-            try {
+            try
+            {
                 val account = task.getResult(ApiException::class.java)
                 if (account != null) {
                     firebaseAuthWithGoogle(account)
                 }
-            } catch (e: ApiException) {
+            }
+            catch (e: ApiException)
+            {
                 Toast.makeText(this, "Inicio cancelado", Toast.LENGTH_LONG).show()
             }
         }

@@ -1,4 +1,4 @@
-  {
+{
   "project_info": {
     "project_number": "740158948475",
     "firebase_url": "https://pruebakotlin-1ae42.firebaseio.com",
@@ -14,6 +14,14 @@
         }
       },
       "oauth_client": [
+        {
+          "client_id": "740158948475-4au7b78e908el4j95m9l420uosm9fu6e.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.login",
+            "certificate_hash": "c34c4cf57698dff1323dddb3b6ad9cb874ea145c"
+          }
+        },
         {
           "client_id": "740158948475-n43ugfa719a8em9e2t3g9iir5hvakbe5.apps.googleusercontent.com",
           "client_type": 1,
