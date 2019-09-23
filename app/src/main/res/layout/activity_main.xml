@@ -32,4 +32,13 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/google_button" />
 
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="328dp"
+        android:layout_height="246dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:srcCompat="@mipmap/logo_chronos_foreground"
+        tools:layout_editor_absoluteY="83dp" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
