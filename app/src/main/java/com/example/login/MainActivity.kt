@@ -24,14 +24,14 @@ import com.google.firebase.auth.GoogleAuthProvider
 @Suppress("DEPRECATION")
 class MainActivity : AppCompatActivity() {
 
-    val RC_SIGN_IN: Int = 1
-    val usuario = Usuario.iniciar()
+    private val RC_SIGN_IN: Int = 1
+    private val usuario = Usuario.iniciar()
 
     private lateinit var auth: FirebaseAuth
 
     //google
-    lateinit var mGoogleSignInClient: GoogleSignInClient
-    lateinit var mGoogleSignInOptions: GoogleSignInOptions
+    private lateinit var mGoogleSignInClient: GoogleSignInClient
+    private lateinit var mGoogleSignInOptions: GoogleSignInOptions
 
     //firebase
     private lateinit var firebaseAuth: FirebaseAuth
