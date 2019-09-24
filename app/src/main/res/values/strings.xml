@@ -1,4 +1,8 @@
 <resources>
-    <string name="facebook_app_id">554258201981619</string> <string name="fb_login_protocol_scheme">fb554258201981619</string>Copiar código
+    //Facebook
+    <string name="facebook_app_id">554258201981619</string> <string name="fb_login_protocol_scheme">fb554258201981619</string>
+
+    //GoogleMaps
+    <string name="google_maps_key">AIzaSyDQORJ-5AV24tkycFTuhjneNniOZbQ2Ac0</string>
 </resources>
 

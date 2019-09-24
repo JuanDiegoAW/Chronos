@@ -21,6 +21,7 @@ import com.google.firebase.auth.FacebookAuthProvider
 import com.google.firebase.auth.GoogleAuthProvider
 
 
+@Suppress("DEPRECATION")
 class MainActivity : AppCompatActivity() {
 
     val RC_SIGN_IN: Int = 1
