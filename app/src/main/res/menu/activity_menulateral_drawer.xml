@@ -20,6 +20,12 @@
             android:id="@+id/nav_perfil"
             android:icon="@drawable/ic_menu_manage"
             android:title="@string/menu_perfil" />
+        <item
+            android:id="@+id/nav_cerrar"
+            android:icon="@drawable/com_facebook_close"
+            android:title="@string/cerrar_sesion">
+
+        </item>
     </group>
 
 
