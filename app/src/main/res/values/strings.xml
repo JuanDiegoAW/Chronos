@@ -1,8 +1,24 @@
 <resources>
     //Facebook
-    <string name="facebook_app_id">554258201981619</string> <string name="fb_login_protocol_scheme">fb554258201981619</string>
+    <string name="facebook_app_id">554258201981619</string>
+    <string name="fb_login_protocol_scheme">fb554258201981619</string>
 
     //GoogleMaps
     <string name="google_maps_key">AIzaSyDQORJ-5AV24tkycFTuhjneNniOZbQ2Ac0</string>
+    <string name="title_activity_menulateral">menulateral</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="nav_header_title">Android Studio</string>
+    <string name="nav_header_subtitle">android.studio@android.com</string>
+    <string name="nav_header_desc">Navigation header</string>
+    <string name="action_settings">Settings</string>
+
+    <string name="menu_home">INICIO</string>
+    <string name="menu_eventos">EVENTOS</string>
+    <string name="menu_reservar">RESERVAR</string>
+    <string name="menu_perfil">PERFIL</string>
+    <string name="menu_share">Share</string>
+    <string name="menu_send">Send</string>
+    <string name="boton_continuar">CONTINUAR</string>
 </resources>
 

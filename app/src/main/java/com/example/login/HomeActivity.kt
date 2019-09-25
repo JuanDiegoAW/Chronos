@@ -80,8 +80,7 @@ class HomeActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMarker
         }
     }
 
-    override fun onCreate(savedInstanceState: Bundle?)
-    {
+    override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_home)
 
@@ -89,9 +88,15 @@ class HomeActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMarker
         setupUI()
 
         //GOOGLE MAPS
-        val mapFragment = supportFragmentManager.findFragmentById(R.id.fragment_map) as SupportMapFragment
+        val mapFragment =
+            supportFragmentManager.findFragmentById(R.id.fragment_map) as SupportMapFragment
         mapFragment.getMapAsync(this)
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(this)
+
+        botonContinuar.setOnClickListener {
+        val intentlateral = Intent(this, menulateral::class.java)
+        startActivity(intentlateral)
+        }
     }
 
     //SE OBTIENE EL USUARIO ACTUAL Y SE ASIGNA A LA VARIABLE GLOBAL "usuario"
