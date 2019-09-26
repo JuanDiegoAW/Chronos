@@ -6,23 +6,27 @@
     <group android:checkableBehavior="single">
         <item
             android:id="@+id/nav_home"
-            android:icon="@drawable/ic_menu_camera"
+            android:icon="@android:drawable/ic_dialog_dialer"
             android:title="@string/menu_home" />
         <item
             android:id="@+id/nav_eventos"
-            android:icon="@drawable/ic_menu_gallery"
+            android:icon="@android:drawable/ic_menu_my_calendar"
             android:title="@string/menu_eventos" />
         <item
             android:id="@+id/nav_reservar"
-            android:icon="@drawable/ic_menu_slideshow"
+            android:icon="@android:drawable/checkbox_on_background"
             android:title="@string/menu_reservar" />
         <item
             android:id="@+id/nav_perfil"
-            android:icon="@drawable/ic_menu_manage"
+            android:icon="@drawable/com_facebook_profile_picture_blank_portrait"
             android:title="@string/menu_perfil" />
         <item
+            android:id="@+id/nav_mapa"
+            android:icon="@drawable/com_facebook_profile_picture_blank_portrait"
+            android:title="@string/menu_mapa" />
+        <item
             android:id="@+id/nav_cerrar"
-            android:icon="@drawable/com_facebook_close"
+            android:icon="@android:drawable/ic_menu_close_clear_cancel"
             android:title="@string/cerrar_sesion">
 
         </item>
