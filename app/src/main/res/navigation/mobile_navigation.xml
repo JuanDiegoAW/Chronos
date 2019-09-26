@@ -7,11 +7,9 @@
 
     <fragment
         android:id="@+id/nav_home"
-        android:name="com.example.login.ui.home.HomeFragment"
+        android:name="com.example.login.fragments.Inicio"
         android:label="@string/menu_home"
-        tools:layout="@layout/fragment_home" />
-
-
+        tools:layout="@layout/fragment_inicio" />
 
     <fragment
         android:id="@+id/nav_reservar"
@@ -25,5 +23,22 @@
         android:label="@string/menu_perfil"
         tools:layout="@layout/fragment_tools" />
 
+    <fragment
+        android:id="@+id/nav_eventos"
+        android:name="com.example.login.ui.tools.ToolsFragment"
+        android:label="@string/menu_perfil"
+        tools:layout="@layout/fragment_tools"/>
+
+    <fragment
+        android:id="@+id/nav_mapa"
+        android:name="com.example.login.fragments.Mapa"
+        android:label="@string/menu_mapa"
+        tools:layout="@layout/fragment_mapa" />
+
+    <fragment
+        android:id="@+id/nav_cerrar"
+        android:name="com.example.login.fragments.CerrarSesion"
+        android:label="@string/cerrar_sesion"
+        tools:layout="@layout/fragment_cerrar_sesion" />
 
 </navigation>

@@ -5,7 +5,7 @@
     android:background="@drawable/degradado"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    tools:context=".InicioSesion">
 
     <com.google.android.gms.common.SignInButton
         android:id="@+id/google_button"
@@ -36,9 +36,11 @@
         android:id="@+id/imageView"
         android:layout_width="328dp"
         android:layout_height="246dp"
+        android:layout_marginTop="56dp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.493"
         app:layout_constraintStart_toStartOf="parent"
-        app:srcCompat="@mipmap/logo_chronos_foreground"
-        tools:layout_editor_absoluteY="83dp" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@mipmap/logo_chronos_foreground" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
