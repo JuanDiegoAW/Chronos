@@ -1,4 +1,4 @@
-package com.example.login
+package com.example.login.ui
 
 import android.content.Context
 import android.content.Intent
@@ -15,10 +15,18 @@ import com.google.android.material.navigation.NavigationView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import android.view.Menu
+import android.widget.ImageView
+import android.widget.TextView
+import com.bumptech.glide.Glide
+import com.bumptech.glide.request.RequestOptions
+import com.example.login.Clases.Usuario
+import com.example.login.R
+import kotlinx.android.synthetic.main.nav_header_menulateral.*
 
 class MenuLateral : AppCompatActivity() {
 
     private lateinit var appBarConfiguration: AppBarConfiguration
+    private val usuario = Usuario.iniciar()
 
     companion object {
         fun getLaunchIntent(from: Context) = Intent(from, MenuLateral::class.java).apply {
@@ -45,12 +53,32 @@ class MenuLateral : AppCompatActivity() {
         // menu should be considered as top level destinations.
         appBarConfiguration = AppBarConfiguration(
             setOf(
-                R.id.nav_home, R.id.nav_eventos, R.id.nav_reservar,
+                R.id.nav_home,
+                R.id.nav_eventos,
+                R.id.nav_reservar,
                 R.id.nav_perfil
             ), drawerLayout
         )
         setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)
+
+        setDatos(navView)
+    }
+
+    fun setDatos(navView: NavigationView)
+    {
+        val headerView = navView.getHeaderView(0)
+
+        //Definicion de variables para los datos
+        val nombre_usuario = headerView.findViewById(R.id.nombreUsuario) as TextView
+        val correo_usuario = headerView.findViewById(R.id.correoUsuario) as TextView
+        val foto_usuario = headerView.findViewById(R.id.imagenUsuario) as ImageView
+
+        nombre_usuario.text = usuario.getNombre()
+        correo_usuario.text = usuario.getCorreo()
+
+
+        Glide.with(this).load(usuario.getUrlFoto()).into(foto_usuario)
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {

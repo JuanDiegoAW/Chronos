@@ -1,6 +1,5 @@
 package com.example.login.Clases
 
-import android.location.Location
 import android.net.Uri
 
 class Usuario{
@@ -8,10 +7,9 @@ class Usuario{
     companion object Static{
         fun iniciar(): Usuario = Usuario()
         private lateinit var nombre: String
-        private lateinit var urlFoto: Uri
+        private lateinit var correo: String
+        private lateinit var uriFoto: Uri
         private var sesion: Int = 0
-        private lateinit var ubicacion: Location
-        private var permisoUbicacion : Boolean = false
     }
 
     fun setNombre(nomb : String)
@@ -19,20 +17,19 @@ class Usuario{
         nombre = nomb
     }
 
+    fun setCorreo(corr: String)
+    {
+        correo = corr
+    }
+
     fun setUrlFoto(url : Uri)
     {
-        urlFoto = url
+        uriFoto = url
     }
 
     fun setSesion(ses: Int)
     {
         sesion = ses
-    }
-
-    fun setLocation(locacion: Location)
-    {
-        permisoUbicacion = true
-        ubicacion = locacion
     }
 
     fun getNombre() : String
@@ -42,7 +39,7 @@ class Usuario{
 
     fun getUrlFoto(): Uri
     {
-        return urlFoto
+        return uriFoto
     }
 
     fun getSesion() : Int
@@ -50,13 +47,9 @@ class Usuario{
         return sesion
     }
 
-    fun getLocation(): Location
-    {
-        return ubicacion
-    }
 
-    fun getPermiso() : Boolean
+    fun getCorreo(): String
     {
-        return permisoUbicacion
+        return correo
     }
 }

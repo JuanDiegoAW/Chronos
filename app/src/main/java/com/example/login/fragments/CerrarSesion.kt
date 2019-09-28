@@ -6,13 +6,19 @@ import android.net.Uri
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
+import android.view.Menu
 import android.view.View
 import android.view.ViewGroup
 import com.example.login.Clases.Usuario
-import com.example.login.InicioSesion
-import com.example.login.MenuLateral
+import com.example.login.ui.InicioSesion
+import com.example.login.ui.MenuLateral
 import com.facebook.login.LoginManager
+import com.google.android.gms.auth.api.signin.GoogleSignIn
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.firebase.auth.FirebaseAuth
+import com.google.android.gms.auth.api.Auth
+import com.google.android.gms.common.api.GoogleApiClient
+
 
 class CerrarSesion : Fragment() {
 
@@ -20,8 +26,17 @@ class CerrarSesion : Fragment() {
     private val usuario : Usuario = Usuario.iniciar()
 
     override fun onCreate(savedInstanceState: Bundle?) {
+
+        val user = FirebaseAuth.getInstance().currentUser
+        if (user == null)
+        {
+            val intent = Intent(activity, InicioSesion::class.java)
+            startActivity(intent)
+        }
+
         super.onCreate(savedInstanceState)
         signOutApp()
+
     }
 
     override fun onCreateView(
@@ -29,6 +44,14 @@ class CerrarSesion : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
+
+        val user = FirebaseAuth.getInstance().currentUser
+        if (user == null)
+        {
+            val intent = Intent(activity, InicioSesion::class.java)
+            startActivity(intent)
+        }
+
         return inflater.inflate(com.example.login.R.layout.fragment_cerrar_sesion, container, false)
     }
 
@@ -36,11 +59,7 @@ class CerrarSesion : Fragment() {
     private fun signOutApp()
     {
         FirebaseAuth.getInstance().signOut()
-        if (usuario.getSesion() == 1)
-        {
-            cerrarSesionGoogle()
-        }
-        else
+        if (usuario.getSesion() == 2)
         {
             cerrarSesionFacebook()
         }
@@ -54,37 +73,11 @@ class CerrarSesion : Fragment() {
         LoginManager.getInstance().logOut()
     }
 
-    private fun cerrarSesionGoogle()
-    {
-        //val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-        //    .requestIdToken("id_token")
-        //    .requestEmail()
-        //    .build()
-
-        //val mGoogleSignInClient = GoogleSignIn.getClient(this, gso)
-        //mGoogleSignInClient.signOut()
-    }
-
-    fun onButtonPressed(uri: Uri) {
-        listener?.onFragmentInteraction(uri)
-    }
-
     override fun onDetach() {
         super.onDetach()
         listener = null
     }
 
-    /**
-     * This interface must be implemented by activities that contain this
-     * fragment to allow an interaction in this fragment to be communicated
-     * to the activity and potentially other fragments contained in that
-     * activity.
-     *
-     *
-     * See the Android Training lesson [Communicating with Other Fragments]
-     * (http://developer.android.com/training/basics/fragments/communicating.html)
-     * for more information.
-     */
     interface OnFragmentInteractionListener {
         fun onFragmentInteraction(uri: Uri)
     }

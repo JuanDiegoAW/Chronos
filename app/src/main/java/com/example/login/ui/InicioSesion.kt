@@ -1,4 +1,4 @@
-package com.example.login
+package com.example.login.ui
 
 import android.content.Context
 import android.content.Intent
@@ -8,6 +8,7 @@ import android.os.Bundle
 import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import com.example.login.Clases.Usuario
+import com.example.login.R
 import com.facebook.*
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
@@ -16,12 +17,13 @@ import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.gms.common.api.ApiException
 import com.google.android.gms.tasks.Task
 import com.google.firebase.auth.FirebaseAuth
-import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.activity_inicio_sesion.*
 import com.facebook.login.LoginManager
 import com.facebook.login.LoginResult
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
 import com.google.firebase.auth.FacebookAuthProvider
+import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.GoogleAuthProvider
 
 class InicioSesion : AppCompatActivity() {
@@ -56,7 +58,7 @@ class InicioSesion : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?)
     {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        setContentView(R.layout.activity_inicio_sesion)
 
         //Configuracion de Google
         configureGoogleSignIn()
@@ -68,9 +70,6 @@ class InicioSesion : AppCompatActivity() {
         callbackManager = CallbackManager.Factory.create()
         setupFacebook()
 
-        //GOOGLE MAPS
-        fusedLocationClient = LocationServices.getFusedLocationProviderClient(this)
-        obtenerUbicacion()
     }
 
     override fun onStart() {
@@ -81,35 +80,22 @@ class InicioSesion : AppCompatActivity() {
             val usuario : Usuario = Usuario.iniciar()
             user.displayName?.let { usuario.setNombre(it) }
             user.photoUrl?.let { usuario.setUrlFoto(it) }
-
-            obtenerUbicacion()
+            user.email?.let { usuario.setCorreo(it) }
 
             startActivity(MenuLateral.getLaunchIntent(this))
             finish()
         }
-    }
-
-    private fun obtenerUbicacion() {
-
-        //SE REVISA SI EL USUARIO YA LE DIO PERMISO AL DISPOSITIVO PARA USAR LA UBICACIÓN DEL DISPOSITIVO.
-        //SI NO LO HA HECHO, SOLICITA EL PERMISO.
-        if (ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED)
+        else
         {
-            ActivityCompat.requestPermissions(this,
-                arrayOf(android.Manifest.permission.ACCESS_FINE_LOCATION),
-                PERMISO_UBICACION
-            )
+            val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                .requestIdToken("id_token")
+                .requestEmail()
+                .build()
 
-            //SI NO SE ACEPTA EL PERMISO, SE REGRESA DE LA FUNCION
-            return
-        }
-
-        //FUSEDLOCATIONCLIENT DA LA ULTIMA UBICACION DISPONIBLE DEL USUARIO
-        fusedLocationClient.lastLocation.addOnSuccessListener(this) { location ->
-
-            if (location != null) {
-                //SI SE OBTUVO UNA UBICACION, CENTRAR EL MAPA
-                usuario.setLocation(location)
+            val mGoogleSignInClient = GoogleSignIn.getClient(this, gso)
+            if (mGoogleSignInClient != null)
+            {
+                mGoogleSignInClient.signOut()
             }
         }
     }
@@ -200,10 +186,13 @@ class InicioSesion : AppCompatActivity() {
                     //poner foto del usuario
                     user.photoUrl?.let { it1 -> usuario.setUrlFoto(it1) }
 
-                    usuario.setSesion(1)
-                }
+                    //poner correo del usuario
+                    user.email?.let { it1 -> usuario.setCorreo(it1) }
 
-                startActivity(MenuLateral.getLaunchIntent(this))
+                    usuario.setSesion(1)
+
+                    startActivity(MenuLateral.getLaunchIntent(this))
+                }
             }
             else
             {
@@ -223,6 +212,8 @@ class InicioSesion : AppCompatActivity() {
                     {
                         user.displayName?.let { it1 -> usuario.setNombre(it1) }
                         user.photoUrl?.let { it1 -> usuario.setUrlFoto(it1) }
+                        //poner correo del usuario
+                        user.email?.let { it1 -> usuario.setCorreo(it1) }
                         usuario.setSesion(2)
                         startActivity(MenuLateral.getLaunchIntent(this@InicioSesion))
                     }
