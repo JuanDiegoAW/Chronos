@@ -1,12 +1,10 @@
-package com.example.login.ui
+package com.example.login.Activities
 
 import android.content.Context
 import android.content.Intent
-import android.content.pm.PackageManager
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
-import androidx.core.app.ActivityCompat
 import com.example.login.Clases.Usuario
 import com.example.login.R
 import com.facebook.*
@@ -21,9 +19,7 @@ import kotlinx.android.synthetic.main.activity_inicio_sesion.*
 import com.facebook.login.LoginManager
 import com.facebook.login.LoginResult
 import com.google.android.gms.location.FusedLocationProviderClient
-import com.google.android.gms.location.LocationServices
 import com.google.firebase.auth.FacebookAuthProvider
-import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.GoogleAuthProvider
 
 class InicioSesion : AppCompatActivity() {

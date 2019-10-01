@@ -6,18 +6,13 @@ import android.net.Uri
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
-import android.view.Menu
 import android.view.View
 import android.view.ViewGroup
 import com.example.login.Clases.Usuario
-import com.example.login.ui.InicioSesion
-import com.example.login.ui.MenuLateral
+import com.example.login.Activities.InicioSesion
+import com.example.login.Activities.MenuLateral
 import com.facebook.login.LoginManager
-import com.google.android.gms.auth.api.signin.GoogleSignIn
-import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.firebase.auth.FirebaseAuth
-import com.google.android.gms.auth.api.Auth
-import com.google.android.gms.common.api.GoogleApiClient
 
 
 class CerrarSesion : Fragment() {

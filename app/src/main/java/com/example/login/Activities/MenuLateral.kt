@@ -1,4 +1,4 @@
-package com.example.login.ui
+package com.example.login.Activities
 
 import android.content.Context
 import android.content.Intent
@@ -18,10 +18,8 @@ import android.view.Menu
 import android.widget.ImageView
 import android.widget.TextView
 import com.bumptech.glide.Glide
-import com.bumptech.glide.request.RequestOptions
 import com.example.login.Clases.Usuario
 import com.example.login.R
-import kotlinx.android.synthetic.main.nav_header_menulateral.*
 
 class MenuLateral : AppCompatActivity() {
 

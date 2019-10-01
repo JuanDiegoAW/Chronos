@@ -1,4 +1,4 @@
-package com.example.login.ui
+package com.example.login.Activities
 
 import android.content.Context
 import android.content.Intent

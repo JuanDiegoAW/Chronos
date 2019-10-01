@@ -13,21 +13,21 @@
 
     <fragment
         android:id="@+id/nav_reservar"
-        android:name="com.example.login.ui.slideshow.SlideshowFragment"
+        android:name="com.example.login.fragments.reservas"
         android:label="@string/menu_reservar"
-        tools:layout="@layout/fragment_slideshow" />
+        tools:layout="@layout/fragment_reservas" />
 
     <fragment
         android:id="@+id/nav_perfil"
-        android:name="com.example.login.ui.tools.ToolsFragment"
+        android:name="com.example.login.fragments.editar_perfil"
         android:label="@string/menu_perfil"
-        tools:layout="@layout/fragment_tools" />
+        tools:layout="@layout/fragment_editar_perfil" />
 
     <fragment
         android:id="@+id/nav_eventos"
-        android:name="com.example.login.ui.tools.ToolsFragment"
+        android:name="com.example.login.fragments.eventos"
         android:label="@string/menu_perfil"
-        tools:layout="@layout/fragment_tools"/>
+        tools:layout="@layout/fragment_eventos"/>
 
     <fragment
         android:id="@+id/nav_mapa"

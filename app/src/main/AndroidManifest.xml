@@ -12,12 +12,12 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.Light.NoActionBar">
-        <activity android:name=".ui.Mapa"></activity>
+        <activity android:name=".Activities.Mapa"></activity>
         <activity
-            android:name=".ui.MenuLateral"
+            android:name=".Activities.MenuLateral"
             android:label="@string/title_activity_menulateral"
             android:theme="@style/NoActionBar" />
-        <activity android:name=".ui.InicioSesion">
+        <activity android:name=".Activities.InicioSesion">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

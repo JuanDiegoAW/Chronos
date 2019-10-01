@@ -1,29 +1,19 @@
 package com.example.login.fragments
 
-import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.example.login.R
-import com.example.login.Activities.InicioSesion
-import com.google.firebase.auth.FirebaseAuth
 
-class Inicio : Fragment() {
+class eventos : Fragment() {
 
     private var listener: OnFragmentInteractionListener? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
-        val user = FirebaseAuth.getInstance().currentUser
-        if (user == null)
-        {
-            val intent = Intent(activity, InicioSesion::class.java)
-            startActivity(intent)
-        }
+        arguments?.let {}
     }
 
     override fun onCreateView(
@@ -31,7 +21,7 @@ class Inicio : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_inicio, container, false)
+        return inflater.inflate(com.example.login.R.layout.fragment_eventos, container, false)
     }
 
     fun onButtonPressed(uri: Uri) {
@@ -51,10 +41,9 @@ class Inicio : Fragment() {
 
         @JvmStatic
         fun newInstance() =
-            Inicio().apply {
+            eventos().apply {
                 arguments = Bundle().apply {
-                    //putString(ARG_PARAM1, param1)
-                    //putString(ARG_PARAM2, param2)
+
                 }
             }
     }

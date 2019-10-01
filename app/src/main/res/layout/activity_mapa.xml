@@ -13,40 +13,32 @@
         android:id="@+id/mapa_fragmento"
         android:name="com.google.android.gms.maps.SupportMapFragment"
         android:layout_width="414dp"
-        android:layout_height="666dp"
+        android:layout_height="735dp"
         android:layout_marginTop="32dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="1.0" />
+
 
     <ImageButton
         android:id="@+id/boton_regresar"
         android:layout_width="75dp"
         android:layout_height="75dp"
-        android:layout_marginTop="612dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="16dp"
         android:background="@null"
         android:src="@mipmap/ic_regresarmini_foreground"
         android:text="Regresar"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:id="@+id/textView_Mapa"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="MAPA DE EVENTOS"
-        app:layout_constraintBottom_toBottomOf="@+id/mapa_fragmento"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent"
-        android:textColor="#FFFFFF"
-        android:textSize="40dp"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.035" />
+        app:layout_constraintVertical_bias="0.0" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -7,8 +7,8 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.example.login.ui.Mapa
-import com.example.login.ui.MenuLateral
+import com.example.login.Activities.Mapa
+import com.example.login.Activities.MenuLateral
 
 class AbrirMapa : Fragment() {
 
