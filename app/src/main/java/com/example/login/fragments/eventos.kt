@@ -31,6 +31,8 @@ class eventos : Fragment() {
          * datos.get(0).getTitulo
          */
         getData()
+
+        mostrarData()
     }
 
     override fun onCreateView(
@@ -39,6 +41,11 @@ class eventos : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
         return inflater.inflate(com.example.login.R.layout.fragment_eventos, container, false)
+    }
+
+    private fun mostrarData()
+    {
+        println(datos[0].getTitulo())
     }
 
     fun onButtonPressed(uri: Uri) {

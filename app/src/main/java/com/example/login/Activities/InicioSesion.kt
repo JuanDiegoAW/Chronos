@@ -1,10 +1,13 @@
 package com.example.login.Activities
 
+import android.app.PendingIntent.getActivity
 import android.content.Context
 import android.content.Intent
+import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
+import androidx.annotation.RequiresApi
 import com.example.login.Clases.Usuario
 import com.example.login.R
 import com.facebook.*
@@ -94,6 +97,12 @@ class InicioSesion : AppCompatActivity() {
                 mGoogleSignInClient.signOut()
             }
         }
+    }
+
+    @RequiresApi(Build.VERSION_CODES.JELLY_BEAN)
+    override fun onBackPressed() {
+        finishAffinity()
+        System.exit(0)
     }
 
     private fun configureGoogleSignIn()

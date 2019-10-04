@@ -110,4 +110,9 @@ class Mapa : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMarkerClickLis
         startActivity(MenuLateral.getLaunchIntent(this))
         finish()
     }
+
+    override fun onBackPressed() {
+        startActivity(MenuLateral.getLaunchIntent(this))
+        finish()
+    }
 }

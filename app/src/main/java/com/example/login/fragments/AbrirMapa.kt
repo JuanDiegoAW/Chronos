@@ -8,7 +8,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.example.login.Activities.Mapa
-import com.example.login.Activities.MenuLateral
 
 class AbrirMapa : Fragment() {
 
@@ -16,9 +15,6 @@ class AbrirMapa : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
-        val intent = Intent(activity, MenuLateral::class.java)
-        startActivity(intent)
 
         abrirMapa()
     }
