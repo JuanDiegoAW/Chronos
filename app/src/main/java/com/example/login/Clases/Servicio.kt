@@ -1,6 +1,9 @@
 package com.example.login.Clases
 
+import android.app.Application
+import android.content.Context
 import android.os.StrictMode
+import android.widget.Toast
 import org.json.JSONException
 import java.io.IOException
 import java.io.InputStream
@@ -25,20 +28,13 @@ class Servicio {
      *
      */
     fun metodoGet(servicio:String) : InputStream? {
-        try {
             this.url = URL(this.urlApi + servicio + "/")
             this.conexion = this.url!!.openConnection() as HttpURLConnection
             this.conexion!!.requestMethod = "GET"
             this.conexion!!.connect()
+            println(this.conexion!!.responseMessage)
             return this.conexion!!.inputStream
-        } catch (e: IOException) {
-            e.printStackTrace()
-        } catch (e: JSONException) {
-            e.printStackTrace()
-        }
-        return null
     }
-
     /**
      * Desconecta el servicio con el servidor
      */

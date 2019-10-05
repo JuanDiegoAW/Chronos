@@ -7,6 +7,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import com.example.login.Clases.EventosDatos
 import com.example.login.Clases.Servicio
 import org.json.JSONArray
@@ -87,7 +88,7 @@ class eventos : Fragment() {
      * Función para listar todos los eventos
      */
     private fun getData(){
-
+        try {
         var entrada = BufferedReader(InputStreamReader(servicio.metodoGet("evento")))
         var respuesta = StringBuffer()
         //Ciclo para ir leyendo línea por línea e ir agregarlo en respuesta
@@ -109,11 +110,21 @@ class eventos : Fragment() {
          */
         for (i in 0 until arrayJson.length()) {
             var jsonObject: JSONObject = arrayJson.getJSONObject(i)
-            datos.add(EventosDatos(jsonObject.optString("codigo"),
-                jsonObject.optString("titulo"),
-                jsonObject.optString("descripcion"),
-                jsonObject.optString("imagenes")))
+            datos.add(
+                EventosDatos(
+                    jsonObject.optString("codigo"),
+                    jsonObject.optString("titulo"),
+                    jsonObject.optString("descripcion"),
+                    jsonObject.optString("imagenes")
+                )
+            )
         }
         servicio.desconectar()
+        } catch (e: IOException) {
+            Toast.makeText(this.context,"Verifique su conexión a internet",Toast.LENGTH_SHORT).show()
+            e.printStackTrace()
+        }catch (e: JSONException) {
+            e.printStackTrace()
+        }
     }
 }
