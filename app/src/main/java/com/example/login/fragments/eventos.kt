@@ -37,7 +37,7 @@ class eventos : Fragment() {
          */
         getData()
 
-        //mostrarData()
+        mostrarData()
     }
 
     override fun onCreateView(
