@@ -75,7 +75,6 @@ class MenuLateral : AppCompatActivity() {
         nombre_usuario.text = usuario.getNombre()
         correo_usuario.text = usuario.getCorreo()
 
-
         Glide.with(this).load(usuario.getUrlFoto()).into(foto_usuario)
     }
 

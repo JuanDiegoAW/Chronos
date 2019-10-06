@@ -89,7 +89,7 @@ class eventos : Fragment() {
      */
     private fun getData(){
         try {
-        var entrada = BufferedReader(InputStreamReader(servicio.metodoGet("evento")))
+        var entrada = BufferedReader(InputStreamReader(servicio.metodoGet("eventos")))
         var respuesta = StringBuffer()
         //Ciclo para ir leyendo línea por línea e ir agregarlo en respuesta
         var linea : String?

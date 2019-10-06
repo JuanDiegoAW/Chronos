@@ -21,17 +21,8 @@ class CerrarSesion : Fragment() {
     private val usuario : Usuario = Usuario.iniciar()
 
     override fun onCreate(savedInstanceState: Bundle?) {
-
-        val user = FirebaseAuth.getInstance().currentUser
-        if (user == null)
-        {
-            val intent = Intent(activity, InicioSesion::class.java)
-            startActivity(intent)
-        }
-
         super.onCreate(savedInstanceState)
         signOutApp()
-
     }
 
     override fun onCreateView(

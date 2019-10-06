@@ -96,6 +96,10 @@ class InicioSesion : AppCompatActivity() {
             {
                 mGoogleSignInClient.signOut()
             }
+            if (LoginManager.getInstance()!= null)
+            {
+                LoginManager.getInstance().logOut()
+            }
         }
     }
 
