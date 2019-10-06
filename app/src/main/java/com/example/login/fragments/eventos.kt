@@ -119,12 +119,14 @@ class eventos : Fragment() {
                 )
             )
         }
-        servicio.desconectar()
+            entrada.close()
         } catch (e: IOException) {
             Toast.makeText(this.context,"Verifique su conexión a internet",Toast.LENGTH_SHORT).show()
             e.printStackTrace()
         }catch (e: JSONException) {
             e.printStackTrace()
+        }finally {
+            servicio.desconectar()
         }
     }
 }

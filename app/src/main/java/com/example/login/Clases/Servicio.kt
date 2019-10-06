@@ -3,8 +3,10 @@ package com.example.login.Clases
 import android.app.Application
 import android.content.Context
 import android.os.StrictMode
+import android.provider.ContactsContract
 import android.widget.Toast
 import org.json.JSONException
+import java.io.DataOutputStream
 import java.io.IOException
 import java.io.InputStream
 import java.net.HttpURLConnection
@@ -12,7 +14,6 @@ import java.net.URL
 
 class Servicio {
     private val urlApi:String="http://edvfelipe.pythonanywhere.com/api/"
-    private var url:URL?=null
     private var conexion: HttpURLConnection? = null
 
      constructor(){
@@ -28,12 +29,29 @@ class Servicio {
      *
      */
     fun metodoGet(servicio:String) : InputStream? {
-            this.url = URL(this.urlApi + servicio + "/")
-            this.conexion = this.url!!.openConnection() as HttpURLConnection
-            this.conexion!!.requestMethod = "GET"
-            this.conexion!!.connect()
-            println(this.conexion!!.responseMessage)
-            return this.conexion!!.inputStream
+        var url = URL(this.urlApi + servicio + "/")
+        this.conexion = url.openConnection() as HttpURLConnection
+        this.conexion!!.requestMethod = "GET"
+        this.conexion!!.connect()
+
+        return if(this.conexion!!.responseCode==200)
+            this.conexion!!.inputStream
+        else
+            null
+    }
+    fun metodoPost(servicio: String,datos : HashMap<String,String>): Unit {
+        /**
+        var url = URL(this.urlApi + servicio + "/")
+        this.conexion = url.openConnection() as HttpURLConnection
+        this.conexion!!.requestMethod = "POST"
+        this.conexion!!.setRequestProperty("Content-Type", "application/json; utf-8")
+        this.conexion!!.setRequestProperty("Accept", "application/json")
+        this.conexion!!.doOutput= true
+        **/
+        for (dato in datos){
+            println(" "+dato.key+" "+dato.value)
+        }
+
     }
     /**
      * Desconecta el servicio con el servidor
