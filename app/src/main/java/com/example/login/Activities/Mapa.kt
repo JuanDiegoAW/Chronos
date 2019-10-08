@@ -4,7 +4,6 @@ import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.location.Location
-import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
@@ -28,12 +27,18 @@ import org.json.JSONObject
 import java.io.BufferedReader
 import java.io.IOException
 import java.io.InputStreamReader
-import java.time.LocalDate
 
 @Suppress("NULLABILITY_MISMATCH_BASED_ON_JAVA_ANNOTATIONS")
-class Mapa : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMarkerClickListener  {
+class Mapa : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMarkerClickListener,
+    GoogleMap.OnInfoWindowClickListener {
 
     override fun onMarkerClick(p0: Marker?) = false
+
+    override fun onInfoWindowClick(marker: Marker)
+    {
+        startActivity(MenuLateral.getLaunchIntent(this))
+        finish()
+    }
 
     //ubicacion
     private var googleMap: GoogleMap? = null
@@ -57,6 +62,7 @@ class Mapa : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMarkerClickLis
 
         this.googleMap?.uiSettings?.isZoomControlsEnabled = true
         this.googleMap?.setOnMarkerClickListener(this)
+        this.googleMap?.setOnInfoWindowClickListener(this)
 
         //Inicializar mapa
         setUpMap()
@@ -97,7 +103,10 @@ class Mapa : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMarkerClickLis
             val longitud: Double = datos[i].getLongitud().toDouble()
 
             val currentLatLng = LatLng(latitud, longitud)  // localizacion del evento
-            googleMap!!.addMarker(MarkerOptions().position(currentLatLng).title(datos[i].getTitulo()))
+            googleMap!!.addMarker(MarkerOptions().position(currentLatLng)
+                .title(datos[i].getTitulo())
+                .snippet(datos[i].getDescripcion())
+            )
         }
     }
 
@@ -165,13 +174,12 @@ class Mapa : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMarkerClickLis
             for (i in 0 until arrayJson.length()) {
                 val jsonObject: JSONObject = arrayJson.getJSONObject(i)
 
-                val evento: EventosDatos = EventosDatos(jsonObject.optString("codigo"),
+                val evento = EventosDatos(jsonObject.optString("codigo"),
                     jsonObject.optString("titulo"),
                     jsonObject.optString("descripcion"),
                     jsonObject.optString("imagenes"))
 
                 var texto_ubicacion = jsonObject.optString("rutaLugar")
-                println("TEXTOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO: " + texto_ubicacion)
 
                 if("," in texto_ubicacion)
                 {
