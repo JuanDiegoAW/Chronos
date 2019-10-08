@@ -1,16 +1,14 @@
 package com.example.login.Clases
 
-import android.app.Application
-import android.content.Context
 import android.os.StrictMode
-import android.provider.ContactsContract
-import android.widget.Toast
-import org.json.JSONException
-import java.io.DataOutputStream
-import java.io.IOException
-import java.io.InputStream
+import org.json.JSONObject
+import java.io.*
 import java.net.HttpURLConnection
 import java.net.URL
+
+
+
+
 
 class Servicio {
     private val urlApi:String="http://edvfelipe.pythonanywhere.com/api/"
@@ -28,8 +26,8 @@ class Servicio {
      * los datos según el link que se ingrese
      *
      */
-    fun metodoGet(servicio:String) : InputStream? {
-        var url = URL(this.urlApi + servicio + "/")
+    fun metodoGet(link:String) : InputStream? {
+        var url = URL(this.urlApi + link + "/")
         this.conexion = url.openConnection() as HttpURLConnection
         this.conexion!!.requestMethod = "GET"
         this.conexion!!.connect()
@@ -39,19 +37,59 @@ class Servicio {
         else
             null
     }
-    fun metodoPost(servicio: String,datos : HashMap<String,String>): Unit {
-        /**
-        var url = URL(this.urlApi + servicio + "/")
+    fun metodoPost(link: String,datos : JSONObject): Boolean {
+        println(datos)
+        val url = URL("$urlApi$link/")
         this.conexion = url.openConnection() as HttpURLConnection
+        this.conexion!!.doOutput=true
         this.conexion!!.requestMethod = "POST"
-        this.conexion!!.setRequestProperty("Content-Type", "application/json; utf-8")
-        this.conexion!!.setRequestProperty("Accept", "application/json")
-        this.conexion!!.doOutput= true
-        **/
-        for (dato in datos){
-            println(" "+dato.key+" "+dato.value)
-        }
+        this.conexion!!.setRequestProperty("Content-Type", "application/json")
+        this.conexion!!.setRequestProperty("Content-Type", "application/json; charset=UTF-8")
+        try {
+            val os = this.conexion!!.outputStream
+            os.write(datos.toString().toByteArray())
+            os.close()
 
+            val br = BufferedReader(InputStreamReader(this.conexion!!.inputStream))
+            var linea : String?
+            println("Output from Server .... \n")
+            println(this.conexion!!.responseCode)
+            do {
+                linea = br.readLine()
+                if (linea == null) {
+                    break
+                }
+                println(linea)
+            } while (true)
+            return true
+        }catch (e : IOException) {
+            e.printStackTrace()
+        }
+        return false
+    }
+
+    fun metodoGetBusqueda(urlAPI:String,id:String):JSONObject{
+        var url = URL(this.urlApi + urlAPI+"/?"+id)
+        this.conexion = url.openConnection() as HttpURLConnection
+        this.conexion!!.requestMethod = "GET"
+        this.conexion!!.setRequestProperty("User-Agent","Mozilla/5.0")
+        this.conexion!!.connect()
+        var entrada = BufferedReader(InputStreamReader(this.conexion!!.inputStream))
+        var respuesta = StringBuffer()
+        //Ciclo para ir leyendo línea por línea e ir agregarlo en respuesta
+        var linea : String?
+        do {
+            linea = entrada.readLine()
+            if (linea == null) {
+                break
+            }
+            respuesta.append(linea)
+        } while (true)
+        var json: String
+        //paso a un string el json que tengo para posteriormente manipularlo
+        json = respuesta.toString()
+        var arrayJson = JSONObject(json)
+        return arrayJson
     }
     /**
      * Desconecta el servicio con el servidor
