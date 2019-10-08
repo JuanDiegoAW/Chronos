@@ -7,8 +7,11 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import com.example.login.Clases.Servicio
 import com.example.login.R
+import org.json.JSONException
+import org.json.JSONObject
 import java.util.*
 import kotlin.collections.HashMap
 
@@ -38,10 +41,7 @@ class editar_perfil : Fragment() {
             param1 = it.getString(ARG_PARAM1)
             param2 = it.getString(ARG_PARAM2)
         }
-        var lista:HashMap<String,String> = HashMap()
-        lista.put("nombre:","Oswaldo")
-        lista.put("correo:","mynoswaldo")
-        servicio.metodoPost(":V",lista)
+        verificar("prueba4")
     }
 
     override fun onCreateView(
@@ -96,5 +96,30 @@ class editar_perfil : Fragment() {
                     putString(ARG_PARAM2, param2)
                 }
             }
+    }
+    fun crear(){
+        try {
+            val datos = JSONObject()
+            datos.put("nombre","prueba desde app1")
+            datos.put("correo","prueba4")
+            datos.put("contrasena","1234")
+            var mensaje:String="Error al creear el usuario"
+            if(servicio.metodoPost("usuarios", datos))
+                mensaje="Usuario creado correctamente"
+            Toast.makeText(this.context,mensaje,Toast.LENGTH_SHORT).show()
+        }catch (e: JSONException) {
+            e.printStackTrace()
+        }
+    }
+    fun verificar(correo:String){
+        val jsonObject=servicio.metodoGetBusqueda("usuarios","correo="+correo)
+        if (jsonObject.length()==1)
+            crear()
+        else{
+            println("Id: "+ jsonObject.optString("id"))
+            println("Nombre: "+ jsonObject.optString("nombre"))
+            println("Correo: "+ jsonObject.optString("correo"))
+        }
+        servicio.desconectar()
     }
 }
