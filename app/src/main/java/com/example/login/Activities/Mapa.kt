@@ -30,6 +30,7 @@ import java.io.IOException
 import java.io.InputStreamReader
 import java.time.LocalDate
 
+@Suppress("NULLABILITY_MISMATCH_BASED_ON_JAVA_ANNOTATIONS")
 class Mapa : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMarkerClickListener  {
 
     override fun onMarkerClick(p0: Marker?) = false
@@ -45,7 +46,7 @@ class Mapa : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMarkerClickLis
 
         private const val PERMISO_UBICACION = 1
 
-        fun getLaunchIntent(from: Context) = Intent(from, InicioSesion::class.java).apply {
+        fun getLaunchIntent(from: Context) = Intent(from, Mapa::class.java).apply {
             addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK)
         }
     }
@@ -92,10 +93,10 @@ class Mapa : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMarkerClickLis
     {
         for (i in 0 until datos.size)
         {
-            var latitud: Double = datos[i].getLatitud().toDouble()
-            var longitud: Double = datos[i].getLongitud().toDouble()
+            val latitud: Double = datos[i].getLatitud().toDouble()
+            val longitud: Double = datos[i].getLongitud().toDouble()
 
-            val currentLatLng = LatLng(latitud, longitud)  // localizacion de Guatemala
+            val currentLatLng = LatLng(latitud, longitud)  // localizacion del evento
             googleMap!!.addMarker(MarkerOptions().position(currentLatLng).title(datos[i].getTitulo()))
         }
     }
@@ -138,8 +139,8 @@ class Mapa : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMarkerClickLis
 
     private fun getData(){
         try {
-            var entrada = BufferedReader(InputStreamReader(servicio.metodoGet("eventos")))
-            var respuesta = StringBuffer()
+            val entrada = BufferedReader(InputStreamReader(servicio.metodoGet("eventos")))
+            val respuesta = StringBuffer()
             //Ciclo para ir leyendo línea por línea e ir agregarlo en respuesta
             var linea : String?
             do {
@@ -149,10 +150,10 @@ class Mapa : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMarkerClickLis
                 }
                 respuesta.append(linea)
             } while (true)
-            var json: String
+            val json: String
             //paso a un string el json que tengo para posteriormente manipularlo
             json = respuesta.toString()
-            var arrayJson = JSONArray(json)
+            val arrayJson = JSONArray(json)
             /**
              * Ciclo para ir sacando del array que tiene forma del json regresado y va a ir
              * almacenando en el arraylist
@@ -162,32 +163,35 @@ class Mapa : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMarkerClickLis
             //}
 
             for (i in 0 until arrayJson.length()) {
-                var jsonObject: JSONObject = arrayJson.getJSONObject(i)
+                val jsonObject: JSONObject = arrayJson.getJSONObject(i)
 
-
-
-                var evento: EventosDatos = EventosDatos(jsonObject.optString("codigo"),
+                val evento: EventosDatos = EventosDatos(jsonObject.optString("codigo"),
                     jsonObject.optString("titulo"),
                     jsonObject.optString("descripcion"),
                     jsonObject.optString("imagenes"))
 
                 var texto_ubicacion = jsonObject.optString("rutaLugar")
-                var latitud : String = ""
-                var longitud : String = ""
-                var j: Int = 0
+                println("TEXTOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO: " + texto_ubicacion)
 
-                while(texto_ubicacion[j].toString() != ",")
+                if("," in texto_ubicacion)
                 {
-                    latitud += texto_ubicacion[j].toString()
+                    var latitud = ""
+                    var longitud: String
+                    var j = 0
+
+                    while(texto_ubicacion[j].toString() != ",")
+                    {
+                        latitud += texto_ubicacion[j].toString()
+                        texto_ubicacion = texto_ubicacion.takeLast(texto_ubicacion.length - 1)
+                    }
                     texto_ubicacion = texto_ubicacion.takeLast(texto_ubicacion.length - 1)
+                    longitud = texto_ubicacion
+
+                    evento.setLatitud(latitud)
+                    evento.setLongitud(longitud)
+
+                    datos.add(evento)
                 }
-                texto_ubicacion = texto_ubicacion.takeLast(texto_ubicacion.length - 1)
-                longitud = texto_ubicacion
-
-                evento.setLatitud(latitud)
-                evento.setLongitud(longitud)
-
-                datos.add(evento)
             }
             entrada.close()
         } catch (e: IOException) {
