@@ -9,7 +9,9 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import com.example.login.Clases.Servicio
+import com.example.login.Clases.Usuario
 import com.example.login.R
+import kotlinx.android.synthetic.main.fragment_editar_perfil.*
 import org.json.JSONException
 import org.json.JSONObject
 import java.util.*
@@ -107,7 +109,9 @@ class editar_perfil : Fragment() {
             if(servicio.metodoPost("usuarios", datos))
                 mensaje="Usuario creado correctamente"
             Toast.makeText(this.context,mensaje,Toast.LENGTH_SHORT).show()
-        }catch (e: JSONException) {
+        }
+        catch (e: JSONException)
+        {
             e.printStackTrace()
         }
     }
@@ -116,9 +120,9 @@ class editar_perfil : Fragment() {
         if (jsonObject.length()==1)
             crear()
         else{
-            println("Id: "+ jsonObject.optString("id"))
-            println("Nombre: "+ jsonObject.optString("nombre"))
-            println("Correo: "+ jsonObject.optString("correo"))
+            println("AQUIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII Id: "+ jsonObject.optString("id"))
+            println("AQUIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII Nombre: "+ jsonObject.optString("nombre"))
+            println("AQUIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII Correo: "+ jsonObject.optString("correo"))
         }
         servicio.desconectar()
     }

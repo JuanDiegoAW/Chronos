@@ -21,13 +21,13 @@ import com.bumptech.glide.Glide
 import com.example.login.Clases.Usuario
 import com.example.login.R
 
-class MenuLateral : AppCompatActivity() {
+class VentanaPrincipal : AppCompatActivity() {
 
     private lateinit var appBarConfiguration: AppBarConfiguration
     private val usuario = Usuario.iniciar()
 
     companion object {
-        fun getLaunchIntent(from: Context) = Intent(from, MenuLateral::class.java).apply {
+        fun getLaunchIntent(from: Context) = Intent(from, VentanaPrincipal::class.java).apply {
             addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK)
         }
     }

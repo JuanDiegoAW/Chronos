@@ -1,6 +1,5 @@
 package com.example.login.Activities
 
-import android.app.PendingIntent.getActivity
 import android.content.Context
 import android.content.Intent
 import android.os.Build
@@ -8,6 +7,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
 import androidx.annotation.RequiresApi
+import com.example.login.Clases.Servicio
 import com.example.login.Clases.Usuario
 import com.example.login.R
 import com.facebook.*
@@ -23,7 +23,10 @@ import com.facebook.login.LoginManager
 import com.facebook.login.LoginResult
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.firebase.auth.FacebookAuthProvider
+import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.GoogleAuthProvider
+import org.json.JSONException
+import org.json.JSONObject
 
 class InicioSesion : AppCompatActivity() {
 
@@ -45,10 +48,10 @@ class InicioSesion : AppCompatActivity() {
     //fb
     private lateinit var callbackManager: CallbackManager
 
+    //Conexion API
+    private val servicio: Servicio = Servicio()
+
     companion object {
-
-        private const val PERMISO_UBICACION = 1
-
         fun getLaunchIntent(from: Context) = Intent(from, InicioSesion::class.java).apply {
             addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK)
         }
@@ -77,11 +80,12 @@ class InicioSesion : AppCompatActivity() {
         if (user != null)
         {
             val usuario : Usuario = Usuario.iniciar()
-            user.displayName?.let { usuario.setNombre(it) }
-            user.photoUrl?.let { usuario.setUrlFoto(it) }
-            user.email?.let { usuario.setCorreo(it) }
 
-            startActivity(MenuLateral.getLaunchIntent(this))
+            user.photoUrl?.let { usuario.setUrlFoto(it) }
+
+            verificar(user)
+
+            startActivity(VentanaPrincipal.getLaunchIntent(this))
             finish()
         }
         else
@@ -189,18 +193,13 @@ class InicioSesion : AppCompatActivity() {
                 val user = FirebaseAuth.getInstance().currentUser
                 if (user != null)
                 {
-                    //poner nombre del usuario
-                    user.displayName?.let { it1 -> usuario.setNombre(it1) }
+                    usuario.setSesion(1)
+                    verificar(user)
 
                     //poner foto del usuario
                     user.photoUrl?.let { it1 -> usuario.setUrlFoto(it1) }
 
-                    //poner correo del usuario
-                    user.email?.let { it1 -> usuario.setCorreo(it1) }
-
-                    usuario.setSesion(1)
-
-                    startActivity(MenuLateral.getLaunchIntent(this))
+                    startActivity(VentanaPrincipal.getLaunchIntent(this))
                 }
             }
             else
@@ -219,12 +218,10 @@ class InicioSesion : AppCompatActivity() {
                     val user = auth.currentUser
                     if (user != null)
                     {
-                        user.displayName?.let { it1 -> usuario.setNombre(it1) }
-                        user.photoUrl?.let { it1 -> usuario.setUrlFoto(it1) }
-                        //poner correo del usuario
-                        user.email?.let { it1 -> usuario.setCorreo(it1) }
                         usuario.setSesion(2)
-                        startActivity(MenuLateral.getLaunchIntent(this@InicioSesion))
+                        verificar(user)
+                        user.photoUrl?.let { it1 -> usuario.setUrlFoto(it1) }
+                        startActivity(VentanaPrincipal.getLaunchIntent(this))
                     }
                 }
                 else
@@ -234,5 +231,38 @@ class InicioSesion : AppCompatActivity() {
                         Toast.LENGTH_SHORT).show()
                 }
             }
+    }
+
+    private fun crear(user:FirebaseUser){
+        try {
+            val datos = JSONObject()
+            datos.put("nombre",user.displayName)
+            datos.put("correo",user.email)
+            datos.put("contrasena","1234")
+
+            user.displayName?.let { usuario.setNombre(it) }
+            user.email?.let { usuario.setCorreo(it) }
+
+            var mensaje:String="Error al crear el usuario"
+            if(servicio.metodoPost("usuarios", datos))
+                mensaje="Usuario creado correctamente"
+            Toast.makeText(this, mensaje,Toast.LENGTH_SHORT).show()
+        }
+        catch (e: JSONException)
+        {
+            e.printStackTrace()
+        }
+    }
+    private fun verificar(user:FirebaseUser)
+    {
+        val jsonObject=servicio.metodoGetBusqueda("usuarios","correo="+ user.email)
+        if (jsonObject.length()==1)
+            crear(user)
+        else
+        {
+            usuario.setNombre(jsonObject.optString("nombre"))
+            user.email?.let { usuario.setCorreo(it) }
+        }
+        servicio.desconectar()
     }
 }

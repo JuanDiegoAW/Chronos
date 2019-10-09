@@ -8,6 +8,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
 import androidx.core.app.ActivityCompat
+import com.bumptech.glide.Glide
 import com.example.login.Clases.EventosDatos
 import com.example.login.Clases.Servicio
 import com.example.login.R
@@ -36,7 +37,7 @@ class Mapa : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMarkerClickLis
 
     override fun onInfoWindowClick(marker: Marker)
     {
-        startActivity(MenuLateral.getLaunchIntent(this))
+        startActivity(VentanaPrincipal.getLaunchIntent(this))
         finish()
     }
 
@@ -185,11 +186,10 @@ class Mapa : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMarkerClickLis
                 {
                     var latitud = ""
                     var longitud: String
-                    var j = 0
 
-                    while(texto_ubicacion[j].toString() != ",")
+                    while(texto_ubicacion[0] != ',')
                     {
-                        latitud += texto_ubicacion[j].toString()
+                        latitud += texto_ubicacion[0].toString()
                         texto_ubicacion = texto_ubicacion.takeLast(texto_ubicacion.length - 1)
                     }
                     texto_ubicacion = texto_ubicacion.takeLast(texto_ubicacion.length - 1)
@@ -214,12 +214,12 @@ class Mapa : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMarkerClickLis
 
     private fun regresarMenu()
     {
-        startActivity(MenuLateral.getLaunchIntent(this))
+        startActivity(VentanaPrincipal.getLaunchIntent(this))
         finish()
     }
 
     override fun onBackPressed() {
-        startActivity(MenuLateral.getLaunchIntent(this))
+        startActivity(VentanaPrincipal.getLaunchIntent(this))
         finish()
     }
 }

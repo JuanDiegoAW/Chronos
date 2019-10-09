@@ -10,7 +10,7 @@ import android.view.View
 import android.view.ViewGroup
 import com.example.login.Clases.Usuario
 import com.example.login.Activities.InicioSesion
-import com.example.login.Activities.MenuLateral
+import com.example.login.Activities.VentanaPrincipal
 import com.facebook.login.LoginManager
 import com.google.firebase.auth.FirebaseAuth
 
@@ -69,7 +69,7 @@ class CerrarSesion : Fragment() {
     }
 
     companion object {
-        fun getLaunchIntent(from: Context) = Intent(from, MenuLateral::class.java).apply {
+        fun getLaunchIntent(from: Context) = Intent(from, VentanaPrincipal::class.java).apply {
             addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK)
         }
     }

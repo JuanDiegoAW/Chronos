@@ -7,6 +7,7 @@
     <uses-permission android:name="android.permission.REORDER_TASKS" />
 
     <application
+        android:usesCleartextTraffic="true"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="Chronos"
@@ -15,7 +16,7 @@
         android:theme="@style/Theme.AppCompat.Light.NoActionBar">
         <activity android:name=".Activities.Mapa"></activity>
         <activity
-            android:name=".Activities.MenuLateral"
+            android:name=".Activities.VentanaPrincipal"
             android:label="@string/title_activity_menulateral"
             android:theme="@style/NoActionBar" />
         <activity android:name=".Activities.InicioSesion">
