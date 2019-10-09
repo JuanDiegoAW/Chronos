@@ -9,7 +9,6 @@
     <application
         android:usesCleartextTraffic="true"
         android:allowBackup="true"
-        android:icon="@mipmap/chronosl"
         android:label="Chronos"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
