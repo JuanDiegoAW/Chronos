@@ -43,7 +43,7 @@ class editar_perfil : Fragment() {
             param1 = it.getString(ARG_PARAM1)
             param2 = it.getString(ARG_PARAM2)
         }
-        verificar("prueba4")
+        //verificar("prueba4")
     }
 
     override fun onCreateView(
