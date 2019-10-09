@@ -99,31 +99,4 @@ class editar_perfil : Fragment() {
                 }
             }
     }
-    fun crear(){
-        try {
-            val datos = JSONObject()
-            datos.put("nombre","prueba desde app1")
-            datos.put("correo","prueba4")
-            datos.put("contrasena","1234")
-            var mensaje:String="Error al creear el usuario"
-            if(servicio.metodoPost("usuarios", datos))
-                mensaje="Usuario creado correctamente"
-            Toast.makeText(this.context,mensaje,Toast.LENGTH_SHORT).show()
-        }
-        catch (e: JSONException)
-        {
-            e.printStackTrace()
-        }
-    }
-    fun verificar(correo:String){
-        val jsonObject=servicio.metodoGetBusqueda("usuarios","correo="+correo)
-        if (jsonObject.length()==1)
-            crear()
-        else{
-            println("AQUIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII Id: "+ jsonObject.optString("id"))
-            println("AQUIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII Nombre: "+ jsonObject.optString("nombre"))
-            println("AQUIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII Correo: "+ jsonObject.optString("correo"))
-        }
-        servicio.desconectar()
-    }
 }
