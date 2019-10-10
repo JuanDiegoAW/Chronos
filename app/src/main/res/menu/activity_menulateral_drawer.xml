@@ -1,31 +1,55 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:iconTint="@color/colorPrimary"
+    android:fontFamily="@font/fonts"
+    app:itemTextColor="@color/colorPrimaryDark"
     tools:showIn="navigation_view">
 
     <group android:checkableBehavior="single">
+
         <item
             android:id="@+id/nav_home"
+            android:fontFamily="@font/fonts"
+            app:itemTextColor="@color/colorPrimaryDark"
+            android:iconTint="@color/colorPrimary"
             android:icon="@android:drawable/ic_dialog_dialer"
             android:title="@string/menu_home" />
         <item
             android:id="@+id/nav_eventos"
+            android:fontFamily="@font/fonts"
+            app:itemTextColor="@color/colorPrimaryDark"
+            android:iconTint="@color/colorPrimary"
             android:icon="@android:drawable/ic_menu_my_calendar"
             android:title="@string/menu_eventos" />
         <item
             android:id="@+id/nav_reservar"
-            android:icon="@android:drawable/checkbox_on_background"
-            android:title="@string/menu_reservar" />
+            android:fontFamily="@font/fonts"
+            android:icon="@drawable/com_facebook_button_like_icon_selected"
+            android:iconTint="@color/colorPrimary"
+            android:title="@string/menu_reservar"
+            app:itemTextColor="@color/colorPrimaryDark" />
         <item
             android:id="@+id/nav_perfil"
-            android:icon="@drawable/com_facebook_profile_picture_blank_portrait"
-            android:title="@string/menu_perfil" />
+            android:fontFamily="@font/fonts"
+            android:icon="@android:drawable/ic_menu_edit"
+            android:iconTint="@color/colorPrimary"
+
+            android:title="@string/menu_perfil"
+            app:itemTextColor="@color/colorPrimaryDark" />
         <item
             android:id="@+id/nav_mapa"
-            android:icon="@drawable/com_facebook_profile_picture_blank_portrait"
-            android:title="@string/menu_mapa" />
+            android:fontFamily="@font/fonts"
+            android:icon="@android:drawable/ic_dialog_map"
+            android:iconTint="@color/colorPrimary"
+            android:title="@string/menu_mapa"
+            app:itemTextColor="@color/colorPrimaryDark" />
         <item
             android:id="@+id/nav_cerrar"
+            android:fontFamily="@font/fonts"
+            app:itemTextColor="@color/colorPrimaryDark"
+            android:iconTint="@color/colorPrimary"
             android:icon="@android:drawable/ic_menu_close_clear_cancel"
             android:title="@string/cerrar_sesion">
 

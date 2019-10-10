@@ -16,7 +16,7 @@
     <string name="menu_home">INICIO</string>
     <string name="menu_eventos">EVENTOS</string>
     <string name="menu_reservar">RESERVAR</string>
-    <string name="menu_perfil">PERFIL</string>
+    <string name="menu_perfil">EDITAR PERFIL</string>
     <string name="menu_share">Share</string>
     <string name="menu_send">Send</string>
     <string name="boton_continuar">CONTINUAR</string>

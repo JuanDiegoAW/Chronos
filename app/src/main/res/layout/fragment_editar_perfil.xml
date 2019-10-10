@@ -4,21 +4,22 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/degradado"
     android:orientation="vertical"
     android:id="@+id/editarperf"
     tools:context=".fragments.editar_perfil">
 
     <ImageView
         android:id="@+id/fotoperfil"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_width="160dp"
+        android:layout_height="160dp"
         android:layout_gravity="center"
         android:layout_marginTop="55dp"
 
         android:fontFamily="@font/fonts"
         app:srcCompat="@mipmap/ic_launcher_round" />
 
-    <TextView
+    <EditText
         android:id="@+id/textnombre"
         android:layout_width="350dp"
         android:layout_height="50dp"
@@ -43,5 +44,7 @@
         android:text="ACTUALIZAR"
         android:textColor="@drawable/txtbtninicio"
         android:textSize="25dp" />
+
+
 
 </LinearLayout>

@@ -3,4 +3,6 @@
     <color name="colorPrimary">#FEAC00</color>
     <color name="colorPrimaryDark">#FE6B46</color>
     <color name="colorAccent">#DF2662</color>
+    <color name="colorAnaranjado">#FD9109</color>
+    <color name="colorblanco">#FFFFFF</color>
 </resources>
