@@ -7,6 +7,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
 import android.widget.Toast
 import com.example.login.Clases.Servicio
 import com.example.login.Clases.Usuario
@@ -36,6 +37,7 @@ class editar_perfil : Fragment() {
     private var param2: String? = null
     private val servicio:Servicio = Servicio()
     private var listener: OnFragmentInteractionListener? = null
+    private var usuario: Usuario = Usuario.iniciar()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -43,7 +45,12 @@ class editar_perfil : Fragment() {
             param1 = it.getString(ARG_PARAM1)
             param2 = it.getString(ARG_PARAM2)
         }
-        //verificar("prueba4")
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?)
+    {
+        val nombre_usuario = view.findViewById(R.id.textnombre) as TextView
+        nombre_usuario.text = usuario.getNombre()
     }
 
     override fun onCreateView(
