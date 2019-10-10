@@ -7,13 +7,16 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.viewpager.widget.ViewPager
 import com.example.login.R
 import com.example.login.Activities.InicioSesion
+import com.example.login.Activities.ViewPageAdapter
 import com.google.firebase.auth.FirebaseAuth
 
 class Inicio : Fragment() {
 
     private var listener: OnFragmentInteractionListener? = null
+    internal lateinit var viewPager: ViewPager
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -25,6 +28,18 @@ class Inicio : Fragment() {
             startActivity(intent)
         }
     }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        mostrarImagenes(view)
+    }
+
+    private fun mostrarImagenes(view: View)
+    {
+        viewPager = view.findViewById<View>(R.id.vpImagenes) as ViewPager
+        val adapter  = this.context?.let { ViewPageAdapter(it) }
+        viewPager.adapter = adapter
+    }
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
