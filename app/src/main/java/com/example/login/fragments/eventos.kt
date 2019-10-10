@@ -51,6 +51,7 @@ class eventos : Fragment() {
 
     private fun mostrarData()
     {
+        println("ALGOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO")
         //Cambié la forma para tener los datos, utilizo un for-each
         for (dato in this.datos){
             println("Código: "+dato.getCodigo())
@@ -58,6 +59,7 @@ class eventos : Fragment() {
             println("Descripción: "+dato.getDescripcion())
             println("Imágenes: "+dato.getImagenes())
         }
+        println("AQUIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII")
     }
 
     fun onButtonPressed(uri: Uri) {
