@@ -178,7 +178,8 @@ class Mapa : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMarkerClickLis
                 val evento = EventosDatos(jsonObject.optString("codigo"),
                     jsonObject.optString("titulo"),
                     jsonObject.optString("descripcion"),
-                    jsonObject.optString("imagenes"))
+                    jsonObject.optString("imagenes"),
+                    jsonObject.optString("calificacionP"))
 
                 var texto_ubicacion = jsonObject.optString("rutaLugar")
 

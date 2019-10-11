@@ -8,8 +8,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.login.Clases.AdaptadorEventos
+import com.example.login.Clases.Evento
 import com.example.login.Clases.EventosDatos
 import com.example.login.Clases.Servicio
+import kotlinx.android.synthetic.main.fragment_eventos.*
 import org.json.JSONArray
 import org.json.JSONException
 import org.json.JSONObject
@@ -25,6 +29,18 @@ class eventos : Fragment() {
     private var datos : ArrayList<EventosDatos> = ArrayList()
     private var servicio:Servicio = Servicio()
 
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+        super.onActivityCreated(savedInstanceState)
+
+        //Esto controla las acciones que ocurren cuando se "recarga" el fragment
+        refreshLayout.setOnRefreshListener {
+            datos.clear()
+            getData()
+        }
+        //obtenemos los datos
+        getData()
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {}
@@ -36,9 +52,6 @@ class eventos : Fragment() {
          * Si queres el de todos utiliza un for-each está en la función
          * mostrarData()
          */
-        getData()
-
-        mostrarData()
     }
 
     override fun onCreateView(
@@ -49,17 +62,20 @@ class eventos : Fragment() {
         return inflater.inflate(com.example.login.R.layout.fragment_eventos, container, false)
     }
 
-    private fun mostrarData()
+    private fun showData()
     {
-        println("ALGOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO")
-        //Cambié la forma para tener los datos, utilizo un for-each
-        for (dato in this.datos){
-            println("Código: "+dato.getCodigo())
-            println("Titulo: "+dato.getTitulo())
-            println("Descripción: "+dato.getDescripcion())
-            println("Imágenes: "+dato.getImagenes())
+        //Hacemos una lista vacia mutable
+        val lista = mutableListOf<Evento>()
+
+        //Y le agregamos cada evento encontrado de la consulta
+        for (dato in this.datos)
+        {
+            lista.add(Evento(dato.getCodigo(),dato.getTitulo(),dato.getDescripcion(),dato.getImagen(),dato.getCalificacion()))
         }
-        println("AQUIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII")
+
+        recyclerViewModel.layoutManager = LinearLayoutManager(activity)
+        //Luego mandamos esa lista al adaptador para asi enlazarlo con el xml del evento
+        recyclerViewModel.adapter = AdaptadorEventos(lista)
     }
 
     fun onButtonPressed(uri: Uri) {
@@ -90,45 +106,59 @@ class eventos : Fragment() {
      * Función para listar todos los eventos
      */
     private fun getData(){
-        try {
-        var entrada = BufferedReader(InputStreamReader(servicio.metodoGet("eventos")))
-        var respuesta = StringBuffer()
-        //Ciclo para ir leyendo línea por línea e ir agregarlo en respuesta
-        var linea : String?
-        do {
-            linea = entrada.readLine()
-            if (linea == null) {
-                break
-            }
-            respuesta.append(linea)
-        } while (true)
-        var json: String
-        //paso a un string el json que tengo para posteriormente manipularlo
-        json = respuesta.toString()
-        var arrayJson = JSONArray(json)
-        /**
-         * Ciclo para ir sacando del array que tiene forma del json regresado y va a ir
-         * almacenando en el arraylist
-         */
-        for (i in 0 until arrayJson.length()) {
-            var jsonObject: JSONObject = arrayJson.getJSONObject(i)
-            datos.add(
-                EventosDatos(
-                    jsonObject.optString("codigo"),
-                    jsonObject.optString("titulo"),
-                    jsonObject.optString("descripcion"),
-                    jsonObject.optString("imagenes")
+        refreshLayout.isRefreshing = true
+        try
+        {
+            var entrada = BufferedReader(InputStreamReader(servicio.metodoGet("eventos")))
+            var respuesta = StringBuffer()
+            //Ciclo para ir leyendo línea por línea e ir agregarlo en respuesta
+            var linea : String?
+            do {
+                linea = entrada.readLine()
+                if (linea == null) {
+                    break
+                }
+                respuesta.append(linea)
+            } while (true)
+            var json: String
+            //paso a un string el json que tengo para posteriormente manipularlo
+            json = respuesta.toString()
+            var arrayJson = JSONArray(json)
+            /**
+            * Ciclo para ir sacando del array que tiene forma del json regresado y va a ir
+            * almacenando en el arraylist
+            */
+            for (i in 0 until arrayJson.length()) {
+                var jsonObject: JSONObject = arrayJson.getJSONObject(i)
+                datos.add(
+                    EventosDatos(
+                        jsonObject.optString("codigo"),
+                        jsonObject.optString("titulo"),
+                        jsonObject.optString("descripcion"),
+                        jsonObject.optString("imagenes"),
+                        jsonObject.optString("calificacionP")
+                    )
                 )
-            )
-        }
+            }
             entrada.close()
-        } catch (e: IOException) {
+            refreshLayout.isRefreshing = false
+        }
+        catch (e: IOException)
+        {
             Toast.makeText(this.context,"Verifique su conexión a internet",Toast.LENGTH_SHORT).show()
             e.printStackTrace()
-        }catch (e: JSONException) {
+            refreshLayout.isRefreshing = false
+        }
+        catch (e: JSONException)
+        {
             e.printStackTrace()
-        }finally {
+            refreshLayout.isRefreshing = false
+        }
+        finally
+        {
             servicio.desconectar()
         }
+        //Despues de obtener los datos, los mostramos
+        showData()
     }
 }
