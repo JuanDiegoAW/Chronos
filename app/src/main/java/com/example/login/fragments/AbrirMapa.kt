@@ -15,7 +15,6 @@ class AbrirMapa : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
         abrirMapa()
     }
 
@@ -34,16 +33,10 @@ class AbrirMapa : Fragment() {
         return inflater.inflate(com.example.login.R.layout.fragment_abrir_mapa, container, false)
     }
 
-    //fun onButtonPressed(uri: Uri)
-    //{
-    //    listener?.onFragmentInteraction(uri)
-    //}
-
     override fun onDetach() {
         super.onDetach()
         listener = null
     }
-
 
     interface OnFragmentInteractionListener {
 
@@ -51,14 +44,10 @@ class AbrirMapa : Fragment() {
     }
 
     companion object {
-
         @JvmStatic
         fun newInstance() =
             AbrirMapa().apply {
-                arguments = Bundle().apply {
-                    //putString(ARG_PARAM1, param1)
-                    //putString(ARG_PARAM2, param2)
-                }
+                arguments = Bundle().apply {}
             }
     }
 }

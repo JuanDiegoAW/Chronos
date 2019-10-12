@@ -199,7 +199,7 @@ class InicioSesion : AppCompatActivity() {
                     //poner foto del usuario
                     user.photoUrl?.let { it1 -> usuario.setUrlFoto(it1) }
 
-                    startActivity(VentanaPrincipal.getLaunchIntent(this))
+                        startActivity(VentanaPrincipal.getLaunchIntent(this))
                 }
             }
             else

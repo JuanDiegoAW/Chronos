@@ -8,8 +8,9 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
 import androidx.core.app.ActivityCompat
-import com.bumptech.glide.Glide
+import com.example.login.Clases.Evento
 import com.example.login.Clases.EventosDatos
+import com.example.login.Clases.ParametrosEventos
 import com.example.login.Clases.Servicio
 import com.example.login.R
 import com.google.android.gms.location.FusedLocationProviderClient
@@ -33,12 +34,28 @@ import java.io.InputStreamReader
 class Mapa : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMarkerClickListener,
     GoogleMap.OnInfoWindowClickListener {
 
+    private val evento_mostrar = ParametrosEventos.iniciar()
+
     override fun onMarkerClick(p0: Marker?) = false
 
     override fun onInfoWindowClick(marker: Marker)
     {
-        startActivity(VentanaPrincipal.getLaunchIntent(this))
-        finish()
+        //Existe una relacion entre el numero de marcador creado y el evento que se coloca en ese marcador.
+        //Como los eventos se encuentran en un Array, se hace un ciclo que va desde 0 hasta el tamaño del Array.
+        //Cuando le toca al evento en la posicion 0 el mostrarse, se crea en un marcador con id "m0"
+        //Cuando el evento en la posicion 1 se muestra, lo hace en un marcador con id "m1" y asi sucesivamente.
+        //Por tanto, tomamos el id del marcador y le quitamos el primer caracter (la "m") y luego buscamos en la lista esta posicion
+        var textoId = marker.id
+        textoId = textoId.takeLast(textoId.length - 1)
+        var id = textoId.toInt()
+
+        //Se crea un evento solo con el codigo ya que solo este campo se necesita.
+        //En la ventana de "InformacionEvento" se hace uso del codigo para hacer la consulta de TODOS los datos del evento
+        val evento = Evento(datos[id].getCodigo(), "","","","")
+
+        evento_mostrar.setEvento(evento)
+        var intent = Intent(this, InformacionEvento::class.java)
+        this.startActivity(intent)
     }
 
     //ubicacion
@@ -68,7 +85,7 @@ class Mapa : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMarkerClickLis
         //Inicializar mapa
         setUpMap()
 
-        //Mostrar eventos
+        //Mostrar MostrarEventos
         showData()
     }
 
@@ -92,7 +109,7 @@ class Mapa : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMarkerClickLis
         //Boton Regresar
         setupUI()
 
-        //Obtener eventos
+        //Obtener MostrarEventos
         getData()
     }
 
@@ -104,10 +121,10 @@ class Mapa : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMarkerClickLis
             val longitud: Double = datos[i].getLongitud().toDouble()
 
             val currentLatLng = LatLng(latitud, longitud)  // localizacion del evento
+
             googleMap!!.addMarker(MarkerOptions().position(currentLatLng)
                 .title(datos[i].getTitulo())
-                .snippet(datos[i].getDescripcion())
-            )
+                .snippet(datos[i].getDescripcion()))
         }
     }
 
@@ -122,27 +139,32 @@ class Mapa : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMarkerClickLis
                 arrayOf(android.Manifest.permission.ACCESS_FINE_LOCATION),
                 PERMISO_UBICACION
             )
-
-            //SI NO SE ACEPTA EL PERMISO, SE REGRESA DE LA FUNCION
             return
         }
 
         //DE LO CONTRARIO, ACTIVA LA UBICACION
         googleMap!!.isMyLocationEnabled = true
 
-        //FUSEDLOCATIONCLIENT DA LA ULTIMA UBICACION DISPONIBLE DEL USUARIO
-        fusedLocationClient.lastLocation.addOnSuccessListener(this) { location ->
+        if (evento_mostrar.getLatitud() != "")
+        {
+            val currentLatLng = LatLng(evento_mostrar.getLatitud().toDouble(), evento_mostrar.getLongitud().toDouble())  // localizacion del evento
+            googleMap?.animateCamera(CameraUpdateFactory.newLatLngZoom(currentLatLng, 18f))
 
-            if (location != null) {
-                //SI SE OBTUVO UNA UBICACION, CENTRAR EL MAPA
-                ubicacion_actual = location
-                val currentLatLng = LatLng(location.latitude, location.longitude)
-                googleMap?.animateCamera(CameraUpdateFactory.newLatLngZoom(currentLatLng, 15f))
-            }
-            else
-            {
-                val currentLatLng = LatLng(15.5000000, -90.2500000)  // localizacion de Guatemala
-                googleMap?.animateCamera(CameraUpdateFactory.newLatLngZoom(currentLatLng, 7f))
+            evento_mostrar.limpiarUbicacion()
+        }
+        else {
+            //FUSEDLOCATIONCLIENT DA LA ULTIMA UBICACION DISPONIBLE DEL USUARIO
+            fusedLocationClient.lastLocation.addOnSuccessListener(this) { location ->
+
+                if (location != null) {
+                    //SI SE OBTUVO UNA UBICACION, CENTRAR EL MAPA
+                    ubicacion_actual = location
+                    val currentLatLng = LatLng(location.latitude, location.longitude)
+                    googleMap?.animateCamera(CameraUpdateFactory.newLatLngZoom(currentLatLng, 15f))
+                } else {
+                    val currentLatLng =  LatLng(15.5000000, -90.2500000)  // localizacion de Guatemala
+                    googleMap?.animateCamera(CameraUpdateFactory.newLatLngZoom(currentLatLng, 7f))
+                }
             }
         }
     }
@@ -188,6 +210,7 @@ class Mapa : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMarkerClickLis
                     var latitud = ""
                     var longitud: String
 
+                    //AQUI EMPIEZA LA FUNCION PARA SEPARAR LA UBICACION EN DOS VARIABLES: LATITUD Y LONGITUD
                     while(texto_ubicacion[0] != ',')
                     {
                         latitud += texto_ubicacion[0].toString()
@@ -195,6 +218,7 @@ class Mapa : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMarkerClickLis
                     }
                     texto_ubicacion = texto_ubicacion.takeLast(texto_ubicacion.length - 1)
                     longitud = texto_ubicacion
+                    //AQUI TERMINA LA FUNCION
 
                     evento.setLatitud(latitud)
                     evento.setLongitud(longitud)
@@ -203,12 +227,18 @@ class Mapa : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMarkerClickLis
                 }
             }
             entrada.close()
-        } catch (e: IOException) {
+        }
+        catch (e: IOException)
+        {
             Toast.makeText(this,"Verifique su conexión a internet", Toast.LENGTH_SHORT).show()
             e.printStackTrace()
-        }catch (e: JSONException) {
+        }
+        catch (e: JSONException)
+        {
             e.printStackTrace()
-        }finally {
+        }
+        finally
+        {
             servicio.desconectar()
         }
     }

@@ -8,6 +8,9 @@ class EventosDatos {
     private var longitud: String=""
     private var latitud: String=""
     private var calificacion: String = ""
+    private var direccion: String = ""
+    private var fecha: String = ""
+    private var hora: String = ""
 
     constructor(codigo: String,titulo: String,descripcion: String,imagenes: String, calificacion: String){
         this.codigo=codigo
@@ -51,4 +54,35 @@ class EventosDatos {
     fun getCalificacion():String{
         return this.calificacion
     }
+
+    fun setDireccion(direccion: String)
+    {
+        this.direccion = direccion
+    }
+
+    fun getDireccion() : String
+    {
+        return this.direccion
+    }
+
+    fun setFecha(fecha: String)
+    {
+        this.fecha = fecha
+    }
+
+    fun getFecha() : String
+    {
+        return this.fecha
+    }
+
+    fun setHora(hora: String)
+    {
+        this.hora = hora
+    }
+
+    fun getHora() : String
+    {
+        return this.hora
+    }
+
 }

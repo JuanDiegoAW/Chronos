@@ -1,14 +1,11 @@
 package com.example.login.Clases
 
 import android.os.StrictMode
+import org.json.JSONArray
 import org.json.JSONObject
 import java.io.*
 import java.net.HttpURLConnection
 import java.net.URL
-
-
-
-
 
 class Servicio {
     private val urlApi:String="http://edvfelipe.pythonanywhere.com/api/"
@@ -88,9 +85,11 @@ class Servicio {
         var json: String
         //paso a un string el json que tengo para posteriormente manipularlo
         json = respuesta.toString()
-        var arrayJson = JSONObject(json)
+
+        val arrayJson = JSONObject(json)
         return arrayJson
     }
+
     /**
      * Desconecta el servicio con el servidor
      */

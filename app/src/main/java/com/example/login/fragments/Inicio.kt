@@ -11,7 +11,6 @@ import androidx.viewpager.widget.ViewPager
 import com.example.login.R
 import com.example.login.Activities.InicioSesion
 import com.example.login.Activities.ViewPageAdapter
-import com.example.login.Clases.AdaptadorEventos
 import com.google.firebase.auth.FirebaseAuth
 
 class Inicio : Fragment() {

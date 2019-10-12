@@ -2,7 +2,6 @@ package com.example.login.fragments
 
 import android.net.Uri
 import android.os.Bundle
-import android.os.StrictMode
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -20,10 +19,8 @@ import org.json.JSONObject
 import java.io.BufferedReader
 import java.io.IOException
 import java.io.InputStreamReader
-import java.net.HttpURLConnection
-import java.net.URL
 
-class eventos : Fragment() {
+class MostrarEventos : Fragment() {
 
     private var listener: OnFragmentInteractionListener? = null
     private var datos : ArrayList<EventosDatos> = ArrayList()
@@ -31,7 +28,9 @@ class eventos : Fragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
+    }
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         //Esto controla las acciones que ocurren cuando se "recarga" el fragment
         refreshLayout.setOnRefreshListener {
             datos.clear()
@@ -75,7 +74,7 @@ class eventos : Fragment() {
 
         recyclerViewModel.layoutManager = LinearLayoutManager(activity)
         //Luego mandamos esa lista al adaptador para asi enlazarlo con el xml del evento
-        recyclerViewModel.adapter = AdaptadorEventos(lista)
+        recyclerViewModel.adapter = AdaptadorEventos(lista,context)
     }
 
     fun onButtonPressed(uri: Uri) {
@@ -92,10 +91,9 @@ class eventos : Fragment() {
     }
 
     companion object {
-
         @JvmStatic
         fun newInstance() =
-            eventos().apply {
+            MostrarEventos().apply {
                 arguments = Bundle().apply {
 
                 }
@@ -103,7 +101,7 @@ class eventos : Fragment() {
     }
 
     /**
-     * Función para listar todos los eventos
+     * Función para listar todos los MostrarEventos
      */
     private fun getData(){
         refreshLayout.isRefreshing = true
@@ -120,16 +118,16 @@ class eventos : Fragment() {
                 }
                 respuesta.append(linea)
             } while (true)
-            var json: String
+            val json: String
             //paso a un string el json que tengo para posteriormente manipularlo
             json = respuesta.toString()
-            var arrayJson = JSONArray(json)
+            val arrayJson = JSONArray(json)
             /**
             * Ciclo para ir sacando del array que tiene forma del json regresado y va a ir
             * almacenando en el arraylist
             */
             for (i in 0 until arrayJson.length()) {
-                var jsonObject: JSONObject = arrayJson.getJSONObject(i)
+                val jsonObject: JSONObject = arrayJson.getJSONObject(i)
                 datos.add(
                     EventosDatos(
                         jsonObject.optString("codigo"),

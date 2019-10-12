@@ -25,7 +25,7 @@
 
     <fragment
         android:id="@+id/nav_eventos"
-        android:name="com.example.login.fragments.eventos"
+        android:name="com.example.login.fragments.MostrarEventos"
         android:label="@string/menu_eventos"
         tools:layout="@layout/fragment_eventos" />
 
