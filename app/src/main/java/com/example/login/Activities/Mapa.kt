@@ -3,9 +3,11 @@ package com.example.login.Activities
 import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.icu.text.IDNA
 import android.location.Location
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
 import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import com.example.login.Clases.Evento
@@ -94,6 +96,9 @@ class Mapa : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMarkerClickLis
         boton_regresar.setOnClickListener{
             regresarMenu()
         }
+        boton_regresar_evento.setOnClickListener{
+            regresarEvento()
+        }
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -101,6 +106,8 @@ class Mapa : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMarkerClickLis
         setContentView(R.layout.activity_mapa)
 
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(this)
+
+        boton_regresar_evento.visibility = View.INVISIBLE
 
         //GOOGLE MAPS
         val mapFragment = supportFragmentManager.findFragmentById(R.id.mapa_fragmento) as SupportMapFragment
@@ -151,6 +158,8 @@ class Mapa : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMarkerClickLis
             googleMap?.animateCamera(CameraUpdateFactory.newLatLngZoom(currentLatLng, 18f))
 
             evento_mostrar.limpiarUbicacion()
+
+            boton_regresar_evento.visibility = View.VISIBLE
         }
         else {
             //FUSEDLOCATIONCLIENT DA LA ULTIMA UBICACION DISPONIBLE DEL USUARIO
@@ -247,6 +256,12 @@ class Mapa : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMarkerClickLis
     {
         startActivity(VentanaPrincipal.getLaunchIntent(this))
         finish()
+    }
+
+    private fun regresarEvento()
+    {
+        var intent = Intent(this, InformacionEvento::class.java)
+        this.startActivity(intent)
     }
 
     override fun onBackPressed() {
