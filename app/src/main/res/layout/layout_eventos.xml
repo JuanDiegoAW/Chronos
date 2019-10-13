@@ -3,12 +3,16 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
     android:layout_width="match_parent"
+    android:background="#feac00"
+    android:backgroundTint="#feac00"
     android:layout_height="wrap_content">
 
     <androidx.cardview.widget.CardView
         android:layout_margin="3dp"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:background="#feac00"
+        android:backgroundTint="#feac00">
 
         <LinearLayout
             android:orientation="vertical"
@@ -34,6 +38,7 @@
                     android:width="80dp"
                     android:textAlignment="center"
                     android:textColor="#ffffff"
+                    android:fontFamily="@font/fonts"
                     android:layout_marginTop="10dp"
                     android:text="Nuevo"
                     android:layout_width="wrap_content"
@@ -48,7 +53,7 @@
                     android:layout_margin="15dp"
                     android:layout_alignParentBottom="true"
                     android:layout_alignParentRight="true"
-                    android:background="@drawable/degradado"
+                    android:background="#feac00"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content">
 
@@ -65,11 +70,13 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="63dp"
-                        android:layout_toRightOf="@id/imagenCalificacionEvento"
+                        android:fontFamily="@font/fonts"
                         android:text="78%"
                         android:textColor="#ffffff"
                         android:textSize="17sp"
-                        android:textStyle="bold" />
+                        android:paddingRight="10dp"
+                        android:textStyle="bold"
+                        />
 
                     <TextView
                         android:id="@+id/calificacionesContadasEvento"
@@ -78,6 +85,7 @@
                         android:layout_centerHorizontal="true"
                         android:layout_below="@id/calificacionEvento"
                         android:textColor="@android:color/white"
+                        android:fontFamily="@font/fonts"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"/>
 
@@ -89,7 +97,9 @@
             <RelativeLayout
                 android:padding="10dp"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:background="#fd9109"
+                android:backgroundTint="#fd9109">
 
                 <ImageView
                     android:id="@+id/fondo"
@@ -101,13 +111,16 @@
                     android:layout_marginLeft="-10dp"
                     android:layout_marginTop="0dp"
                     android:layout_marginRight="0dp"
-                    android:background="@drawable/degradado" />
+                    android:background="#feac00" />
 
                 <TextView
                     android:id="@+id/tituloEvento"
+                    android:paddingTop="5dp"
                     android:textSize="18sp"
-                    android:textColor="#1A1A1A"
+                    android:textColor="#FFFF"
                     android:text="Evento"
+                    android:paddingLeft="20dp"
+                    android:fontFamily="@font/fonts"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"/>
 
@@ -115,7 +128,10 @@
                     android:id="@+id/descripcionEvento"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:textColor="#ffff"
+                    android:paddingLeft="20dp"
                     android:layout_below="@id/tituloEvento"
+                    android:fontFamily="@font/fonts"
                     android:layout_marginTop="0dp"
                     android:text="Descripcion" />
 
@@ -123,9 +139,13 @@
                     android:id="@+id/botonDetallesEvento"
                     android:layout_alignParentRight="true"
                     android:text="Ver detalles"
+                    android:fontFamily="@font/fonts"
+                    android:textColor="#FFFF"
                     android:layout_centerVertical="true"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"/>
+                    android:layout_width="100dp"
+                    android:layout_height="35dp"
+                    android:background="@drawable/btndetalles"
+                    android:layout_marginRight="20dp"/>
 
             </RelativeLayout>
 

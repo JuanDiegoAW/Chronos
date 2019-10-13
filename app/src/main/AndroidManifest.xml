@@ -13,7 +13,7 @@
         android:allowBackup="true"
         android:icon="@mipmap/chronosl"
         android:label="Chronos"
-        android:roundIcon="@mipmap/ic_launcher_round"
+        android:roundIcon="@mipmap/chronosl"
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.Light.NoActionBar"
         android:usesCleartextTraffic="true">
