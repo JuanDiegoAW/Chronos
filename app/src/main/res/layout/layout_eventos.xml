@@ -140,11 +140,12 @@
                     android:layout_alignParentRight="true"
                     android:text="Ver detalles"
                     android:fontFamily="@font/fonts"
-                    android:textColor="#FFFF"
+                    android:textColor="@drawable/txtbtninicio"
                     android:layout_centerVertical="true"
                     android:layout_width="100dp"
                     android:layout_height="35dp"
                     android:background="@drawable/btndetalles"
+
                     android:layout_marginRight="20dp"/>
 
             </RelativeLayout>
