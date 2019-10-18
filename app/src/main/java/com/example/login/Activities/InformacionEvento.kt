@@ -161,7 +161,7 @@ class InformacionEvento : AppCompatActivity() {
             datos.put("codigoEvento",adaptador_evento.getEvento().codigo)
             datos.put("idUsuario",usuario.getCodigo())
 
-            var mensaje:String="Error al crear el comenatrio"
+            var mensaje:String="Error al crear el comentario"
             if(servicio.metodoPost("comentarios/?codigo="+adaptador_evento.getEvento().codigo, datos))
             {
                 mensaje = "Comentario posteado correctamente"
