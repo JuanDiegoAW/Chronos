@@ -17,7 +17,8 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.Light.NoActionBar"
         android:usesCleartextTraffic="true">
-        <activity android:name=".Activities.InformacionEvento"></activity>
+        <activity android:name=".Activities.Reservas"></activity>
+        <activity android:name=".Activities.InformacionEvento" />
         <activity android:name=".Activities.Mapa" />
         <activity
             android:name=".Activities.VentanaPrincipal"

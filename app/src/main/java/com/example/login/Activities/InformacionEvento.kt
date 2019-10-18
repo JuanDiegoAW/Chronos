@@ -36,6 +36,11 @@ class InformacionEvento : AppCompatActivity() {
             comentarios.clear()
             getDataComentarios()
         }
+        boton_reservar.setOnClickListener {
+            val intento1 = Intent(this, Reservas::class.java)
+            startActivity(intento1)
+        }
+
     }
 
     private fun getDataComentarios()
