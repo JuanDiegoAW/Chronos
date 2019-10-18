@@ -34,9 +34,22 @@ class Servicio {
         else
             null
     }
+
+    fun metodoGetBusquedaArray(link:String,id:String) : InputStream? {
+        var url = URL(this.urlApi + link+"/?"+id)
+        this.conexion = url.openConnection() as HttpURLConnection
+        this.conexion!!.requestMethod = "GET"
+        this.conexion!!.connect()
+
+        return if(this.conexion!!.responseCode==200)
+            this.conexion!!.inputStream
+        else
+            null
+    }
+
     fun metodoPost(link: String,datos : JSONObject): Boolean {
         println(datos)
-        val url = URL("$urlApi$link/")
+        val url = URL("$urlApi$link")
         this.conexion = url.openConnection() as HttpURLConnection
         this.conexion!!.doOutput=true
         this.conexion!!.requestMethod = "POST"

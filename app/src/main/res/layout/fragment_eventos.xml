@@ -11,7 +11,7 @@
         android:layout_height="match_parent">
 
         <androidx.recyclerview.widget.RecyclerView
-            tools:listitem = "@layout/fragment_eventos"
+            tools:listitem = "@layout/layout_eventos"
             android:id="@+id/recyclerViewModel"
             android:layout_width="match_parent"
             android:layout_height="match_parent"/>

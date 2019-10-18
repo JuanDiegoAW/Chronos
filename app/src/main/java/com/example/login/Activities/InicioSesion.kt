@@ -244,7 +244,7 @@ class InicioSesion : AppCompatActivity() {
             user.email?.let { usuario.setCorreo(it) }
 
             var mensaje:String="Error al crear el usuario"
-            if(servicio.metodoPost("usuarios", datos))
+            if(servicio.metodoPost("usuarios/", datos))
                 mensaje="Usuario creado correctamente"
             Toast.makeText(this, mensaje,Toast.LENGTH_SHORT).show()
         }
@@ -262,6 +262,7 @@ class InicioSesion : AppCompatActivity() {
         {
             usuario.setNombre(jsonObject.optString("nombre"))
             user.email?.let { usuario.setCorreo(it) }
+            usuario.setCodigo(jsonObject.optString("id"))
         }
         servicio.desconectar()
     }

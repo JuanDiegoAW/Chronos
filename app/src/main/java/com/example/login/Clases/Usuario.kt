@@ -6,10 +6,21 @@ class Usuario{
 
     companion object Static{
         fun iniciar(): Usuario = Usuario()
+        private lateinit var codigo: String
         private lateinit var nombre: String
         private lateinit var correo: String
         private lateinit var uriFoto: Uri
         private var sesion: Int = 0
+    }
+
+    fun setCodigo(cod: String)
+    {
+        codigo = cod
+    }
+
+    fun getCodigo() : String
+    {
+        return codigo
     }
 
     fun setNombre(nomb : String)

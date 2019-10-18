@@ -3,7 +3,6 @@ package com.example.login.Activities
 import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
-import android.icu.text.IDNA
 import android.location.Location
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -31,6 +30,7 @@ import org.json.JSONObject
 import java.io.BufferedReader
 import java.io.IOException
 import java.io.InputStreamReader
+import java.lang.Double.parseDouble
 
 @Suppress("NULLABILITY_MISMATCH_BASED_ON_JAVA_ANNOTATIONS")
 class Mapa : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMarkerClickListener,
@@ -49,14 +49,14 @@ class Mapa : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMarkerClickLis
         //Por tanto, tomamos el id del marcador y le quitamos el primer caracter (la "m") y luego buscamos en la lista esta posicion
         var textoId = marker.id
         textoId = textoId.takeLast(textoId.length - 1)
-        var id = textoId.toInt()
+        val id = textoId.toInt()
 
         //Se crea un evento solo con el codigo ya que solo este campo se necesita.
         //En la ventana de "InformacionEvento" se hace uso del codigo para hacer la consulta de TODOS los datos del evento
         val evento = Evento(datos[id].getCodigo(), "","","","")
 
         evento_mostrar.setEvento(evento)
-        var intent = Intent(this, InformacionEvento::class.java)
+        val intent = Intent(this, InformacionEvento::class.java)
         this.startActivity(intent)
     }
 
@@ -180,7 +180,7 @@ class Mapa : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMarkerClickLis
 
     private fun getData(){
         try {
-            val entrada = BufferedReader(InputStreamReader(servicio.metodoGet("eventos")))
+            val entrada = BufferedReader(InputStreamReader(servicio.metodoGet("eventos/fecha")))
             val respuesta = StringBuffer()
             //Ciclo para ir leyendo línea por línea e ir agregarlo en respuesta
             var linea : String?
@@ -229,10 +229,20 @@ class Mapa : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMarkerClickLis
                     longitud = texto_ubicacion
                     //AQUI TERMINA LA FUNCION
 
-                    evento.setLatitud(latitud)
-                    evento.setLongitud(longitud)
+                    var aceptado = true
+                    try {
+                        parseDouble(longitud)
+                        parseDouble(latitud)
+                    } catch (e: NumberFormatException) {
+                        aceptado = false
+                    }
 
-                    datos.add(evento)
+                    if(aceptado == true) {
+                        evento.setLatitud(latitud)
+                        evento.setLongitud(longitud)
+
+                        datos.add(evento)
+                    }
                 }
             }
             entrada.close()
@@ -260,7 +270,7 @@ class Mapa : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMarkerClickLis
 
     private fun regresarEvento()
     {
-        var intent = Intent(this, InformacionEvento::class.java)
+        val intent = Intent(this, InformacionEvento::class.java)
         this.startActivity(intent)
     }
 

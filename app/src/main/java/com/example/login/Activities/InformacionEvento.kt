@@ -3,19 +3,29 @@ package com.example.login.Activities
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import com.example.login.Clases.Evento
-import com.example.login.Clases.EventosDatos
-import com.example.login.Clases.ParametrosEventos
-import com.example.login.Clases.Servicio
+import android.util.AttributeSet
+import android.view.View
+import android.widget.Toast
+import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.login.Clases.*
 import com.example.login.R
 import kotlinx.android.synthetic.main.activity_informacion_evento.*
+import kotlinx.android.synthetic.main.fragment_eventos.*
+import org.json.JSONArray
+import org.json.JSONException
+import org.json.JSONObject
+import java.io.BufferedReader
+import java.io.IOException
+import java.io.InputStreamReader
 
 class InformacionEvento : AppCompatActivity() {
 
+    private val usuario = Usuario.iniciar()
     private lateinit var codigo_evento: Evento
     private val adaptador_evento = ParametrosEventos.iniciar()
     private var servicio: Servicio = Servicio()
     private lateinit var evento : EventosDatos
+    private var comentarios : ArrayList<Comentario> = ArrayList()
 
     override fun onCreate(savedInstanceState: Bundle?)
     {
@@ -24,6 +34,57 @@ class InformacionEvento : AppCompatActivity() {
         codigo_evento = adaptador_evento.getEvento()
         obtenerEvento()
         setupUI()
+        getDataComentarios()
+
+        refreshComentarios.setOnRefreshListener {
+            comentarios.clear()
+            getDataComentarios()
+        }
+    }
+
+    private fun getDataComentarios()
+    {
+        refreshComentarios.isRefreshing = true
+
+        var entrada = BufferedReader(InputStreamReader(servicio.metodoGetBusquedaArray("comentarios", "codigo="+adaptador_evento.getEvento().codigo)))
+        var respuesta = StringBuffer()
+        //Ciclo para ir leyendo línea por línea e ir agregarlo en respuesta
+        var linea : String?
+        do {
+            linea = entrada.readLine()
+            if (linea == null) {
+                break
+            }
+            respuesta.append(linea)
+        } while (true)
+        val json: String
+        //paso a un string el json que tengo para posteriormente manipularlo
+        json = respuesta.toString()
+        val arrayJson = JSONArray(json)
+
+        for (i in 0 until arrayJson.length()) {
+
+            val jsonObject: JSONObject = arrayJson.getJSONObject(i)
+
+            comentarios.add(
+                Comentario(
+                    jsonObject.optString("descripcion"),
+                    jsonObject.optString("calificacion"),
+                    jsonObject.optString("idUsuario")
+                )
+            )
+        }
+        showDataComentarios()
+        entrada.close()
+
+        refreshComentarios.isRefreshing = false
+    }
+
+    private fun showDataComentarios()
+    {
+        recyclerComentariosEventos.layoutManager = LinearLayoutManager(this)
+        //Luego mandamos esa lista al adaptador para asi enlazarlo con el xml del evento
+        recyclerComentariosEventos.adapter = AdaptadorComentarios(comentarios, this)
     }
 
     private fun obtenerEvento()
@@ -82,6 +143,37 @@ class InformacionEvento : AppCompatActivity() {
 
             val intent = Intent(this, Mapa::class.java)
             startActivity(intent)
+        }
+
+        boton_comentar.setOnClickListener{
+            comentar()
+        }
+    }
+
+    private fun comentar()
+    {
+        val texto_a_comentar = texto_comentario.text.toString()
+
+        try {
+            val datos = JSONObject()
+            datos.put("descripcion",texto_a_comentar)
+            datos.put("calificacion","5")
+            datos.put("codigoEvento",adaptador_evento.getEvento().codigo)
+            datos.put("idUsuario",usuario.getCodigo())
+
+            var mensaje:String="Error al crear el comenatrio"
+            if(servicio.metodoPost("comentarios/?codigo="+adaptador_evento.getEvento().codigo, datos))
+            {
+                mensaje = "Comentario posteado correctamente"
+                texto_comentario.setText("")
+                Toast.makeText(this, mensaje, Toast.LENGTH_SHORT).show()
+                comentarios.clear()
+                getDataComentarios()
+            }
+        }
+        catch (e: JSONException)
+        {
+            e.printStackTrace()
         }
     }
 }

@@ -107,7 +107,7 @@ class MostrarEventos : Fragment() {
         refreshLayout.isRefreshing = true
         try
         {
-            var entrada = BufferedReader(InputStreamReader(servicio.metodoGet("eventos")))
+            var entrada = BufferedReader(InputStreamReader(servicio.metodoGet("eventos/fecha")))
             var respuesta = StringBuffer()
             //Ciclo para ir leyendo línea por línea e ir agregarlo en respuesta
             var linea : String?

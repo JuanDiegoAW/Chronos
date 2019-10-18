@@ -37,7 +37,7 @@ class AdaptadorEventos(val listaEventos: List<Evento>, val contexto: Context?): 
         //InformacionEvento
         holder.view.botonDetallesEvento.setOnClickListener{
             evento_mostrar.setEvento(evento_actual)
-            var intent = Intent(contexto, InformacionEvento::class.java)
+            val intent = Intent(contexto, InformacionEvento::class.java)
             contexto!!.startActivity(intent)
         }
     }
