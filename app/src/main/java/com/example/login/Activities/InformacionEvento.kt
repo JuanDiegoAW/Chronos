@@ -3,19 +3,15 @@ package com.example.login.Activities
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.AttributeSet
-import android.view.View
 import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.login.Clases.*
 import com.example.login.R
 import kotlinx.android.synthetic.main.activity_informacion_evento.*
-import kotlinx.android.synthetic.main.fragment_eventos.*
 import org.json.JSONArray
 import org.json.JSONException
 import org.json.JSONObject
 import java.io.BufferedReader
-import java.io.IOException
 import java.io.InputStreamReader
 
 class InformacionEvento : AppCompatActivity() {
@@ -167,7 +163,7 @@ class InformacionEvento : AppCompatActivity() {
             datos.put("codigoEvento",adaptador_evento.getEvento().codigo)
             datos.put("idUsuario",usuario.getCodigo())
 
-            var mensaje ="Error al crear el comenatrio"
+            var mensaje = "Error al crear el comenatrio"
             if(servicio.metodoPost("comentarios/?codigo="+adaptador_evento.getEvento().codigo, datos))
             {
                 mensaje = "Comentario posteado correctamente"
