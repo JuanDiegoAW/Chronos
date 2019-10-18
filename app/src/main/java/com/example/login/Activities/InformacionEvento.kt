@@ -82,9 +82,15 @@ class InformacionEvento : AppCompatActivity() {
 
     private fun showDataComentarios()
     {
+        ordenarComentarios()
         recyclerComentariosEventos.layoutManager = LinearLayoutManager(this)
         //Luego mandamos esa lista al adaptador para asi enlazarlo con el xml del evento
         recyclerComentariosEventos.adapter = AdaptadorComentarios(comentarios, this)
+    }
+
+    private fun ordenarComentarios()
+    {
+        comentarios.reverse()
     }
 
     private fun obtenerEvento()
@@ -161,7 +167,7 @@ class InformacionEvento : AppCompatActivity() {
             datos.put("codigoEvento",adaptador_evento.getEvento().codigo)
             datos.put("idUsuario",usuario.getCodigo())
 
-            var mensaje:String="Error al crear el comenatrio"
+            var mensaje ="Error al crear el comenatrio"
             if(servicio.metodoPost("comentarios/?codigo="+adaptador_evento.getEvento().codigo, datos))
             {
                 mensaje = "Comentario posteado correctamente"
