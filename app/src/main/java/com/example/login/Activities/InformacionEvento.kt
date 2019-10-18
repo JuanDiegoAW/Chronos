@@ -78,9 +78,15 @@ class InformacionEvento : AppCompatActivity() {
 
     private fun showDataComentarios()
     {
+        ordenarComentarios()
         recyclerComentariosEventos.layoutManager = LinearLayoutManager(this)
         //Luego mandamos esa lista al adaptador para asi enlazarlo con el xml del evento
         recyclerComentariosEventos.adapter = AdaptadorComentarios(comentarios, this)
+    }
+
+    private fun ordenarComentarios()
+    {
+        comentarios.reverse()
     }
 
     private fun obtenerEvento()
