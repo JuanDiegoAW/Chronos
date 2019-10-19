@@ -2,6 +2,7 @@ package com.example.login.Clases
 
 import android.os.StrictMode
 import org.json.JSONArray
+import org.json.JSONException
 import org.json.JSONObject
 import java.io.*
 import java.net.HttpURLConnection
@@ -79,28 +80,40 @@ class Servicio {
     }
 
     fun metodoGetBusqueda(urlAPI:String,id:String):JSONObject{
-        var url = URL(this.urlApi + urlAPI+"/?"+id)
-        this.conexion = url.openConnection() as HttpURLConnection
-        this.conexion!!.requestMethod = "GET"
-        this.conexion!!.setRequestProperty("User-Agent","Mozilla/5.0")
-        this.conexion!!.connect()
-        var entrada = BufferedReader(InputStreamReader(this.conexion!!.inputStream))
-        var respuesta = StringBuffer()
-        //Ciclo para ir leyendo línea por línea e ir agregarlo en respuesta
-        var linea : String?
-        do {
-            linea = entrada.readLine()
-            if (linea == null) {
-                break
-            }
-            respuesta.append(linea)
-        } while (true)
-        var json: String
-        //paso a un string el json que tengo para posteriormente manipularlo
-        json = respuesta.toString()
+        try {
+            var url = URL(this.urlApi + urlAPI+"/?"+id)
+            this.conexion = url.openConnection() as HttpURLConnection
+            this.conexion!!.requestMethod = "GET"
+            this.conexion!!.setRequestProperty("User-Agent","Mozilla/5.0")
+            this.conexion!!.connect()
+            var entrada = BufferedReader(InputStreamReader(this.conexion!!.inputStream))
+            var respuesta = StringBuffer()
+            //Ciclo para ir leyendo línea por línea e ir agregarlo en respuesta
+            var linea : String?
+            do {
+                linea = entrada.readLine()
+                if (linea == null) {
+                    break
+                }
+                respuesta.append(linea)
+            } while (true)
+            var json: String
+            //paso a un string el json que tengo para posteriormente manipularlo
+            json = respuesta.toString()
 
-        val arrayJson = JSONObject(json)
-        return arrayJson
+            val arrayJson = JSONObject(json)
+            return arrayJson
+        }
+        catch (e: IOException) {
+            e.printStackTrace()
+        }
+        catch (e: JSONException) {
+            e.printStackTrace()
+        }
+        finally {
+            desconectar()
+        }
+        return JSONObject()
     }
 
     /**
