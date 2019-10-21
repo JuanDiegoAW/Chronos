@@ -2,6 +2,7 @@
 <AbsoluteLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/abL"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/degradado"
@@ -10,47 +11,14 @@
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="572dp"
+        android:layout_height="365dp"
         android:layout_y="159dp">
 
         <LinearLayout
-            android:layout_width="match_parent"
+            android:id="@+id/llPrincipal"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-            <LinearLayout
-                android:id="@+id/llBotonera"
-                android:layout_width="60dp"
-                android:layout_height="1300dp"
-                android:orientation="vertical"></LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/llBotonera1"
-                android:layout_width="60dp"
-                android:layout_height="1300dp"
-                android:orientation="vertical"></LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/llBotonera2"
-                android:layout_width="60dp"
-                android:layout_height="1300dp"
-                android:orientation="vertical"></LinearLayout>
-
-
-            <LinearLayout
-                android:id="@+id/llBotonera3"
-                android:layout_width="60dp"
-                android:layout_height="1300dp"
-                android:orientation="vertical"></LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/llBotonera4"
-                android:layout_width="60dp"
-                android:layout_height="1300dp"
-                android:orientation="vertical"></LinearLayout>
-
-
-        </LinearLayout>
+            android:orientation="vertical" />
     </ScrollView>
 
     <Spinner

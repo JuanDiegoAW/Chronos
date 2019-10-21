@@ -36,6 +36,11 @@ class Servicio {
             null
     }
 
+    /**
+     * Éste método nos ayuda a obtener un array de JSON para el cual podemos obtener
+     * información según se solicite, por ejemplo la lista de localidades de un evento o los
+     * asientos de dicho evento.
+     */
     fun metodoGetBusquedaArray(link:String,id:String) : InputStream? {
         var url = URL(this.urlApi + link+"/?"+id)
         this.conexion = url.openConnection() as HttpURLConnection
@@ -48,6 +53,10 @@ class Servicio {
             null
     }
 
+    /**
+     * Método post, se utiliza para enviarle al servidor un objeto de tipo JSON, estó nos sirver
+     * por ejemplo enviar la información del usuario para validar si este ya existe o no en la api
+     */
     fun metodoPost(link: String,datos : JSONObject): Boolean {
         println(datos)
         val url = URL("$urlApi$link")
@@ -60,10 +69,8 @@ class Servicio {
             val os = this.conexion!!.outputStream
             os.write(datos.toString().toByteArray())
             os.close()
-
             val br = BufferedReader(InputStreamReader(this.conexion!!.inputStream))
             var linea : String?
-            println("Output from Server .... \n")
             println(this.conexion!!.responseCode)
             do {
                 linea = br.readLine()
@@ -79,9 +86,13 @@ class Servicio {
         return false
     }
 
-    fun metodoGetBusqueda(urlAPI:String,id:String):JSONObject{
+    /**
+     * Método que utilizamos cuando el servidor nos va a retornar un objeto de tipo JSON
+     * Como por ejemplo al hacer click a un evento solicitamos su información en concreto!
+     */
+    fun metodoGetBusqueda(link:String,id:String):JSONObject{
         try {
-            var url = URL(this.urlApi + urlAPI+"/?"+id)
+            var url = URL(this.urlApi + link+"/?"+id)
             this.conexion = url.openConnection() as HttpURLConnection
             this.conexion!!.requestMethod = "GET"
             this.conexion!!.setRequestProperty("User-Agent","Mozilla/5.0")
@@ -102,6 +113,7 @@ class Servicio {
             json = respuesta.toString()
 
             val arrayJson = JSONObject(json)
+            desconectar()
             return arrayJson
         }
         catch (e: IOException) {
@@ -110,14 +122,11 @@ class Servicio {
         catch (e: JSONException) {
             e.printStackTrace()
         }
-        finally {
-            desconectar()
-        }
         return JSONObject()
     }
 
     /**
-     * Desconecta el servicio con el servidor
+     * Desconectarnos de la api
      */
     fun desconectar(){
         this.conexion?.disconnect()
