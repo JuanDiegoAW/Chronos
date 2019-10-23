@@ -64,6 +64,7 @@ class Reservas() : AppCompatActivity(),AdapterView.OnItemSelectedListener {
             for (i in 0 until arrayJson.length()) {
                 var objetos=arrayJson.getJSONObject(i)
                 datosLocalidad.put(objetos.optString("tipoLocalidad"),objetos.optInt("id"))
+
             }
             entrada.close()
         }
@@ -100,7 +101,11 @@ class Reservas() : AppCompatActivity(),AdapterView.OnItemSelectedListener {
                         val button = Button(this)
                         button.textSize = 15F
                         button.text = contador.toString()
+                        button.setTextColor(Color.WHITE)
+                        button.setBackgroundColor(Color.GREEN)
                         button.setOnClickListener(ButtonsOnClickListener(this))
+
+
                         this.arrayBotonera[i].addView(button)
                     }else
                         break

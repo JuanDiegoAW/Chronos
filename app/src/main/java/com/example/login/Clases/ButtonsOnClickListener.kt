@@ -15,7 +15,7 @@ internal class ButtonsOnClickListener(var context: Context) : View.OnClickListen
         val b = v as Button
         Toast.makeText(this.context, "Ha reservado: "+ b.text, Toast.LENGTH_SHORT).show()
         v.isEnabled=false
-        //v.setBackgroundColor(Color.RED)
+        v.setBackgroundColor(Color.RED)
 
     }
 }
