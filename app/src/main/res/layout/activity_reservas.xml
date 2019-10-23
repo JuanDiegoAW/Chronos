@@ -5,19 +5,21 @@
     android:id="@+id/abL"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/degradado"
+    android:background="#feac00"
     tools:context=".Activities.Reservas">
 
 
     <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="365dp"
+        android:layout_width="347dp"
+        android:layout_height="479dp"
+        android:layout_x="31dp"
         android:layout_y="159dp">
 
         <LinearLayout
             android:id="@+id/llPrincipal"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:backgroundTint="#FFDF2662"
             android:orientation="vertical" />
     </ScrollView>
 
@@ -25,6 +27,8 @@
         android:id="@+id/spLocalidad"
         android:layout_width="241dp"
         android:layout_height="44dp"
+        android:background="@drawable/btndetalles"
+        android:foregroundTint="#FFFF"
         android:layout_x="45dp"
         android:layout_y="97dp" />
 
@@ -34,6 +38,10 @@
         android:layout_height="36dp"
         android:layout_x="106dp"
         android:layout_y="38dp"
+        android:fontFamily="@font/fonts"
+        android:textColor="#FFF"
+        android:textSize="20dp"
+
         android:text="Seleccione Localidad"
         android:textAlignment="center" />
 
