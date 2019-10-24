@@ -70,6 +70,7 @@ class MostrarEventos : Fragment() {
         for (dato in this.datos)
         {
             lista.add(Evento(dato.getCodigo(),dato.getTitulo(),dato.getDescripcion(),dato.getImagen(),dato.getCalificacion()))
+            println("Imagen->${dato.getImagen()}")
         }
 
         recyclerViewModel.layoutManager = LinearLayoutManager(activity)
@@ -133,7 +134,7 @@ class MostrarEventos : Fragment() {
                         jsonObject.optString("codigo"),
                         jsonObject.optString("titulo"),
                         jsonObject.optString("descripcion"),
-                        jsonObject.optString("imagenes"),
+                        getImageEvento(jsonObject.optString("codigo")),
                         jsonObject.optString("calificacionP")
                     )
                 )
@@ -158,5 +159,46 @@ class MostrarEventos : Fragment() {
         }
         //Despues de obtener los datos, los mostramos
         showData()
+    }
+
+    private fun getImageEvento(cod:String):String{
+        var mensaje ="No imagen"
+        try
+        {
+            var entrada = BufferedReader(InputStreamReader(servicio.metodoGetBusquedaArray("imagenes","codigo=$cod")))
+            var respuesta = StringBuffer()
+            //Ciclo para ir leyendo línea por línea e ir agregarlo en respuesta
+            var linea : String?
+            do {
+                linea = entrada.readLine()
+                if (linea == null) {
+                    break
+                }
+                respuesta.append(linea)
+            } while (true)
+            val json: String
+            //paso a un string el json que tengo para posteriormente manipularlo
+            json = respuesta.toString()
+            val arrayJson = JSONArray(json)
+            /**
+             * Ciclo para ir sacando del array que tiene forma del json regresado y va a ir
+             * almacenando en el arraylist
+             **/
+            entrada.close()
+            mensaje = if(arrayJson.length()>0){"http://edvfelipe.pythonanywhere.com" +
+                    arrayJson.getJSONObject(0).optString("imagen")}
+            else {"No imagen"}
+        }
+        catch (e: IOException) {
+            Toast.makeText(this.context,"Verifique su conexión a internet",Toast.LENGTH_SHORT).show()
+            e.printStackTrace()
+        }
+        catch (e: JSONException) {
+            e.printStackTrace()
+        }
+        finally {
+            servicio.desconectar()
+        }
+        return mensaje
     }
 }

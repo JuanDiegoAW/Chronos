@@ -1,13 +1,10 @@
 package com.example.login.Activities
 
-import android.annotation.TargetApi
 import android.graphics.Color
-import android.graphics.drawable.Drawable
-import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.example.login.Clases.*
-import com.example.login.Clases.ButtonsOnClickListener
+import com.example.login.Clases.AdapterButtonsOnClickListener
 import kotlinx.android.synthetic.main.activity_reservas.*
 import org.json.JSONArray
 import org.json.JSONException
@@ -16,9 +13,7 @@ import java.io.IOException
 import java.io.InputStreamReader
 import android.view.View
 import android.widget.*
-import androidx.annotation.RequiresApi
 import com.example.login.R
-import kotlinx.android.synthetic.main.activity_reservas.view.*
 import java.util.ArrayList
 
 
@@ -29,6 +24,8 @@ class Reservas() : AppCompatActivity(),AdapterView.OnItemSelectedListener {
     private val adaptador_evento = ParametrosEventos.iniciar()
     private var datosLocalidad :HashMap<String,Int> = hashMapOf()
     private var arrayBotonera: ArrayList<LinearLayout> = ArrayList()
+    private var asientoId : ArrayList<Button> = ArrayList()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_reservas)
@@ -41,6 +38,9 @@ class Reservas() : AppCompatActivity(),AdapterView.OnItemSelectedListener {
             android.R.layout.simple_spinner_item,datosLocalidad.keys.toTypedArray())
         spLocalidad.adapter = adapterSpinner
         spLocalidad.onItemSelectedListener=this
+        btnReserva.setOnClickListener {
+            AdaptadorCuadroDialogo(this,arrayBotonera,asientoId)
+        }
     }
 
     private fun obtenerLocalidad(eventoCod:String){
@@ -87,9 +87,8 @@ class Reservas() : AppCompatActivity(),AdapterView.OnItemSelectedListener {
             var cantidad = jsonObject.optInt("cantidadAsientos")
             var cant = cantidad
             var contador=1
-            for (i in 0 until  this.arrayBotonera.size){
-                if (this.arrayBotonera[i].childCount>0)
-                    this.arrayBotonera[i].removeAllViews()
+            if (llPrincipal.childCount>0){
+                llPrincipal.removeAllViews()
             }
             this.arrayBotonera = ArrayList()
             cantidad = if ((cantidad%5)>0) (cantidad/5) +1 else cantidad/5
@@ -103,14 +102,11 @@ class Reservas() : AppCompatActivity(),AdapterView.OnItemSelectedListener {
                         button.text = contador.toString()
                         button.setTextColor(Color.WHITE)
                         button.setBackgroundColor(Color.GREEN)
-                        button.setOnClickListener(ButtonsOnClickListener(this))
-
-
+                        button.setOnClickListener(AdapterButtonsOnClickListener(this,this.asientoId))
                         this.arrayBotonera[i].addView(button)
                     }else
                         break
                     contador ++
-
                 }
                 llPrincipal.addView(this.arrayBotonera[i])
             }

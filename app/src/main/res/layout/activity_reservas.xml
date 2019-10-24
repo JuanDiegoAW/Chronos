@@ -11,7 +11,7 @@
 
     <ScrollView
         android:layout_width="347dp"
-        android:layout_height="479dp"
+        android:layout_height="309dp"
         android:layout_x="31dp"
         android:layout_y="159dp">
 
@@ -44,6 +44,14 @@
 
         android:text="Seleccione Localidad"
         android:textAlignment="center" />
+
+    <Button
+        android:id="@+id/btnReserva"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_x="73dp"
+        android:layout_y="493dp"
+        android:text="Anular asientos seleccionados" />
 
 
 </AbsoluteLayout>
