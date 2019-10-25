@@ -16,7 +16,7 @@ internal class AdapterButtonsOnClickListener(var context: Context, var lista:Arr
             val b = v as Button
             Toast.makeText(this.context, "Ha reservado:  ${b.text}", Toast.LENGTH_SHORT).show()
             v.isEnabled=false
-            v.setBackgroundColor(Color.RED)
+            v.setBackgroundColor(Color.rgb(253,127,72))
             lista.add(b)
         }else{
             Toast.makeText(this.context, "El Limite de asientos a reservar son 5", Toast.LENGTH_SHORT).show()
