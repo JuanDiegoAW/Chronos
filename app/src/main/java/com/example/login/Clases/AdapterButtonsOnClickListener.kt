@@ -12,7 +12,7 @@ import com.example.login.R
 internal class AdapterButtonsOnClickListener(var context: Context, var lista:ArrayList<Button>) : View.OnClickListener {
 
     override fun onClick(v: View) {
-        if (lista.size<5){
+        if (lista.size<10){
             val b = v as Button
             Toast.makeText(this.context, "Ha reservado:  ${b.text}", Toast.LENGTH_SHORT).show()
             v.isEnabled=false
