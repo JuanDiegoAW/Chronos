@@ -1,9 +1,11 @@
 package com.example.login.Activities
 
 import android.content.Intent
+import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
+import androidx.annotation.RequiresApi
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.login.Clases.*
 import com.example.login.R
@@ -13,6 +15,9 @@ import org.json.JSONException
 import org.json.JSONObject
 import java.io.BufferedReader
 import java.io.InputStreamReader
+import java.time.LocalDateTime
+import java.time.format.DateTimeFormatter
+import java.time.format.FormatStyle
 
 class InformacionEvento : AppCompatActivity() {
 
@@ -23,6 +28,7 @@ class InformacionEvento : AppCompatActivity() {
     private lateinit var evento : EventosDatos
     private var comentarios : ArrayList<Comentario> = ArrayList()
 
+    @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreate(savedInstanceState: Bundle?)
     {
         super.onCreate(savedInstanceState)
@@ -130,6 +136,7 @@ class InformacionEvento : AppCompatActivity() {
         servicio.desconectar()
     }
 
+    @RequiresApi(Build.VERSION_CODES.O)
     private fun setupUI()
     {
         //Poner la parte visual
@@ -141,7 +148,8 @@ class InformacionEvento : AppCompatActivity() {
 
         //Poner los botones
         boton_regresar.setOnClickListener{
-            super.onBackPressed()
+            val intent = Intent(this, VentanaPrincipal::class.java)
+            startActivity(intent)
         }
 
         boton_Maps.setOnClickListener{
@@ -157,9 +165,14 @@ class InformacionEvento : AppCompatActivity() {
         }
     }
 
+    @RequiresApi(Build.VERSION_CODES.O)
     private fun comentar()
     {
         val texto_a_comentar = texto_comentario.text.toString()
+
+        val current = LocalDateTime.now()
+        val formatter = DateTimeFormatter.ofLocalizedDate(FormatStyle.MEDIUM)
+        val fecha = current.format(formatter)
 
         try {
             val datos = JSONObject()

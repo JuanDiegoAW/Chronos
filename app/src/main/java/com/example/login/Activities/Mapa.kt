@@ -152,6 +152,7 @@ class Mapa : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMarkerClickLis
         //DE LO CONTRARIO, ACTIVA LA UBICACION
         googleMap!!.isMyLocationEnabled = true
 
+        //SI EL USUARIO VIENE DE LA VENTANA DE EVENTO SE HACE ZOOM AL EVENTO SELECCIONADO
         if (evento_mostrar.getLatitud() != "")
         {
             val currentLatLng = LatLng(evento_mostrar.getLatitud().toDouble(), evento_mostrar.getLongitud().toDouble())  // localizacion del evento
@@ -160,17 +161,20 @@ class Mapa : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMarkerClickLis
             evento_mostrar.limpiarUbicacion()
 
             boton_regresar_evento.visibility = View.VISIBLE
+            boton_regresar.visibility = View.VISIBLE
         }
+        //SI NO VINIERA DE ESA VENTANA, SE HACE LA CONFIGURACION NORMAL DEL MAPA
         else {
             //FUSEDLOCATIONCLIENT DA LA ULTIMA UBICACION DISPONIBLE DEL USUARIO
             fusedLocationClient.lastLocation.addOnSuccessListener(this) { location ->
 
                 if (location != null) {
-                    //SI SE OBTUVO UNA UBICACION, CENTRAR EL MAPA
+                    //SI SE OBTUVO UNA UBICACION, CENTRAR EL MAPA EN EL USUARIO
                     ubicacion_actual = location
                     val currentLatLng = LatLng(location.latitude, location.longitude)
                     googleMap?.animateCamera(CameraUpdateFactory.newLatLngZoom(currentLatLng, 15f))
                 } else {
+                    //DE LO CONTRARIO, SE HACE ZOOM EN GUATEMALA GENERAL
                     val currentLatLng =  LatLng(15.5000000, -90.2500000)  // localizacion de Guatemala
                     googleMap?.animateCamera(CameraUpdateFactory.newLatLngZoom(currentLatLng, 7f))
                 }

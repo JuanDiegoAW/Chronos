@@ -111,7 +111,6 @@ class Servicio {
             var json: String
             //paso a un string el json que tengo para posteriormente manipularlo
             json = respuesta.toString()
-
             val arrayJson = JSONObject(json)
             desconectar()
             return arrayJson

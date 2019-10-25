@@ -21,7 +21,6 @@ import com.google.firebase.auth.FirebaseAuth
 import kotlinx.android.synthetic.main.activity_inicio_sesion.*
 import com.facebook.login.LoginManager
 import com.facebook.login.LoginResult
-import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.firebase.auth.FacebookAuthProvider
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.GoogleAuthProvider
@@ -38,9 +37,6 @@ class InicioSesion : AppCompatActivity() {
     //google
     private lateinit var mGoogleSignInClient: GoogleSignInClient
     private lateinit var mGoogleSignInOptions: GoogleSignInOptions
-
-    //ubicacion
-    private lateinit var fusedLocationClient: FusedLocationProviderClient
 
     //firebase
     private lateinit var firebaseAuth: FirebaseAuth
@@ -243,7 +239,7 @@ class InicioSesion : AppCompatActivity() {
             user.displayName?.let { usuario.setNombre(it) }
             user.email?.let { usuario.setCorreo(it) }
 
-            var mensaje:String="Error al crear el usuario"
+            var mensaje ="Error al crear el usuario"
             if(servicio.metodoPost("usuarios/", datos))
                 mensaje="Usuario creado correctamente"
             Toast.makeText(this, mensaje,Toast.LENGTH_SHORT).show()
@@ -256,8 +252,9 @@ class InicioSesion : AppCompatActivity() {
     private fun verificar(user:FirebaseUser)
     {
         val jsonObject=servicio.metodoGetBusqueda("usuarios","correo="+ user.email)
-        if (jsonObject.length()==1)
+        if (jsonObject.length()==1) {
             crear(user)
+        }
         else
         {
             usuario.setNombre(jsonObject.optString("nombre"))
