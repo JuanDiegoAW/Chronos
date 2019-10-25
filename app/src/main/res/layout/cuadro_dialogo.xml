@@ -5,54 +5,70 @@
     android:id="@+id/alPrincipal"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:background="#feac00">
 
     <TextView
         android:id="@+id/textView4"
-        android:layout_width="387dp"
-        android:layout_height="90dp"
+        android:layout_width="371dp"
+        android:layout_height="109dp"
+        android:layout_marginTop="40dp"
         android:layout_x="84dp"
         android:layout_y="57dp"
+        android:fontFamily="@font/fonts"
+        android:gravity="center"
         android:text="Seleccione los asientos que no desea reservar"
-        android:textSize="36sp"
+        android:textAlignment="center"
+        android:textColor="#ffff"
+        android:textSize="30dp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.666"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TableLayout
         android:id="@+id/tlReservaciones"
-        android:layout_width="348dp"
-        android:layout_height="163dp"
-        app:layout_constraintBottom_toTopOf="@+id/btnAceptar"
+        android:layout_width="372dp"
+        android:layout_height="327dp"
+
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.495"
+        app:layout_constraintHorizontal_bias="0.492"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView4"
-        app:layout_constraintVertical_bias="0.0"/>
+        app:layout_constraintTop_toBottomOf="@+id/textView4" />
 
     <Button
         android:id="@+id/btnAceptar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="52dp"
-        android:layout_marginLeft="52dp"
-        android:layout_marginBottom="180dp"
+        android:layout_marginTop="345dp"
+        android:layout_marginEnd="84dp"
+        android:layout_marginRight="84dp"
+        android:layout_marginBottom="208dp"
+        android:background="@drawable/btndetalles"
+        android:fontFamily="@font/fonts"
         android:text="Aceptar"
+
+        android:textColor="#ffff"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.026"
-        app:layout_constraintStart_toEndOf="@+id/btnCancelar"
         app:layout_constraintTop_toBottomOf="@+id/textView4"
-        app:layout_constraintVertical_bias="0.491" />
+        app:layout_constraintVertical_bias="0.052" />
 
     <Button
         android:id="@+id/btnCancelar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="100dp"
-        android:layout_marginLeft="100dp"
+        android:layout_marginStart="88dp"
+        android:layout_marginLeft="88dp"
+        android:layout_marginTop="344dp"
+        android:background="@drawable/btndetalles"
+        android:fontFamily="@font/fonts"
         android:text="Cancelar"
-        app:layout_constraintBaseline_toBaselineOf="@+id/btnAceptar"
-        app:layout_constraintStart_toStartOf="parent" />
+        android:textColor="#ffff"
+        app:layout_constraintEnd_toStartOf="@+id/btnAceptar"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintLeft_toLeftOf="@id/btnAceptar"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView4" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -11,7 +11,7 @@
 
     <ScrollView
         android:layout_width="347dp"
-        android:layout_height="309dp"
+        android:layout_height="393dp"
         android:layout_x="31dp"
         android:layout_y="159dp">
 
@@ -25,12 +25,14 @@
 
     <Spinner
         android:id="@+id/spLocalidad"
-        android:layout_width="241dp"
+        android:layout_width="349dp"
         android:layout_height="44dp"
+        android:layout_x="30dp"
+        android:layout_y="99dp"
+        android:outlineSpotShadowColor="#FFFF"
         android:background="@drawable/btndetalles"
         android:foregroundTint="#FFFF"
-        android:layout_x="45dp"
-        android:layout_y="97dp" />
+        android:foregroundTintMode="src_in"/>
 
     <TextView
         android:id="@+id/textView3"
@@ -47,11 +49,16 @@
 
     <Button
         android:id="@+id/btnReserva"
-        android:layout_width="wrap_content"
+        android:layout_width="274dp"
         android:layout_height="wrap_content"
-        android:layout_x="73dp"
-        android:layout_y="493dp"
-        android:text="Anular asientos seleccionados" />
+        android:layout_x="67dp"
+        android:layout_y="576dp"
+        android:background="@drawable/btndetalles"
+        android:fontFamily="@font/fonts"
+        android:foregroundGravity="center"
+        android:gravity="center"
+        android:text="Anular asientos seleccionados"
+        android:textColor="@drawable/txtbtninicio" />
 
 
 </AbsoluteLayout>

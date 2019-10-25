@@ -28,6 +28,66 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
+            <TextView
+                android:id="@+id/fechaEventoSeleccionadoTit"
+                android:layout_width="120dp"
+                android:layout_height="40dp"
+
+                android:layout_alignTop="@+id/imagenEvento"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
+                android:layout_marginTop="389dp"
+                android:layout_marginEnd="217dp"
+                android:layout_marginRight="217dp"
+                android:background="#feac00"
+                android:fontFamily="@font/fonts"
+                android:gravity="start"
+                android:paddingLeft="20dp"
+                android:paddingTop="10dp"
+                android:text="FECHA:"
+                android:textColor="#FFFF"
+                android:textSize="17dp" />
+
+            <TextView
+                android:id="@+id/horaEventoSeleccionadoTit"
+                android:layout_width="120dp"
+                android:layout_height="40dp"
+
+                android:layout_alignTop="@+id/imagenEvento"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
+                android:layout_marginTop="429dp"
+                android:layout_marginEnd="216dp"
+                android:layout_marginRight="216dp"
+                android:background="#feac00"
+                android:fontFamily="@font/fonts"
+                android:gravity="start"
+                android:paddingLeft="20dp"
+                android:paddingTop="10dp"
+                android:text="HORA:"
+                android:textColor="#FFFF"
+                android:textSize="17dp" />
+
+            <TextView
+                android:id="@+id/direccionEventoSeleccionadoTit"
+                android:layout_width="120dp"
+                android:layout_height="40dp"
+
+                android:layout_alignTop="@+id/imagenEvento"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
+                android:layout_marginTop="346dp"
+                android:layout_marginEnd="217dp"
+                android:layout_marginRight="217dp"
+                android:background="#feac00"
+                android:fontFamily="@font/fonts"
+                android:gravity="start"
+                android:paddingLeft="20dp"
+                android:paddingTop="10dp"
+                android:text="DIRECCION:"
+                android:textColor="#FFFF"
+                android:textSize="17dp" />
+
             <Button
                 android:id="@+id/boton_Maps"
                 android:layout_width="700dp"
@@ -39,7 +99,7 @@
                 android:layout_alignParentRight="true"
                 android:layout_marginStart="230dp"
                 android:layout_marginLeft="230dp"
-                android:layout_marginTop="475dp"
+                android:layout_marginTop="486dp"
                 android:layout_marginEnd="46dp"
                 android:layout_marginRight="46dp"
                 android:background="@drawable/btndetalles"
@@ -48,40 +108,22 @@
                 android:textSize="10dp"
                 android:textColor="@drawable/txtbtninicio" />
 
-            <Button
-                android:id="@+id/boton_regresar"
-                android:layout_width="700dp"
-                android:layout_height="50dp"
-                android:layout_alignParentStart="true"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentTop="true"
-                android:layout_alignParentEnd="true"
-                android:layout_alignParentRight="true"
-                android:layout_marginStart="15dp"
-                android:layout_marginLeft="15dp"
-                android:layout_marginTop="21dp"
-                android:layout_marginEnd="290dp"
-                android:layout_marginRight="290dp"
-                android:background="@drawable/btndetalles"
-                android:fontFamily="@font/fonts"
-                android:text="regresar"
-                android:textSize="10dp"
-                android:textColor="@drawable/txtbtninicio" />
-
             <TextView
                 android:id="@+id/tituloEventoSeleccionado"
-                android:layout_width="365dp"
-                android:layout_height="wrap_content"
+                android:layout_width="370dp"
+                android:layout_height="65dp"
                 android:layout_alignTop="@+id/imagenEvento"
                 android:layout_alignParentStart="true"
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentEnd="true"
                 android:layout_alignParentRight="true"
-                android:layout_marginStart="0dp"
-                android:layout_marginLeft="0dp"
-                android:layout_marginTop="246dp"
+                android:layout_marginStart="-2dp"
+                android:layout_marginLeft="-2dp"
+                android:layout_marginTop="230dp"
                 android:layout_marginEnd="0dp"
-                android:layout_marginRight="0dp"
+                android:layout_marginRight="2dp"
+                android:background="#df2662"
+                android:backgroundTint="#df2662"
                 android:fontFamily="@font/fonts"
                 android:gravity="center"
                 android:text="TextView"
@@ -98,24 +140,23 @@
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentEnd="true"
                 android:layout_alignParentRight="true"
-                android:layout_marginStart="54dp"
-                android:layout_marginLeft="54dp"
-                android:layout_marginTop="452dp"
-                android:layout_marginEnd="230dp"
-                android:layout_marginRight="269dp"
+                android:layout_marginStart="64dp"
+                android:layout_marginLeft="64dp"
+                android:layout_marginTop="469dp"
+                android:layout_marginEnd="219dp"
+                android:layout_marginRight="219dp"
                 android:background="@drawable/btndetalles"
                 android:fontFamily="@font/fonts"
                 android:text="Reservar"
-                android:textSize="10dp"
-                android:textColor="@drawable/txtbtninicio" />
+                android:textColor="@drawable/txtbtninicio"
+                android:textSize="10dp" />
 
             <TextView
                 android:id="@+id/direccionEventoSeleccionado"
-                android:layout_width="310dp"
+                android:layout_width="160dp"
                 android:layout_height="40dp"
                 android:layout_alignTop="@+id/imagenEvento"
-                android:layout_alignParentStart="true"
-                android:layout_alignParentLeft="true"
+
                 android:layout_alignParentEnd="true"
                 android:layout_alignParentRight="true"
                 android:layout_marginStart="54dp"
@@ -124,38 +165,40 @@
                 android:layout_marginTop="345dp"
                 android:layout_marginEnd="47dp"
                 android:layout_marginRight="47dp"
-                android:background="#df2662"
+                android:background="#feac00"
                 android:fontFamily="@font/fonts"
+                android:paddingLeft="20dp"
                 android:gravity="center"
+                android:textSize="17dp"
                 android:text="TextView"
                 android:textColor="#FFFF" />
 
             <TextView
                 android:id="@+id/descripcionEventoSeleccionado"
-                android:layout_width="310dp"
+                android:layout_width="160dp"
                 android:layout_height="40dp"
+
                 android:layout_alignTop="@+id/imagenEvento"
-                android:layout_alignParentStart="true"
-                android:layout_alignParentLeft="true"
                 android:layout_alignParentEnd="true"
                 android:layout_alignParentRight="true"
-                android:layout_marginStart="54dp"
-                android:layout_marginLeft="54dp"
                 android:layout_marginTop="305dp"
                 android:layout_marginEnd="47dp"
                 android:layout_marginRight="47dp"
-                android:background="#df2662"
+                android:background="#00FFFFFF"
                 android:fontFamily="@font/fonts"
                 android:gravity="center"
+                android:paddingLeft="20dp"
+                android:paddingTop="10dp"
                 android:text="TextView"
-                android:textColor="#FFFF" />
+                android:textColor="#FFFF"
+                android:textSize="17dp" />
 
             <TextView
                 android:id="@+id/fechaEventoSeleccionado"
-                android:layout_width="310dp"
+                android:layout_width="160dp"
                 android:layout_height="40dp"
                 android:layout_alignTop="@+id/imagenEvento"
-                android:layout_alignParentStart="true"
+                android:layout_alignParentStart="false"
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentEnd="true"
                 android:layout_alignParentRight="true"
@@ -164,19 +207,20 @@
                 android:layout_marginTop="385dp"
                 android:layout_marginEnd="47dp"
                 android:layout_marginRight="47dp"
-                android:background="#df2662"
+                android:background="#feac00"
                 android:fontFamily="@font/fonts"
                 android:gravity="center"
+                android:paddingLeft="20dp"
                 android:text="TextView"
+                android:textSize="17dp"
                 android:textColor="#FFFF" />
 
             <TextView
                 android:id="@+id/horaEventoSeleccionado"
-                android:layout_width="310dp"
+                android:layout_width="160dp"
                 android:layout_height="40dp"
                 android:layout_alignTop="@+id/imagenEvento"
-                android:layout_alignParentStart="true"
-                android:layout_alignParentLeft="true"
+
                 android:layout_alignParentEnd="true"
                 android:layout_alignParentRight="true"
                 android:layout_marginStart="54dp"
@@ -184,10 +228,12 @@
                 android:layout_marginTop="425dp"
                 android:layout_marginEnd="47dp"
                 android:layout_marginRight="47dp"
-                android:background="#df2662"
+                android:background="#feac00"
                 android:fontFamily="@font/fonts"
                 android:gravity="center"
+                android:paddingLeft="20dp"
                 android:text="TextView"
+                android:textSize="17dp"
                 android:textAlignment="center"
                 android:textColor="#FFFF" />
 
@@ -200,13 +246,32 @@
                 android:layout_alignParentTop="true"
                 android:layout_alignParentEnd="true"
                 android:layout_alignParentRight="true"
-                android:layout_marginStart="0dp"
-                android:layout_marginLeft="0dp"
+                android:layout_marginStart="-2dp"
+                android:layout_marginLeft="-2dp"
                 android:layout_marginTop="0dp"
                 android:layout_marginEnd="0dp"
-                android:layout_marginRight="0dp"
+                android:layout_marginRight="2dp"
                 android:background="@drawable/evento3"
                 android:scaleType="matrix" />
+
+            <ImageButton
+                android:id="@+id/boton_regresar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
+                android:layout_marginStart="18dp"
+                android:layout_marginLeft="18dp"
+                android:layout_marginTop="17dp"
+                android:layout_marginEnd="342dp"
+                android:layout_marginRight="342dp"
+                android:background="#00000000"
+                android:src="@drawable/regresar"
+                android:textSize="10dp"
+                android:visibility="visible" />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/recyclerComentariosEventos"
@@ -262,6 +327,26 @@
                 android:textSize="15dp"
                 android:gravity="top"
                 android:hint="Comenta algo ;)" />
+
+            <TextView
+                android:id="@+id/descripcionEventoSeleccionadoTit"
+                android:layout_width="140dp"
+                android:layout_height="40dp"
+
+                android:layout_alignTop="@+id/imagenEvento"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
+                android:layout_marginTop="306dp"
+                android:layout_marginEnd="197dp"
+                android:layout_marginRight="197dp"
+                android:background="#feac00"
+                android:fontFamily="@font/fonts"
+                android:gravity="start"
+                android:paddingLeft="20dp"
+                android:paddingTop="10dp"
+                android:text="DESCRIPCION:"
+                android:textColor="#FFFF"
+                android:textSize="17dp" />
 
             <Button
                 android:id="@+id/boton_comentar"

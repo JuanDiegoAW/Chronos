@@ -39,7 +39,7 @@ class AdaptadorCuadroDialogo {
                     val row = tlLayout.getChildAt(i) as TableRow
                     val check =row[0] as CheckBox
                     if(check.isChecked){//Si el checkbox es seleccionado el boton le cambio color y lo habilito
-                        reservas[i].setBackgroundColor(Color.GREEN)
+                        reservas[i].setBackgroundColor(Color.rgb(251,74,86))
                         reservas[i].isEnabled=true
                         listaAux.add(i)//Almaceno la posición de ese botón que se eliminará
                     }
