@@ -3,8 +3,6 @@ package com.example.login.Activities
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import com.google.android.material.floatingactionbutton.FloatingActionButton
-import com.google.android.material.snackbar.Snackbar
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.navigateUp
@@ -26,7 +24,8 @@ class VentanaPrincipal : AppCompatActivity() {
     private lateinit var appBarConfiguration: AppBarConfiguration
     private val usuario = Usuario.iniciar()
 
-    companion object {
+    companion object
+    {
         fun getLaunchIntent(from: Context) = Intent(from, VentanaPrincipal::class.java).apply {
             addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK)
         }
@@ -39,11 +38,6 @@ class VentanaPrincipal : AppCompatActivity() {
         val toolbar: Toolbar = findViewById(R.id.toolbar)
         setSupportActionBar(toolbar)
 
-        //val fab: FloatingActionButton = findViewById(R.id.fab)
-        //fab.setOnClickListener { view ->
-        //    Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-        //        .setAction("Action", null).show()
-       // }
         val drawerLayout: DrawerLayout = findViewById(R.id.drawer_layout)
         val navView: NavigationView = findViewById(R.id.nav_view)
         val navController = findNavController(R.id.nav_host_fragment)
@@ -54,7 +48,9 @@ class VentanaPrincipal : AppCompatActivity() {
                 R.id.nav_home,
                 R.id.nav_eventos,
                 R.id.nav_reservar,
-                R.id.nav_perfil
+                R.id.nav_perfil,
+                R.id.nav_mapa,
+                R.id.nav_cerrar
             ), drawerLayout
         )
         setupActionBarWithNavController(navController, appBarConfiguration)

@@ -268,8 +268,9 @@ class Mapa : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMarkerClickLis
 
     private fun regresarMenu()
     {
-        startActivity(VentanaPrincipal.getLaunchIntent(this))
-        finish()
+        val intent = Intent(this, VentanaPrincipal::class.java)
+        intent.putExtra("fragment", "ALGO")
+        startActivity(intent)
     }
 
     private fun regresarEvento()

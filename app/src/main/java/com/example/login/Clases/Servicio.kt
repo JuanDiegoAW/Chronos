@@ -58,7 +58,7 @@ class Servicio {
      * por ejemplo enviar la información del usuario para validar si este ya existe o no en la api
      */
     fun metodoPost(link: String,datos : JSONObject): Boolean {
-        println(datos)
+
         val url = URL("$urlApi$link")
         this.conexion = url.openConnection() as HttpURLConnection
         this.conexion!!.doOutput=true
@@ -80,7 +80,38 @@ class Servicio {
                 println(linea)
             } while (true)
             return true
-        }catch (e : IOException) {
+        }
+        catch (e : IOException) {
+            e.printStackTrace()
+        }
+        return false
+    }
+
+    fun metodoPut(link: String,datos : JSONObject): Boolean {
+
+        val url = URL("$urlApi$link")
+        this.conexion = url.openConnection() as HttpURLConnection
+        this.conexion!!.doOutput=true
+        this.conexion!!.requestMethod = "PUT"
+        this.conexion!!.setRequestProperty("Content-Type", "application/json")
+        this.conexion!!.setRequestProperty("Content-Type", "application/json; charset=UTF-8")
+        try {
+            val os = this.conexion!!.outputStream
+            os.write(datos.toString().toByteArray())
+            os.close()
+            val br = BufferedReader(InputStreamReader(this.conexion!!.inputStream))
+            var linea : String?
+            println(this.conexion!!.responseCode)
+            do {
+                linea = br.readLine()
+                if (linea == null) {
+                    break
+                }
+                println(linea)
+            } while (true)
+            return true
+        }
+        catch (e : IOException) {
             e.printStackTrace()
         }
         return false

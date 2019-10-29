@@ -66,6 +66,9 @@ dependencies {
 
     //API REST
     implementation 'com.squareup.okhttp3:okhttp:3.9.1'
+
+    //Recortar Imagenes
+    api 'com.theartofdev.edmodo:android-image-cropper:2.8.+'
 }
 
 apply plugin: 'com.google.gms.google-services'

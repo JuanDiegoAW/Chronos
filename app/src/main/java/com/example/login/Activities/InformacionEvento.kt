@@ -9,6 +9,7 @@ import androidx.annotation.RequiresApi
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.login.Clases.*
 import com.example.login.R
+import com.example.login.fragments.MostrarEventos
 import kotlinx.android.synthetic.main.activity_informacion_evento.*
 import org.json.JSONArray
 import org.json.JSONException
@@ -148,8 +149,7 @@ class InformacionEvento : AppCompatActivity() {
 
         //Poner los botones
         boton_regresar.setOnClickListener{
-            val intent = Intent(this, VentanaPrincipal::class.java)
-            startActivity(intent)
+            regresarEventos()
         }
 
         boton_Maps.setOnClickListener{
@@ -165,6 +165,13 @@ class InformacionEvento : AppCompatActivity() {
         }
     }
 
+    fun regresarEventos()
+    {
+        val intent = Intent(this, VentanaPrincipal::class.java)
+        //intent.putExtra("fragment", indices.getFragmentMostrarEventos())
+        startActivity(intent)
+    }
+
     @RequiresApi(Build.VERSION_CODES.O)
     private fun comentar()
     {
@@ -172,7 +179,7 @@ class InformacionEvento : AppCompatActivity() {
 
         val current = LocalDateTime.now()
         val formatter = DateTimeFormatter.ofLocalizedDate(FormatStyle.MEDIUM)
-        val fecha = current.format(formatter)
+        //val fecha = current.format(formatter)
 
         try {
             val datos = JSONObject()
