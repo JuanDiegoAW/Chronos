@@ -24,8 +24,10 @@ class Reservas() : AppCompatActivity(),AdapterView.OnItemSelectedListener {
     private val adaptador_evento = ParametrosEventos.iniciar()
     private var datosLocalidad :HashMap<String,Int> = hashMapOf()
     private var arrayBotonera: ArrayList<LinearLayout> = ArrayList()
-    private var asientoId : ArrayList<Button> = ArrayList()
+    private var asientoId : HashMap<Button,Int> = hashMapOf()
     private var infoAsientos :ArrayList<AsientosDatos> = ArrayList()
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_reservas)
@@ -39,7 +41,7 @@ class Reservas() : AppCompatActivity(),AdapterView.OnItemSelectedListener {
         spLocalidad.adapter = adapterSpinner
         spLocalidad.onItemSelectedListener=this
         btnReserva.setOnClickListener {
-            AdaptadorCuadroDialogo(this,arrayBotonera,asientoId)
+            AdaptadorCuadroDialogo(this,asientoId)
         }
     }
 
@@ -64,7 +66,7 @@ class Reservas() : AppCompatActivity(),AdapterView.OnItemSelectedListener {
             val arrayJson = JSONArray(json)
             for (i in 0 until arrayJson.length()) {
                 var objetos=arrayJson.getJSONObject(i)
-                datosLocalidad.put(objetos.optString("tipoLocalidad"),objetos.optInt("id"))
+                datosLocalidad[objetos.optString("tipoLocalidad")] = objetos.optInt("id")
 
             }
             entrada.close()
@@ -111,14 +113,18 @@ class Reservas() : AppCompatActivity(),AdapterView.OnItemSelectedListener {
                             }else{
                                 button.setBackgroundColor(Color.rgb(251,74,86))
                             }
-                        }else{
+                            button.setOnClickListener(AdapterButtonsOnClickListener(this,
+                                this.asientoId,this.infoAsientos[contador-1].getIdAsiento()))
+                        }else {
                             button.text = contador.toString()
-                            button.setBackgroundColor(Color.rgb(251,74,86))
+                            button.setBackgroundColor(Color.rgb(251, 74, 86))
+                            button.setOnClickListener(
+                                AdapterButtonsOnClickListener(
+                                    this,
+                                    this.asientoId, contador
+                                )
+                            )
                         }
-
-
-
-                        button.setOnClickListener(AdapterButtonsOnClickListener(this,this.asientoId))
                         this.arrayBotonera[i].addView(button)
                     }else
                         break
@@ -150,8 +156,9 @@ class Reservas() : AppCompatActivity(),AdapterView.OnItemSelectedListener {
             val arrayJson = JSONArray(json)
             for (i in 0 until arrayJson.length()) {
                 var objetos=arrayJson.getJSONObject(i)
-                this.infoAsientos.add(AsientosDatos(objetos.optBoolean("disponible"),objetos.optString("numeroAsiento")))
-                println(objetos)
+                this.infoAsientos.add(AsientosDatos(objetos.optBoolean("disponible"),
+                    objetos.optString("numeroAsiento"),
+                    objetos.optInt("id")))
         }
             entrada.close()
         }
@@ -164,5 +171,14 @@ class Reservas() : AppCompatActivity(),AdapterView.OnItemSelectedListener {
         finally {
             servicio.desconectar()
         }
+    }
+    override fun onBackPressed() {
+        if (asientoId.isNotEmpty()){
+            println("Hay datos reservados")
+        }else{
+            println("No hay datos reservados")
+            super.onBackPressed()
+        }
+
     }
 }
