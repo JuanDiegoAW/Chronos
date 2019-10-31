@@ -25,7 +25,7 @@ class Reservas() : AppCompatActivity(),AdapterView.OnItemSelectedListener {
     private var datosLocalidad :HashMap<String,Int> = hashMapOf()
     private var arrayBotonera: ArrayList<LinearLayout> = ArrayList()
     private var asientoId : ArrayList<Button> = ArrayList()
-
+    private var infoAsientos :ArrayList<AsientosDatos> = ArrayList()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_reservas)
@@ -46,7 +46,8 @@ class Reservas() : AppCompatActivity(),AdapterView.OnItemSelectedListener {
     private fun obtenerLocalidad(eventoCod:String){
         try
         {
-            var entrada = BufferedReader(InputStreamReader(this.servicio.metodoGetBusquedaArray("localidad","codigoEventos="+eventoCod)))
+            var entrada = BufferedReader(InputStreamReader(this.servicio.metodoGetBusquedaArray
+                ("localidad","codigoEventos="+eventoCod)))
             var respuesta = StringBuffer()
             //Ciclo para ir leyendo línea por línea e ir agregarlo en respuesta
             var linea : String?
@@ -63,9 +64,7 @@ class Reservas() : AppCompatActivity(),AdapterView.OnItemSelectedListener {
             val arrayJson = JSONArray(json)
             for (i in 0 until arrayJson.length()) {
                 var objetos=arrayJson.getJSONObject(i)
-
                 datosLocalidad.put(objetos.optString("tipoLocalidad"),objetos.optInt("id"))
-
 
             }
             entrada.close()
@@ -89,21 +88,36 @@ class Reservas() : AppCompatActivity(),AdapterView.OnItemSelectedListener {
             var cantidad = jsonObject.optInt("cantidadAsientos")
             var cant = cantidad
             var contador=1
+            this.infoAsientos = ArrayList()
+            getAsientosLocalidad(datosLocalidad[p0.selectedItem]!!.toInt())
             if (llPrincipal.childCount>0){
                 llPrincipal.removeAllViews()
             }
             this.arrayBotonera = ArrayList()
             cantidad = if ((cantidad%5)>0) (cantidad/5) +1 else cantidad/5
-
             for (i in 0 until cantidad){
                 this.arrayBotonera.add(LinearLayout(this))
                 for (j in 0 until 5){
                     if (contador<=cant){
                         val button = Button(this)
                         button.textSize = 15F
-                        button.text = contador.toString()
                         button.setTextColor(Color.WHITE)
-                        button.setBackgroundColor(Color.rgb(251,74,86))
+                        if (contador<=this.infoAsientos.size){
+                            button.text = this.infoAsientos[contador-1].getNumeroAsiento()
+
+                            if (!this.infoAsientos[contador-1].isDisponible()){
+                                button.isEnabled=this.infoAsientos[contador-1].isDisponible()
+                                button.setBackgroundColor(Color.rgb(253,127,72))
+                            }else{
+                                button.setBackgroundColor(Color.rgb(251,74,86))
+                            }
+                        }else{
+                            button.text = contador.toString()
+                            button.setBackgroundColor(Color.rgb(251,74,86))
+                        }
+
+
+
                         button.setOnClickListener(AdapterButtonsOnClickListener(this,this.asientoId))
                         this.arrayBotonera[i].addView(button)
                     }else
@@ -112,6 +126,43 @@ class Reservas() : AppCompatActivity(),AdapterView.OnItemSelectedListener {
                 }
                 llPrincipal.addView(this.arrayBotonera[i])
             }
+        }
+    }
+
+    private fun getAsientosLocalidad(idLocalidad:Int){
+        try
+        {
+            var entrada = BufferedReader(InputStreamReader(this.servicio.metodoGetBusquedaArray
+                ("asientos/codigoeventos", "idLocalidad=$idLocalidad")))
+            var respuesta = StringBuffer()
+            //Ciclo para ir leyendo línea por línea e ir agregarlo en respuesta
+            var linea : String?
+            do {
+                linea = entrada.readLine()
+                if (linea == null) {
+                    break
+                }
+                respuesta.append(linea)
+            } while (true)
+            val json: String
+            //paso a un string el json que tengo para posteriormente manipularlo
+            json = respuesta.toString()
+            val arrayJson = JSONArray(json)
+            for (i in 0 until arrayJson.length()) {
+                var objetos=arrayJson.getJSONObject(i)
+                this.infoAsientos.add(AsientosDatos(objetos.optBoolean("disponible"),objetos.optString("numeroAsiento")))
+                println(objetos)
+        }
+            entrada.close()
+        }
+        catch (e: IOException) {
+            e.printStackTrace()
+        }
+        catch (e: JSONException) {
+            e.printStackTrace()
+        }
+        finally {
+            servicio.desconectar()
         }
     }
 }
