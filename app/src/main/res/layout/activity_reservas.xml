@@ -7,8 +7,6 @@
     android:layout_height="match_parent"
     android:background="#feac00"
     tools:context=".Activities.Reservas">
-
-
     <HorizontalScrollView
         android:layout_width="369dp"
         android:layout_height="400dp"
@@ -26,13 +24,16 @@
         android:layout_marginBottom="209dp"
         android:layout_x="31dp"
         android:layout_y="159dp">
-
-        <LinearLayout
-            android:id="@+id/llPrincipal"
+        <ScrollView
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:backgroundTint="#FFDF2662"
-            android:orientation="vertical" />
+            android:layout_height="wrap_content">
+            <LinearLayout
+                android:id="@+id/llPrincipal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:backgroundTint="#FFDF2662"
+                android:orientation="vertical" />
+        </ScrollView>
     </HorizontalScrollView>
 
     <Spinner
