@@ -59,7 +59,7 @@
         tools:layout_editor_absoluteX="0dp" />
 
     <ImageButton
-        android:id="@+id/imageButton"
+        android:id="@+id/ibCancelar"
         android:layout_width="205dp"
         android:layout_height="40dp"
         android:background="@color/colorAccent"
@@ -73,7 +73,7 @@
         app:layout_constraintVertical_bias="0.998" />
 
     <ImageButton
-        android:id="@+id/imageButton3"
+        android:id="@+id/ibAceptar"
         android:layout_width="205dp"
         android:layout_height="40dp"
         android:background="@color/colorAccent"
@@ -101,7 +101,7 @@
         app:layout_constraintVertical_bias="0.826" />
 
     <TextView
-        android:id="@+id/textView6"
+        android:id="@+id/tvTotal"
         android:layout_width="222dp"
         android:layout_height="76dp"
         android:text="5000.00"
@@ -115,7 +115,7 @@
         app:layout_constraintVertical_bias="0.827" />
 
     <ImageView
-        android:id="@+id/imageView2"
+        android:id="@+id/ivEvento"
         android:layout_width="352dp"
         android:layout_height="290dp"
         app:layout_constraintBottom_toBottomOf="parent"
