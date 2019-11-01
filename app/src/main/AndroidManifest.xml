@@ -17,7 +17,8 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.Light.NoActionBar"
         android:usesCleartextTraffic="true">
-        <activity android:name=".Activities.Reservas"></activity>
+        <activity android:name=".Activities.PagoEvento"></activity>
+        <activity android:name=".Activities.Reservas" />
         <activity android:name=".Activities.InformacionEvento" />
         <activity android:name=".Activities.Mapa" />
         <activity
@@ -31,9 +32,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
-        <activity android:name="com.theartofdev.edmodo.cropper.CropImageActivity"
-            android:theme="@style/Base.Theme.AppCompat"/>
+        <activity
+            android:name="com.theartofdev.edmodo.cropper.CropImageActivity"
+            android:theme="@style/Base.Theme.AppCompat" />
 
         <meta-data
             android:name="com.facebook.sdk.ApplicationId"
