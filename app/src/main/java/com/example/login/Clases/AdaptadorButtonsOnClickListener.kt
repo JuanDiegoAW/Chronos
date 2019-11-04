@@ -9,7 +9,7 @@ import android.R.attr.button
 import com.example.login.R
 
 
-internal class AdapterButtonsOnClickListener(var context: Context, var lista:HashMap<Button,Int>,var id:Int) : View.OnClickListener {
+internal class AdaptadorButtonsOnClickListener(var context: Context, var lista:HashMap<Button,Int>, var id:Int) : View.OnClickListener {
 
     override fun onClick(v: View) {
         if (lista.size<10){
@@ -18,6 +18,7 @@ internal class AdapterButtonsOnClickListener(var context: Context, var lista:Has
             v.isEnabled=false
             v.setBackgroundColor(Color.rgb(253,127,72))
             lista[b] = id
+            println("ID ASIENTO->$id")
         }else{
             Toast.makeText(this.context, "El Limite de asientos a reservar son 5", Toast.LENGTH_SHORT).show()
         }
