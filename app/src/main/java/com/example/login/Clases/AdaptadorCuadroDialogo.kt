@@ -37,20 +37,21 @@ class AdaptadorCuadroDialogo {
                 // El elemento que se selecciono
                 var i=0
                 for (res in reservas){
+                    //Obtengo un tablerow y el checkbox que tiene
                     val row = tlLayout.getChildAt(i) as TableRow
                     val check =row[0] as CheckBox
-                    if(check.isChecked){//Si el checkbox es seleccionado el boton le cambio color y lo habilito
+                    //Si el checkbox es seleccionado cambio color al boton lo habilito y mando a la api a cancelar reserva
+                    if(check.isChecked){
                         res.key.setBackgroundColor(Color.rgb(251,74,86))
                         res.key.isEnabled=true
-
-                        listaAux.add(res.key)//Almaceno la posición de ese botón que se eliminará
+                        //Acá se pondrá la ruta para cancelar la reserva
+                        listaAux.add(res.key)//Almaceno el botón que se eliminará
                     }
                     i++
                 }
                 //Ciclo para eliminar el elemento que se selecciono, se le hace un lista[i]-i ya que si no lo hago accedo a una posición inexistente
                 for (i in 0 until listaAux.size){
                     println(reservas.remove(listaAux[i]))
-                    //reservas.removeAt(listaAux[i]-i)
                 }
                 dialogo.dismiss()//Cierro el dialogo
             }

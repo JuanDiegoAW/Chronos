@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorPrimary"
+    tools:context=".Activities.PagoEvento">
+
+
+    <TextView
+        android:id="@+id/tvNombreEvento"
+        android:layout_width="414dp"
+        android:layout_height="104dp"
+        android:background="@color/colorAccent"
+        android:gravity="center|center_horizontal"
+        android:paddingTop="30dp"
+        android:text="Nombre  Evento"
+        android:textColor="@color/colorblanco"
+        android:textSize="30dp"
+        app:fontFamily="@font/fonts"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <TextView
+        android:id="@+id/tvFecha"
+        android:layout_width="415dp"
+        android:layout_height="32dp"
+        android:background="@color/colorAccent"
+        android:gravity="center|center_horizontal|center_vertical"
+        android:text="Fecha"
+        android:textColor="@color/colorblanco"
+        android:textSize="22dp"
+        app:fontFamily="@font/fonts"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.75"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.145" />
+
+    <TextView
+        android:id="@+id/tvLugar"
+        android:layout_width="417dp"
+        android:layout_height="37dp"
+        android:background="@color/colorAccent"
+        android:gravity="center|center_horizontal|center_vertical"
+        android:text="Lugar"
+        android:textColor="@color/colorblanco"
+        android:textSize="22dp"
+        app:fontFamily="@font/fonts"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/tvNombreEvento"
+        app:layout_constraintVertical_bias="0.191"
+        tools:layout_editor_absoluteX="0dp" />
+
+    <ImageButton
+        android:id="@+id/ibCancelar"
+        android:layout_width="205dp"
+        android:layout_height="40dp"
+        android:background="@color/colorAccent"
+        android:src="@android:drawable/ic_menu_close_clear_cancel"
+        android:tint="@color/colorblanco"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.998" />
+
+    <ImageButton
+        android:id="@+id/ibAceptar"
+        android:layout_width="205dp"
+        android:layout_height="40dp"
+        android:background="@color/colorAccent"
+        android:src="@android:drawable/checkbox_on_background"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/tvNombreEvento"
+        app:layout_constraintVertical_bias="0.998" />
+
+    <TextView
+        android:id="@+id/tv"
+        android:layout_width="143dp"
+        android:layout_height="80dp"
+        android:text="Total Q"
+        android:textColor="@color/colorblanco"
+        android:textSize="50dp"
+        app:fontFamily="@font/fonts"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.111"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/tvNombreEvento"
+        app:layout_constraintVertical_bias="0.826" />
+
+    <TextView
+        android:id="@+id/tvTotal"
+        android:layout_width="222dp"
+        android:layout_height="83dp"
+        android:text="5000.00"
+        android:textColor="@color/colorblanco"
+        android:textSize="50dp"
+        app:fontFamily="@font/fonts"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.915"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.83" />
+
+    <ImageView
+        android:id="@+id/ivEvento"
+        android:layout_width="352dp"
+        android:layout_height="290dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/tvNombreEvento"
+        app:srcCompat="@color/colorAccent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

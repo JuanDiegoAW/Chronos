@@ -4,7 +4,7 @@ import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.example.login.Clases.*
-import com.example.login.Clases.AdapterButtonsOnClickListener
+import com.example.login.Clases.AdaptadorButtonsOnClickListener
 import kotlinx.android.synthetic.main.activity_reservas.*
 import org.json.JSONArray
 import org.json.JSONException
@@ -82,7 +82,13 @@ class Reservas() : AppCompatActivity(),AdapterView.OnItemSelectedListener {
         }
     }
     override fun onNothingSelected(p0: AdapterView<*>?) {
+        println(":V")
     }
+
+    /**
+     * Sobreescribir el evento de selección de un spinner para crear dinámicamente los botones.
+     * que tenga la localidad y el codigo del evento.
+     */
     override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
         if (p0 != null) {
             var jsonObject = servicio.metodoGetBusqueda("localidad","codigoEventos="+adaptador_evento.getEvento().codigo
@@ -91,7 +97,9 @@ class Reservas() : AppCompatActivity(),AdapterView.OnItemSelectedListener {
             var cant = cantidad
             var contador=1
             this.infoAsientos = ArrayList()
-            getAsientosLocalidad(datosLocalidad[p0.selectedItem]!!.toInt())
+            getAsientosLocalidad(jsonObject.optInt("id"))
+            txtCantidadAsientos.text="Cantidad asientos: ${jsonObject.optString("cantidadAsientos")}"
+            txtAsientosDisponibles.text="Asientos disponibles: ${jsonObject.optString("cantidadAsientosDisponible")}"
             if (llPrincipal.childCount>0){
                 llPrincipal.removeAllViews()
             }
@@ -113,13 +121,13 @@ class Reservas() : AppCompatActivity(),AdapterView.OnItemSelectedListener {
                             }else{
                                 button.setBackgroundColor(Color.rgb(251,74,86))
                             }
-                            button.setOnClickListener(AdapterButtonsOnClickListener(this,
+                            button.setOnClickListener(AdaptadorButtonsOnClickListener(this,
                                 this.asientoId,this.infoAsientos[contador-1].getIdAsiento()))
                         }else {
                             button.text = contador.toString()
                             button.setBackgroundColor(Color.rgb(251, 74, 86))
                             button.setOnClickListener(
-                                AdapterButtonsOnClickListener(
+                                AdaptadorButtonsOnClickListener(
                                     this,
                                     this.asientoId, contador
                                 )
@@ -135,11 +143,17 @@ class Reservas() : AppCompatActivity(),AdapterView.OnItemSelectedListener {
         }
     }
 
+    /**
+     * Se obtiene un array de tipo JSON con todos los asientos de dicha localidad, lo cual regresa
+     * Ejemplo Asientos: [{"id": 2,"numeroAsiento": "557","disponible": true,"idLocalidad": 1}].
+     * De ello tomo el id para hacer el cambio, el numero del asiento para ponerlo como texto al boton
+     * disponibilidad para deshabilitar/habilitar el boton
+     */
     private fun getAsientosLocalidad(idLocalidad:Int){
         try
         {
             var entrada = BufferedReader(InputStreamReader(this.servicio.metodoGetBusquedaArray
-                ("asientos/codigoeventos", "idLocalidad=$idLocalidad")))
+                ("asientos", "idLocalidad=$idLocalidad")))
             var respuesta = StringBuffer()
             //Ciclo para ir leyendo línea por línea e ir agregarlo en respuesta
             var linea : String?

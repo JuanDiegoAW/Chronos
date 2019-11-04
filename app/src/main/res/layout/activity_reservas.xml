@@ -2,38 +2,36 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/abL"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#feac00"
     tools:context=".Activities.Reservas">
+
     <HorizontalScrollView
-        android:layout_width="369dp"
-        android:layout_height="400dp"
+        android:layout_width="wrap_content"
+        android:layout_height="238dp"
         android:layout_alignTop="@+id/spLocalidad"
         android:layout_alignParentStart="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true"
         android:layout_alignParentBottom="true"
+        android:layout_centerInParent="true"
         android:layout_marginStart="24dp"
         android:layout_marginLeft="24dp"
         android:layout_marginTop="68dp"
         android:layout_marginEnd="17dp"
         android:layout_marginRight="17dp"
-        android:layout_marginBottom="209dp"
+        android:layout_marginBottom="253dp"
         android:layout_x="31dp"
         android:layout_y="159dp">
-        <ScrollView
+
+        <LinearLayout
+            android:id="@+id/llPrincipal"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
-            <LinearLayout
-                android:id="@+id/llPrincipal"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:backgroundTint="#FFDF2662"
-                android:orientation="vertical" />
-        </ScrollView>
+            android:layout_height="wrap_content"
+            android:backgroundTint="#FFDF2662"
+            android:orientation="vertical" />
     </HorizontalScrollView>
 
     <Spinner
@@ -45,11 +43,12 @@
         android:layout_alignParentTop="true"
         android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true"
-        android:layout_marginStart="35dp"
-        android:layout_marginLeft="35dp"
-        android:layout_marginTop="54dp"
-        android:layout_marginEnd="27dp"
-        android:layout_marginRight="27dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginStart="24dp"
+        android:layout_marginLeft="24dp"
+        android:layout_marginTop="147dp"
+        android:layout_marginEnd="37dp"
+        android:layout_marginRight="37dp"
         android:layout_x="30dp"
         android:layout_y="99dp"
         android:background="@drawable/btndetalles"
@@ -59,19 +58,19 @@
 
     <TextView
         android:id="@+id/textView3"
-        android:layout_width="217dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignStart="@+id/spLocalidad"
-        android:layout_alignLeft="@+id/spLocalidad"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
+
         android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true"
-
-        android:layout_marginStart="2dp"
-        android:layout_marginLeft="2dp"
-        android:layout_marginTop="18dp"
-        android:layout_marginEnd="157dp"
-        android:layout_marginRight="157dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginLeft="24dp"
+        android:layout_marginTop="114dp"
+        android:layout_marginEnd="158dp"
+        android:layout_marginRight="158dp"
         android:layout_x="106dp"
         android:layout_y="38dp"
         android:fontFamily="@font/fonts"
@@ -89,12 +88,13 @@
         android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true"
         android:layout_alignParentBottom="true"
-        android:layout_marginStart="66dp"
-        android:layout_marginLeft="66dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginStart="60dp"
+        android:layout_marginLeft="60dp"
         android:layout_marginTop="25dp"
-        android:layout_marginEnd="70dp"
-        android:layout_marginRight="70dp"
-        android:layout_marginBottom="91dp"
+        android:layout_marginEnd="76dp"
+        android:layout_marginRight="76dp"
+        android:layout_marginBottom="181dp"
         android:layout_x="67dp"
         android:layout_y="576dp"
         android:background="@drawable/btndetalles"
@@ -103,6 +103,51 @@
         android:gravity="center"
         android:text="Anular asientos seleccionados"
         android:textColor="@drawable/txtbtninicio" />
+
+    <TextView
+        android:id="@+id/txtAsientosDisponibles"
+        android:layout_width="342dp"
+        android:layout_height="30dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginStart="23dp"
+        android:layout_marginLeft="23dp"
+        android:layout_marginTop="75dp"
+        android:layout_marginEnd="46dp"
+        android:layout_marginRight="46dp"
+        android:text="TextView" />
+
+    <TextView
+        android:id="@+id/txtCantidadAsientos"
+        android:layout_width="343dp"
+        android:layout_height="33dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginStart="26dp"
+        android:layout_marginLeft="26dp"
+        android:layout_marginTop="32dp"
+        android:layout_marginEnd="42dp"
+        android:layout_marginRight="42dp"
+        android:text="TextView" />
+
+    <Button
+        android:id="@+id/button2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="150dp"
+        android:layout_marginLeft="150dp"
+        android:layout_marginBottom="113dp"
+        android:text="Realizar Pago" />
 
 
 </RelativeLayout>
