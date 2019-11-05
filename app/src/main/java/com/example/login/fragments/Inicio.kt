@@ -80,6 +80,24 @@ class Inicio : Fragment(), OnMapReadyCallback {
         //Siempre se inicializara la vista en la primera pagina
         mostrarPuntos(0)
 
+        //Se establece la funcion de los botones para cuando se cree la vista.
+        botonIzquierda.setOnClickListener{
+            val intent = Intent(activity, Mapa::class.java)
+            startActivity(intent)
+        }
+        botonDerecha.setOnClickListener{
+            if (evento_mas_cercano != null) {
+                val evento_mostrar = ParametrosEventos.iniciar()
+                evento_mostrar.setEvento(Evento(evento_mas_cercano!!.getCodigo(), "", "", "", ""))
+                val intent = Intent(context, InformacionEvento::class.java)
+                context!!.startActivity(intent)
+            }
+            else
+            {
+                Toast.makeText(context, "Por favor active la ubicacion para usar todas las funciones",Toast.LENGTH_SHORT).show()
+            }
+        }
+
         //Cuando se cambia de pagina ocurre alguna de las siguientes opciones:
         viewPager.addOnPageChangeListener(object : ViewPager.OnPageChangeListener{
             override fun onPageScrollStateChanged(state: Int) {
