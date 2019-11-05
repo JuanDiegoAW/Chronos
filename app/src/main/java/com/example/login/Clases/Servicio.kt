@@ -1,7 +1,6 @@
 package com.example.login.Clases
 
 import android.os.StrictMode
-import org.json.JSONArray
 import org.json.JSONException
 import org.json.JSONObject
 import java.io.*
@@ -53,6 +52,12 @@ class Servicio {
             null
     }
 
+    fun postFormData(id: String, imagen: File)
+    {
+
+    }
+
+
     /**
      * Método post, se utiliza para enviarle al servidor un objeto de tipo JSON, estó nos sirver
      * por ejemplo enviar la información del usuario para validar si este ya existe o no en la api
@@ -72,12 +77,12 @@ class Servicio {
             val br = BufferedReader(InputStreamReader(this.conexion!!.inputStream))
             var linea : String?
             println(this.conexion!!.responseCode)
-            do {
+            do
+            {
                 linea = br.readLine()
                 if (linea == null) {
                     break
                 }
-                println(linea)
             } while (true)
             return true
         }

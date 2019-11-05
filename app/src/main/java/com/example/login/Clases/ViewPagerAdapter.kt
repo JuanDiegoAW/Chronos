@@ -11,32 +11,34 @@ import androidx.viewpager.widget.ViewPager
 import com.example.login.R
 
 
-class ViewPageAdapter(private val context: Context): PagerAdapter(){
-    private var layoutInflater:LayoutInflater?=null
-    private val images = arrayOf(R.drawable.evento1, R.drawable.evento2,R.drawable.evento3)
-    override fun isViewFromObject(view: View, `object`: Any): Boolean {
-        return view === `object`
+class ViewPageAdapter: PagerAdapter{
+
+    var layouts: IntArray
+    var inflater : LayoutInflater
+    var contexto : Context
+
+    constructor(layouts : IntArray, contexto : Context) : super() {
+        this.layouts = layouts
+        this.contexto = contexto
+        inflater = contexto.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
     }
 
+    override fun isViewFromObject(view: View, `object`: Any): Boolean {
+        return view == `object`
+    }
 
     override fun getCount(): Int {
-        return images.size
+        return layouts.size
     }
 
-    override fun instantiateItem(container: View, position: Int): Any {
-        layoutInflater = context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
-        val v = layoutInflater!!.inflate(R.layout.custom_layout,null)
-        val image = v.findViewById<View>(R.id.image_view) as ImageView
-        image.setImageResource(images[position])
-        val vp = container as ViewPager
-        vp.addView(v,0)
-        return v
+    override fun instantiateItem(container: ViewGroup, position: Int): Any {
+        val layout_actual = inflater.inflate(layouts[position], container, false)
+        container.addView(layout_actual)
+        return layout_actual
     }
 
     override fun destroyItem(container: ViewGroup, position: Int, `object`: Any) {
-        val vp = container as ViewPager
-        val v = `object` as View
-        vp.removeView(v)
+        var layout_actual= `object` as View
+        container.removeView(layout_actual)
     }
-
 }

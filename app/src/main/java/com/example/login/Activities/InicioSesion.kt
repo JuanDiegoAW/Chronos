@@ -1,5 +1,6 @@
 package com.example.login.Activities
 
+import android.app.ProgressDialog
 import android.content.Context
 import android.content.Intent
 import android.os.Build
@@ -26,6 +27,7 @@ import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.GoogleAuthProvider
 import org.json.JSONException
 import org.json.JSONObject
+import kotlin.system.exitProcess
 
 class InicioSesion : AppCompatActivity() {
 
@@ -106,7 +108,7 @@ class InicioSesion : AppCompatActivity() {
     @RequiresApi(Build.VERSION_CODES.JELLY_BEAN)
     override fun onBackPressed() {
         finishAffinity()
-        System.exit(0)
+        exitProcess(0)
     }
 
     private fun configureGoogleSignIn()
@@ -141,6 +143,10 @@ class InicioSesion : AppCompatActivity() {
                 {
                     override fun onSuccess(result: LoginResult) {
                         handleFacebookAccessToken(result.accessToken)
+                        val progressDialog = ProgressDialog(this@InicioSesion)
+                        progressDialog.setMessage("Cargando")
+                        progressDialog.setCancelable(false)
+                        progressDialog.show()
                     }
 
                     override fun onCancel() {
@@ -171,6 +177,10 @@ class InicioSesion : AppCompatActivity() {
             {
                 val account = task.getResult(ApiException::class.java)
                 if (account != null) {
+                    val progressDialog = ProgressDialog(this)
+                    progressDialog.setMessage("Cargando")
+                    progressDialog.setCancelable(false)
+                    progressDialog.show()
                     firebaseAuthWithGoogle(account)
                 }
             }
@@ -249,6 +259,7 @@ class InicioSesion : AppCompatActivity() {
             e.printStackTrace()
         }
     }
+
     private fun verificar(user:FirebaseUser)
     {
         val jsonObject=servicio.metodoGetBusqueda("usuarios","correo="+ user.email)

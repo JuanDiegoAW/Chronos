@@ -1,6 +1,7 @@
 package com.example.login.fragments
 
 import android.app.Activity.RESULT_OK
+import android.app.ProgressDialog
 import android.content.Intent
 import android.graphics.Bitmap
 import android.net.Uri
@@ -13,20 +14,22 @@ import android.view.ViewGroup
 import android.widget.TextView
 import android.widget.Toast
 import com.bumptech.glide.Glide
-import com.example.login.Clases.Servicio
-import com.example.login.Clases.Usuario
+import com.example.login.Clases.*
 import com.example.login.R
+import com.google.firebase.storage.FirebaseStorage
 import kotlinx.android.synthetic.main.fragment_editar_perfil.*
 import org.json.JSONException
 import org.json.JSONObject
 import com.theartofdev.edmodo.cropper.CropImage
 import com.theartofdev.edmodo.cropper.CropImageView
-
-class editar_perfil : Fragment() {
+import java.util.*
+class editar_perfil : Fragment(){
 
     private var listener: OnFragmentInteractionListener? = null
     private var usuario: Usuario = Usuario.iniciar()
     private var nombre_inicial =""
+    private var imagen_nueva: Uri? = null
+
 
     //Conexion API
     private val servicio: Servicio = Servicio()
@@ -42,14 +45,41 @@ class editar_perfil : Fragment() {
             elegirImagen()
         }
         actualizar.setOnClickListener{
-            actualizarNombre()
+            actualizarNombre(textnombre.text.toString())
+            actualizarImagen()
+            //la actualizacion de datos
+            activity!!.recreate()
         }
     }
 
-    private fun actualizarNombre()
+    private fun actualizarImagen()
     {
-        val nombre_nuevo = textnombre.text.toString()
+        if(imagen_nueva ==  null) return
 
+        val nombre_archivo = UUID.randomUUID().toString()
+        val ref = FirebaseStorage.getInstance().getReference("/Imagenes/$nombre_archivo")
+
+        usuario.setUrlFoto(imagen_nueva!!)
+        activity!!.recreate()
+
+        ref.putFile(imagen_nueva!!)
+            .addOnSuccessListener {
+                //Toast.makeText(context, "Imagen actualizada", Toast.LENGTH_SHORT).show()
+                imagen_nueva = null
+                ref.downloadUrl.addOnSuccessListener {
+                    usuario.setUrlFoto(it)
+                    actualizarUrlFoto()
+                }
+            }
+    }
+
+    private fun actualizarUrlFoto()
+    {
+        println(usuario.getUrlFoto())
+    }
+
+    private fun actualizarNombre(nombre_nuevo : String)
+    {
         //Comparamos si el nombre cambió
         if (nombre_nuevo != nombre_inicial)
         {
@@ -66,8 +96,6 @@ class editar_perfil : Fragment() {
                     mensaje = "Nombre actualizado correctamente"
                     usuario.setNombre(nombre_nuevo)
                     //Recreamos la actividad principal (que contiene el menu lateral) para que se refleje visiblemente
-                    //la actualizacion de datos
-                    activity!!.recreate()
                 }
                 //Y mostramos al usuario si se logró o no actualizar el nombre
                 Toast.makeText(context, mensaje, Toast.LENGTH_SHORT).show()
@@ -98,14 +126,15 @@ class editar_perfil : Fragment() {
             //Si se logró seleccionar y cortar la imagen correctamente
             if (resultCode == RESULT_OK)
             {
-                //Obtenemos la dirección obtenida del resultado
+                //Obtenemos la dirección de la imagen cortada
                 val resultUri = result.uri
+                imagen_nueva = resultUri
                 //Convertimos la imagen a un Bitmap
                 val bitmap = MediaStore.Images.Media.getBitmap(context!!.contentResolver, resultUri)
-                //Reescalamos el bitmap al tamaño deseado
-                val imagen = Bitmap.createScaledBitmap(bitmap, 300, 300, false)
-                //Y lo mostramos al usuario
-                Glide.with(this).load(imagen).into(fotoperfil)
+                //Reescalamos el bitmap al tamaño del Image Button donde se mostrará
+                val imagen_mostrar = Bitmap.createScaledBitmap(bitmap, 300, 300, false)
+                //Y finalmente mostramos la imagen tratada al usuario
+                Glide.with(this).load(imagen_mostrar).into(fotoperfil)
             }
             //De lo contrario
             else if (resultCode == CropImage.CROP_IMAGE_ACTIVITY_RESULT_ERROR_CODE) {

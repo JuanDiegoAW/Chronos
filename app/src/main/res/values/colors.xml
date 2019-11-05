@@ -5,4 +5,6 @@
     <color name="colorAccent">#DF2662</color>
     <color name="colorAnaranjado">#FD9109</color>
     <color name="colorblanco">#FFFFFF</color>
+    <color name="colorGris">#83878b</color>
+    <color name="colorAmarrillo">#FEAC00</color>
 </resources>

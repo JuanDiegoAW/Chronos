@@ -38,6 +38,13 @@ class Mapa : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMarkerClickLis
 
     private val evento_mostrar = ParametrosEventos.iniciar()
 
+    //ubicacion
+    private var googleMap: GoogleMap? = null
+    private lateinit var ubicacion_actual: Location
+    private lateinit var fusedLocationClient: FusedLocationProviderClient
+    private var datos : ArrayList<EventosDatos> = ArrayList()
+    private var servicio: Servicio = Servicio()
+
     override fun onMarkerClick(p0: Marker?) = false
 
     override fun onInfoWindowClick(marker: Marker)
@@ -60,16 +67,9 @@ class Mapa : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMarkerClickLis
         this.startActivity(intent)
     }
 
-    //ubicacion
-    private var googleMap: GoogleMap? = null
-    private lateinit var ubicacion_actual: Location
-    private lateinit var fusedLocationClient: FusedLocationProviderClient
-    private var datos : ArrayList<EventosDatos> = ArrayList()
-    private var servicio: Servicio = Servicio()
-
     companion object {
 
-        private const val PERMISO_UBICACION = 1
+        const val PERMISO_UBICACION = 1
 
         fun getLaunchIntent(from: Context) = Intent(from, Mapa::class.java).apply {
             addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK)
@@ -149,7 +149,7 @@ class Mapa : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMarkerClickLis
             return
         }
 
-        //DE LO CONTRARIO, ACTIVA LA UBICACION
+        //SI HA DADO PERMISO, ENTONCES SE ACTIVA LA OPCION DE MOSTRAR LA UBICACION ACTUAL EN EL MAPA DE GOOGLE
         googleMap!!.isMyLocationEnabled = true
 
         //SI EL USUARIO VIENE DE LA VENTANA DE EVENTO SE HACE ZOOM AL EVENTO SELECCIONADO
@@ -269,7 +269,6 @@ class Mapa : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMarkerClickLis
     private fun regresarMenu()
     {
         val intent = Intent(this, VentanaPrincipal::class.java)
-        intent.putExtra("fragment", "ALGO")
         startActivity(intent)
     }
 

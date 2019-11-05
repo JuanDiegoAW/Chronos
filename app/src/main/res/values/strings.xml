@@ -25,5 +25,11 @@
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="encuentra_eventos_cercanos_a_ti">¡Encuentra eventos cercanos a ti!</string>
+    <string name="mira_los_ultimos_eventos">¡Mira los ultimos eventos!</string>
+    <string name="explora_el_mapa">Explora el mapa!</string>
+    <string name="el_evento_m_s_cercano_a_ti_es">El evento más cercano a ti es:</string>
+    <string name="el_evento_m_s_nuevo_es">El evento más reciente es:</string>
+    <string name="ver_el_evento">Ver el evento!</string>
 </resources>
 

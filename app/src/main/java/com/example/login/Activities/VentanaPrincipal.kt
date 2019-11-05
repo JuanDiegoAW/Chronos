@@ -33,6 +33,7 @@ class VentanaPrincipal : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?)
     {
+
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_menulateral)
         val toolbar: Toolbar = findViewById(R.id.toolbar)

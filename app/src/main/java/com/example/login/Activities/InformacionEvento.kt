@@ -167,9 +167,7 @@ class InformacionEvento : AppCompatActivity() {
 
     fun regresarEventos()
     {
-        val intent = Intent(this, VentanaPrincipal::class.java)
-        //intent.putExtra("fragment", indices.getFragmentMostrarEventos())
-        startActivity(intent)
+        super.onBackPressed()
     }
 
     @RequiresApi(Build.VERSION_CODES.O)
@@ -177,8 +175,8 @@ class InformacionEvento : AppCompatActivity() {
     {
         val texto_a_comentar = texto_comentario.text.toString()
 
-        val current = LocalDateTime.now()
-        val formatter = DateTimeFormatter.ofLocalizedDate(FormatStyle.MEDIUM)
+        //val current = LocalDateTime.now()
+        //val formatter = DateTimeFormatter.ofLocalizedDate(FormatStyle.MEDIUM)
         //val fecha = current.format(formatter)
 
         try {
@@ -188,15 +186,15 @@ class InformacionEvento : AppCompatActivity() {
             datos.put("codigoEvento",adaptador_evento.getEvento().codigo)
             datos.put("idUsuario",usuario.getCodigo())
 
-            var mensaje ="Error al crear el comentario"
+            var mensaje = "Error al crear el comentario"
             if(servicio.metodoPost("comentarios/?codigo="+adaptador_evento.getEvento().codigo, datos))
             {
                 mensaje = "Comentario posteado correctamente"
                 texto_comentario.setText("")
-                Toast.makeText(this, mensaje, Toast.LENGTH_SHORT).show()
                 comentarios.clear()
                 getDataComentarios()
             }
+            Toast.makeText(this, mensaje, Toast.LENGTH_SHORT).show()
         }
         catch (e: JSONException)
         {
