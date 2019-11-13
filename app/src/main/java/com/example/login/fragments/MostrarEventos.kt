@@ -122,7 +122,8 @@ class MostrarEventos : Fragment() {
             val json: String
             //paso a un string el json que tengo para posteriormente manipularlo
             json = respuesta.toString()
-            val arrayJson = JSONArray(json)
+            println("Este es el array -> ${JSONObject(json).optString("results")}")
+            val arrayJson = JSONArray(JSONObject(json).optString("results"))
             /**
             * Ciclo para ir sacando del array que tiene forma del json regresado y va a ir
             * almacenando en el arraylist

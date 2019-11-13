@@ -34,7 +34,23 @@ class Servicio {
         else
             null
     }
+    /**
+     * Método get que recibe como parametro un string
+     * el cual ya recibe toda la url para la páginación y solo extraeremos
+     * los datos según el link que se ingrese.
+     *
+     */
+    fun metodoGetPaginacion(link:String) : InputStream? {
+        var url = URL(link)
+        this.conexion = url.openConnection() as HttpURLConnection
+        this.conexion!!.requestMethod = "GET"
+        this.conexion!!.connect()
 
+        return if(this.conexion!!.responseCode==200)
+            this.conexion!!.inputStream
+        else
+            null
+    }
     /**
      * Éste método nos ayuda a obtener un array de JSON para el cual podemos obtener
      * información según se solicite, por ejemplo la lista de localidades de un evento o los
