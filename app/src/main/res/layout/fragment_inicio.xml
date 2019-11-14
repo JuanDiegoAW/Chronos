@@ -11,7 +11,15 @@
     <androidx.viewpager.widget.ViewPager
         android:id="@+id/vpImagenes"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content" >
+
+        <ImageView
+            android:id="@+id/imageView2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/browser_actions_context_menu_max_width"
+            android:src="@drawable/btndetalles" />
+    </androidx.viewpager.widget.ViewPager>
 
     <LinearLayout
         android:id="@+id/puntos"
@@ -26,9 +34,15 @@
         android:layout_marginBottom="30dp"
         android:orientation="horizontal" />
 
+    <ImageView
+        android:id="@+id/iv_Evento2"
+        android:layout_width="410dp"
+        android:layout_height="200dp"
+        android:layout_marginTop="375dp"
+        android:src="@drawable/btndetalles" />
+
     <Button
         android:id="@+id/botonIzquierda"
-        android:text="@string/explora_el_mapa"
         android:layout_width="100dp"
         android:layout_height="70dp"
         android:layout_alignParentStart="true"
@@ -36,7 +50,11 @@
         android:layout_alignParentBottom="true"
         android:layout_marginStart="20dp"
         android:layout_marginLeft="20dp"
-        android:layout_marginBottom="30dp" />
+        android:layout_marginBottom="30dp"
+        android:background="@drawable/btndetalles"
+        android:fontFamily="@font/fonts"
+        android:text="@string/explora_el_mapa"
+        android:textColor="@color/colorblanco" />
 
     <Button
         android:id="@+id/botonDerecha"
@@ -50,7 +68,10 @@
         android:layout_marginEnd="20dp"
         android:layout_marginRight="20dp"
         android:layout_marginBottom="30dp"
-        android:text="@string/ver_el_evento" />
+        android:background="@drawable/btndetalles"
+        android:fontFamily="@font/fonts"
+        android:text="@string/ver_el_evento"
+        android:textColor="@color/colorblanco" />
 
 
     <fragment
