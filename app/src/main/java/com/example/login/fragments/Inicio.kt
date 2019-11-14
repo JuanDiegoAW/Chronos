@@ -302,7 +302,8 @@ class Inicio : Fragment(), OnMapReadyCallback {
             val json: String
             //paso a un string el json que tengo para posteriormente manipularlo
             json = respuesta.toString()
-            val arrayJson = JSONArray(json)
+            var jsonObject =JSONObject(json)//Acá obtengo el json con el array que devuelve la api
+            val arrayJson = JSONArray(jsonObject.optString("results"))
             /**
              * Ciclo para ir sacando del array que tiene forma del json regresado y va a ir
              * almacenando en el arraylist
