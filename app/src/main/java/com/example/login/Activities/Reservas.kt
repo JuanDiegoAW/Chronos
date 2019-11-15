@@ -59,7 +59,7 @@ class Reservas() : AppCompatActivity(),AdapterView.OnItemSelectedListener {
                 json.put(jsonObject)
             }
             val datosString = json.toString()
-            val intento1 = Intent(this, ActivityPagosReservas::class.java)
+            val intento1 = Intent(this, ActivityFactura::class.java)
             intento1.putExtra("datos",datosString)
             startActivity(intento1)
         }
