@@ -54,10 +54,23 @@ class AdaptadorCuadroDialogo {
                 val servicio=Servicio()
                 val jsonObject = JSONObject()
                 jsonObject.put("disponible",true)
+                var mensaje = ""
+                var cont=0
+
                 for (i in 0 until listaAux.size){
-                    servicio.metodoPut("asientos/?idAsiento=${reservas[listaAux[i]]?.getId()}",jsonObject)
-                    println("REMOVIENDO DATOS->${reservas.remove(listaAux[i])}")
+                    if (servicio.metodoPut("asientos/?idAsiento=${reservas[listaAux[i]]?.getId()}",jsonObject)){
+                       reservas.remove(listaAux[i])
+                        cont++
+                    }else{
+                        break
+                    }
+
                 }
+                mensaje=if (cont==listaAux.size)
+                    "Reservación cancelada correctamente"
+                else
+                    "Hubo un error al cancelar la reservación"
+                Toast.makeText(contexto, mensaje, Toast.LENGTH_SHORT).show()
                 dialogo.dismiss()//Cierro el dialogo
             }
             val btnCancelar =dialogo.findViewById<Button>(R.id.btnCancelar)
