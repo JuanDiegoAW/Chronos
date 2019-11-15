@@ -17,6 +17,7 @@ import org.json.JSONObject
 import java.io.BufferedReader
 import java.io.IOException
 import java.io.InputStreamReader
+import java.lang.Exception
 import java.util.*
 
 
@@ -37,6 +38,14 @@ class Reservas() : AppCompatActivity(),AdapterView.OnItemSelectedListener {
     private var precio=0.0
 
 
+    override fun onDestroy() {
+        super.onDestroy()
+        try {
+            
+        }catch (ex:Exception){
+
+        }
+    }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_reservas)
@@ -176,6 +185,14 @@ class Reservas() : AppCompatActivity(),AdapterView.OnItemSelectedListener {
                     contador++
                     contador1=0
                 }
+            }
+            /**
+             * Si contador es diferente a 0 quiere decir que hay asientos que no se agregaron
+             * dentro del ciclo por ejemplo que hayan 17, dentro del ciclo se agregan 15 y fuera
+             * los ultimos 2
+             * */
+            if (contador1!=0){
+                llPrincipal.addView(this.arrayBotonera[contador])
             }
             entrada.close()
         }
