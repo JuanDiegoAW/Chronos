@@ -17,7 +17,8 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.Light.NoActionBar"
         android:usesCleartextTraffic="true">
-        <activity android:name=".Activities.ActivityFactura"></activity>
+        <activity android:name=".ActivityPagosReservas"></activity>
+        <activity android:name=".Activities.ActivityFactura" />
         <activity android:name=".Activities.PagoEvento" />
         <activity android:name=".Activities.Reservas" />
         <activity android:name=".Activities.InformacionEvento" />

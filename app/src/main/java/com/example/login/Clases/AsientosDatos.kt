@@ -1,21 +1,21 @@
 package com.example.login.Clases
 
-class AsientosDatos {
-    private var disponible=true
-    private var numeroAsiento=""
-    private var idAsiento=0
-    constructor(disponible: Boolean, numeroAsiento: String,idAsiento:Int) {
-        this.disponible = disponible
-        this.numeroAsiento = numeroAsiento
-        this.idAsiento = idAsiento
+class AsientosDatos(
+    private var idAsiento: Int,
+    private var precio:Double,
+    private var numeroAsiento: String,
+    private var localidad: String
+) {
+    fun getId(): Int{
+        return this.idAsiento
     }
-    fun isDisponible(): Boolean{
-        return this.disponible
+    fun getPrecio(): Double{
+        return this.precio
     }
     fun getNumeroAsiento():String{
         return this.numeroAsiento
     }
-    fun getIdAsiento():Int{
-        return this.idAsiento
+    fun getLocalidad(): String{
+        return this.localidad
     }
 }
