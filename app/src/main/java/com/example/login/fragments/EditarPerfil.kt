@@ -68,14 +68,32 @@ class editar_perfil : Fragment(){
                 imagen_nueva = null
                 ref.downloadUrl.addOnSuccessListener {
                     usuario.setUrlFoto(it)
-                    actualizarUrlFoto()
+                    actualizarUrlFoto(it)
                 }
             }
     }
 
-    private fun actualizarUrlFoto()
+    private fun actualizarUrlFoto(foto_nueva : Uri)
     {
-        println(usuario.getUrlFoto())
+        try
+        {
+            //Creamos el JSON para actualizar la imagen
+            val datos = JSONObject()
+            datos.put("nombre", usuario.getNombre())
+            datos.put("rutaImagen", foto_nueva)
+
+            //Si logra actualizar la imagen
+            if (servicio.metodoPut("usuarios/?correo=" + usuario.getCorreo(), datos))
+            {
+                usuario.setUrlFoto(foto_nueva)
+                //Recreamos la actividad principal (que contiene el menu lateral) para que se refleje visiblemente
+            }
+
+        }
+        catch (e: JSONException)
+        {
+            e.printStackTrace()
+        }
     }
 
     private fun actualizarNombre(nombre_nuevo : String)
@@ -88,6 +106,7 @@ class editar_perfil : Fragment(){
                 //Creamos el JSON para actualizar el nombre
                 val datos = JSONObject()
                 datos.put("nombre", nombre_nuevo)
+                datos.put("nombre", usuario.getUrlFoto())
 
                 var mensaje = "Error al actualizar el nombre de usuario"
                 //Si logra actualizar el nombre

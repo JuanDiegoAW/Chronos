@@ -15,6 +15,7 @@ import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.viewpager.widget.ViewPager
+import com.bumptech.glide.Glide
 import com.example.login.Activities.InformacionEvento
 import com.example.login.Activities.Mapa
 import com.example.login.R
@@ -61,6 +62,9 @@ class Inicio : Fragment(), OnMapReadyCallback {
     private var datos : ArrayList<EventosDatos> = ArrayList()
     private var servicio: Servicio = Servicio()
 
+    //Ventanas
+    private lateinit var ventana1 : View
+
     override fun onMapReady(googleMap: GoogleMap?) {
         this.mapa = googleMap!!
         this.mapa.uiSettings?.isZoomControlsEnabled = true
@@ -69,7 +73,9 @@ class Inicio : Fragment(), OnMapReadyCallback {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 
-        layouts = intArrayOf(R.layout.ventana_inicio_1, R.layout.ventana_inicio_2, R.layout.ventana_inicio_3)
+        layouts = intArrayOf(R.layout.ventana_inicio_1, R.layout.ventana_inicio_2)
+
+        Glide.with(this).load(R.drawable.evento1).into(iv_evento)
 
         //Inicializamos valores una vez se haya creado la vista
         viewPager = view.findViewById(R.id.vpImagenes)
@@ -136,6 +142,7 @@ class Inicio : Fragment(), OnMapReadyCallback {
     {
         botonIzquierda.text = "Explora el mapa!"
         setUpMapUbicacion()
+        setImagen(evento_mas_cercano!!.getImagen())
 
         botonIzquierda.setOnClickListener{
             val intent = Intent(activity, Mapa::class.java)
@@ -190,6 +197,17 @@ class Inicio : Fragment(), OnMapReadyCallback {
         botonIzquierda.text = ""
         botonIzquierda.setOnClickListener{
 
+        }
+    }
+
+    fun setImagen(imagen : String)
+    {
+        if (!imagen.equals("")) {
+            Glide.with(this).load(imagen).into(iv_evento)
+        }
+        else
+        {
+            Glide.with(this).load(R.drawable.evento1).into(iv_evento)
         }
     }
 
@@ -425,6 +443,7 @@ class Inicio : Fragment(), OnMapReadyCallback {
     ): View? {
         // Inflate the layout for this fragment
         val root_view = inflater.inflate(R.layout.fragment_inicio, container, false)
+        ventana1 = inflater.inflate(R.layout.ventana_inicio_1, container, false)
 
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(activity!!)
         mapFragment = childFragmentManager.findFragmentById(R.id.mapa_inicio) as SupportMapFragment?

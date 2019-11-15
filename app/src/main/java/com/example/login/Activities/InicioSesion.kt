@@ -69,7 +69,6 @@ class InicioSesion : AppCompatActivity() {
         auth = FirebaseAuth.getInstance()
         callbackManager = CallbackManager.Factory.create()
         setupFacebook()
-
     }
 
     override fun onStart() {
@@ -79,7 +78,7 @@ class InicioSesion : AppCompatActivity() {
         {
             val usuario : Usuario = Usuario.iniciar()
 
-            user.photoUrl?.let { usuario.setUrlFoto(it) }
+            //user.photoUrl?.let { usuario.setUrlFoto(it) }
 
             verificar(user)
 
@@ -244,10 +243,11 @@ class InicioSesion : AppCompatActivity() {
             val datos = JSONObject()
             datos.put("nombre",user.displayName)
             datos.put("correo",user.email)
-            datos.put("contrasena","1234")
+            datos.put("rutaImagen", user.photoUrl)
 
             user.displayName?.let { usuario.setNombre(it) }
             user.email?.let { usuario.setCorreo(it) }
+            user.photoUrl?.let { usuario.setUrlFoto(it) }
 
             var mensaje ="Error al crear el usuario"
             if(servicio.metodoPost("usuarios/", datos))
@@ -271,6 +271,8 @@ class InicioSesion : AppCompatActivity() {
             usuario.setNombre(jsonObject.optString("nombre"))
             user.email?.let { usuario.setCorreo(it) }
             usuario.setCodigo(jsonObject.optString("id"))
+            val user = FirebaseAuth.getInstance().currentUser
+            user!!.photoUrl?.let { usuario.setUrlFoto(it) }
         }
         servicio.desconectar()
     }
