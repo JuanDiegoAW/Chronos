@@ -5,6 +5,7 @@ import android.graphics.Color
 import android.view.View
 import android.widget.Button
 import android.widget.Toast
+import org.json.JSONObject
 
 
 internal class AdaptadorButtonsOnClickListener(
@@ -18,6 +19,10 @@ internal class AdaptadorButtonsOnClickListener(
             v.isEnabled=false
             v.setBackgroundColor(Color.rgb(253,127,72))
             lista[b] = AsientosDatos(id,precio,b.text.toString(),localidad)
+            var servicio = Servicio()
+            val json = JSONObject()
+            json.put("disponible",false)
+            servicio.metodoPut("asientos/?idAsiento=${id}",json)
         }else{
             Toast.makeText(this.context, "El Limite de asientos a reservar son 10", Toast.LENGTH_SHORT).show()
         }

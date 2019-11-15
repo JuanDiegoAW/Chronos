@@ -7,6 +7,7 @@ import android.view.Window
 import android.widget.*
 import androidx.core.view.get
 import com.example.login.R
+import org.json.JSONObject
 
 class AdaptadorCuadroDialogo {
     /**
@@ -50,8 +51,12 @@ class AdaptadorCuadroDialogo {
                     i++
                 }
                 //Ciclo para eliminar el elemento que se selecciono, se le hace un lista[i]-i ya que si no lo hago accedo a una posición inexistente
+                val servicio=Servicio()
+                val jsonObject = JSONObject()
+                jsonObject.put("disponible",true)
                 for (i in 0 until listaAux.size){
-                    println(reservas.remove(listaAux[i]))
+                    servicio.metodoPut("asientos/?idAsiento=${reservas[listaAux[i]]?.getId()}",jsonObject)
+                    println("REMOVIENDO DATOS->${reservas.remove(listaAux[i])}")
                 }
                 dialogo.dismiss()//Cierro el dialogo
             }
