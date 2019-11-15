@@ -5,8 +5,8 @@ import android.graphics.Color
 import android.os.Bundle
 import android.view.View
 import android.widget.*
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
-import com.example.login.ActivityPagosReservas
 import com.example.login.Clases.*
 import com.example.login.R
 import kotlinx.android.synthetic.main.activity_reservas.*
@@ -16,7 +16,6 @@ import org.json.JSONObject
 import java.io.BufferedReader
 import java.io.IOException
 import java.io.InputStreamReader
-import java.lang.Exception
 import java.util.*
 import kotlin.collections.ArrayList
 
@@ -36,32 +35,26 @@ class Reservas() : AppCompatActivity(),AdapterView.OnItemSelectedListener {
     private var anterior="null"
     private var precio=0.0
 
-    override fun onDestroy() {
-        super.onDestroy()
-        try {
-            
-        }catch (ex:Exception){
-
-        }
-    }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_reservas)
 
         //*************************** REDIRIGE A PAGAR LOS ASIENTOS***************************************************************//
         button2.setOnClickListener(){
-            val json = JSONArray()
-            for (datos:AsientosDatos in this.asientoId.values.toTypedArray()){
-                var jsonObject= JSONObject()
-                jsonObject.put("asiento",datos.getNumeroAsiento())
-                jsonObject.put("localidad",datos.getLocalidad())
-                jsonObject.put("precio",datos.getPrecio())
-                json.put(jsonObject)
+            if (this.asientoId.isNotEmpty()){
+                val json = JSONArray()
+                for (datos:AsientosDatos in this.asientoId.values.toTypedArray()){
+                    var jsonObject= JSONObject()
+                    jsonObject.put("asiento",datos.getNumeroAsiento())
+                    jsonObject.put("localidad",datos.getLocalidad())
+                    jsonObject.put("precio",datos.getPrecio())
+                    json.put(jsonObject)
+                }
+                val datosString = json.toString()
+                val intento1 = Intent(this, ActivityFactura::class.java)
+                intento1.putExtra("datos",datosString)
+                startActivity(intento1)
             }
-            val datosString = json.toString()
-            val intento1 = Intent(this, ActivityFactura::class.java)
-            intento1.putExtra("datos",datosString)
-            startActivity(intento1)
         }
         //************************************************************************************************************************//
 
@@ -227,16 +220,52 @@ class Reservas() : AppCompatActivity(),AdapterView.OnItemSelectedListener {
             button.setBackgroundColor(Color.rgb(251,74,86))
         }
         button.setOnClickListener(AdaptadorButtonsOnClickListener(this,
-            this.asientoId,objeto.getInt("id"),spLocalidad.selectedItem.toString(),this.precio))
+            this.asientoId,objeto.getInt("id"),spLocalidad.selectedItem.toString(),this.precio,
+            datosLocalidad[spLocalidad.selectedItem.toString()]!!
+        ))
         this.arrayBotonera[contador].addView(button)
     }
     override fun onBackPressed() {
         if (asientoId.isNotEmpty()){
-            println("Hay datos reservados")
+            val dialogo1 = AlertDialog.Builder(this)
+            dialogo1.setTitle("Importante")
+            dialogo1.setMessage("¿Desea salir?\nSi aceepta se cancelará su reservación")
+            dialogo1.setCancelable(false)
+            dialogo1.setPositiveButton(
+                "Confirmar"
+            ) { dialogo1, id -> aceptar() }
+            dialogo1.setNegativeButton(
+                "Cancelar"
+            ) { dialogo1,id->cancelar()}
+            dialogo1.show()
         }else{
-            println("No hay datos reservados")
             super.onBackPressed()
         }
+    }
+    fun aceptar() {
+        cancelarReservacion()
+        super.onBackPressed()
+    }
+
+    fun cancelar(){}
+    private fun cancelarReservacion(){
+        var json = JSONObject()
+        json.put("disponible",true)
+        for (datos in asientoId.values){
+            servicio.metodoPut("asientos/?idAsiento=${datos.getId()}",json)
+            json = JSONObject()
+            json.put("cantidadAsientos",0)
+            json.put("cantidadAsientosDisponible",0)
+            servicio.metodoPut("localidad/?id=${datosLocalidad[datos.getLocalidad()]}&asientos=1",json)
+        }
+
+        asientoId= HashMap()
+    }
+    override fun onDestroy() {
+        while(asientoId.isNotEmpty()){
+            cancelarReservacion()
+        }
+        super.onDestroy()
 
     }
 }
