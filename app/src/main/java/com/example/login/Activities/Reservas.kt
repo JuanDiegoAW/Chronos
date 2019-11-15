@@ -1,11 +1,12 @@
 package com.example.login.Activities
 
+import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
 import android.view.View
 import android.widget.*
-import android.widget.SeekBar.OnSeekBarChangeListener
 import androidx.appcompat.app.AppCompatActivity
+import com.example.login.ActivityPagosReservas
 import com.example.login.Clases.*
 import com.example.login.R
 import kotlinx.android.synthetic.main.activity_reservas.*
@@ -15,7 +16,9 @@ import org.json.JSONObject
 import java.io.BufferedReader
 import java.io.IOException
 import java.io.InputStreamReader
+import java.lang.Exception
 import java.util.*
+import kotlin.collections.ArrayList
 
 
 class Reservas() : AppCompatActivity(),AdapterView.OnItemSelectedListener {
@@ -25,19 +28,43 @@ class Reservas() : AppCompatActivity(),AdapterView.OnItemSelectedListener {
     private val adaptador_evento = ParametrosEventos.iniciar()
     private var datosLocalidad :HashMap<String,Int> = hashMapOf()
     private var arrayBotonera: ArrayList<LinearLayout> = ArrayList()
-    private var asientoId : HashMap<Button,Int> = hashMapOf()
+    private var asientoId : HashMap<Button,AsientosDatos> = hashMapOf()
     private var infoAsientos :ArrayList<AsientosDatos> = ArrayList()
-    private var locaidad=0
     private var asientosDisponibles=0
     private var asientosTotales=0
     private var siguiente="null"
     private var anterior="null"
     private var precio=0.0
 
+    override fun onDestroy() {
+        super.onDestroy()
+        try {
+            
+        }catch (ex:Exception){
 
+        }
+    }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_reservas)
+
+        //*************************** REDIRIGE A PAGAR LOS ASIENTOS***************************************************************//
+        button2.setOnClickListener(){
+            val json = JSONArray()
+            for (datos:AsientosDatos in this.asientoId.values.toTypedArray()){
+                var jsonObject= JSONObject()
+                jsonObject.put("asiento",datos.getNumeroAsiento())
+                jsonObject.put("localidad",datos.getLocalidad())
+                jsonObject.put("precio",datos.getPrecio())
+                json.put(jsonObject)
+            }
+            val datosString = json.toString()
+            val intento1 = Intent(this, ActivityPagosReservas::class.java)
+            intento1.putExtra("datos",datosString)
+            startActivity(intento1)
+        }
+        //************************************************************************************************************************//
+
         /**
          * Funciones para obtener los datos de las localidades
          * se le manda el codigo del evento para que nos obtenga dichas localidades
@@ -153,7 +180,6 @@ class Reservas() : AppCompatActivity(),AdapterView.OnItemSelectedListener {
             this.arrayBotonera = ArrayList()
             var contador=0
             var contador1=0
-            println(arrayJson.length())
             for (i in 0 until arrayJson.length()) {
                 var objetos=arrayJson.getJSONObject(i)
                 this.arrayBotonera.add(LinearLayout(this))
@@ -166,6 +192,14 @@ class Reservas() : AppCompatActivity(),AdapterView.OnItemSelectedListener {
                     contador++
                     contador1=0
                 }
+            }
+            /**
+             * Si contador es diferente a 0 quiere decir que hay asientos que no se agregaron
+             * dentro del ciclo por ejemplo que hayan 17, dentro del ciclo se agregan 15 y fuera
+             * los ultimos 2
+             * */
+            if (contador1!=0){
+                llPrincipal.addView(this.arrayBotonera[contador])
             }
             entrada.close()
         }
@@ -193,7 +227,7 @@ class Reservas() : AppCompatActivity(),AdapterView.OnItemSelectedListener {
             button.setBackgroundColor(Color.rgb(251,74,86))
         }
         button.setOnClickListener(AdaptadorButtonsOnClickListener(this,
-            this.asientoId,objeto.getInt("id")))
+            this.asientoId,objeto.getInt("id"),spLocalidad.selectedItem.toString(),this.precio))
         this.arrayBotonera[contador].addView(button)
     }
     override fun onBackPressed() {
