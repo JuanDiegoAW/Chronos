@@ -14,7 +14,7 @@ class AdaptadorCuadroDialogo {
      * los asientos reservados que el usuario haya marcado, esto para que seleccione los asientos
      * que ya no quiere reservar.
      */
-    constructor(contexto : Context,reservas:HashMap<Button,Int>){
+    constructor(contexto : Context,reservas:HashMap<Button,AsientosDatos>){
         if (reservas.isNotEmpty()){ //Mientras la lista de botones no sea vacía muestra el cuadro de dialogo
             val dialogo = Dialog(contexto)
             dialogo.requestWindowFeature(Window.FEATURE_NO_TITLE)

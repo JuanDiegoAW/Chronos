@@ -5,7 +5,6 @@ import android.graphics.Color
 import android.os.Bundle
 import android.view.View
 import android.widget.*
-import android.widget.SeekBar.OnSeekBarChangeListener
 import androidx.appcompat.app.AppCompatActivity
 import com.example.login.ActivityPagosReservas
 import com.example.login.Clases.*
@@ -19,6 +18,7 @@ import java.io.IOException
 import java.io.InputStreamReader
 import java.lang.Exception
 import java.util.*
+import kotlin.collections.ArrayList
 
 
 class Reservas() : AppCompatActivity(),AdapterView.OnItemSelectedListener {
@@ -28,15 +28,13 @@ class Reservas() : AppCompatActivity(),AdapterView.OnItemSelectedListener {
     private val adaptador_evento = ParametrosEventos.iniciar()
     private var datosLocalidad :HashMap<String,Int> = hashMapOf()
     private var arrayBotonera: ArrayList<LinearLayout> = ArrayList()
-    private var asientoId : HashMap<Button,Int> = hashMapOf()
+    private var asientoId : HashMap<Button,AsientosDatos> = hashMapOf()
     private var infoAsientos :ArrayList<AsientosDatos> = ArrayList()
-    private var locaidad=0
     private var asientosDisponibles=0
     private var asientosTotales=0
     private var siguiente="null"
     private var anterior="null"
     private var precio=0.0
-
 
     override fun onDestroy() {
         super.onDestroy()
@@ -52,7 +50,17 @@ class Reservas() : AppCompatActivity(),AdapterView.OnItemSelectedListener {
 
         //*************************** REDIRIGE A PAGAR LOS ASIENTOS***************************************************************//
         button2.setOnClickListener(){
+            val json = JSONArray()
+            for (datos:AsientosDatos in this.asientoId.values.toTypedArray()){
+                var jsonObject= JSONObject()
+                jsonObject.put("asiento",datos.getNumeroAsiento())
+                jsonObject.put("localidad",datos.getLocalidad())
+                jsonObject.put("precio",datos.getPrecio())
+                json.put(jsonObject)
+            }
+            val datosString = json.toString()
             val intento1 = Intent(this, ActivityPagosReservas::class.java)
+            intento1.putExtra("datos",datosString)
             startActivity(intento1)
         }
         //************************************************************************************************************************//
@@ -172,7 +180,6 @@ class Reservas() : AppCompatActivity(),AdapterView.OnItemSelectedListener {
             this.arrayBotonera = ArrayList()
             var contador=0
             var contador1=0
-            println(arrayJson.length())
             for (i in 0 until arrayJson.length()) {
                 var objetos=arrayJson.getJSONObject(i)
                 this.arrayBotonera.add(LinearLayout(this))
@@ -220,7 +227,7 @@ class Reservas() : AppCompatActivity(),AdapterView.OnItemSelectedListener {
             button.setBackgroundColor(Color.rgb(251,74,86))
         }
         button.setOnClickListener(AdaptadorButtonsOnClickListener(this,
-            this.asientoId,objeto.getInt("id")))
+            this.asientoId,objeto.getInt("id"),spLocalidad.selectedItem.toString(),this.precio))
         this.arrayBotonera[contador].addView(button)
     }
     override fun onBackPressed() {
