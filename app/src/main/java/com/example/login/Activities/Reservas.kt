@@ -1,11 +1,13 @@
 package com.example.login.Activities
 
+import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
 import android.view.View
 import android.widget.*
 import android.widget.SeekBar.OnSeekBarChangeListener
 import androidx.appcompat.app.AppCompatActivity
+import com.example.login.ActivityPagosReservas
 import com.example.login.Clases.*
 import com.example.login.R
 import kotlinx.android.synthetic.main.activity_reservas.*
@@ -38,6 +40,14 @@ class Reservas() : AppCompatActivity(),AdapterView.OnItemSelectedListener {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_reservas)
+
+        //*************************** REDIRIGE A PAGAR LOS ASIENTOS***************************************************************//
+        button2.setOnClickListener(){
+            val intento1 = Intent(this, ActivityPagosReservas::class.java)
+            startActivity(intento1)
+        }
+        //************************************************************************************************************************//
+
         /**
          * Funciones para obtener los datos de las localidades
          * se le manda el codigo del evento para que nos obtenga dichas localidades
